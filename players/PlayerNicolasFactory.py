@@ -1,6 +1,6 @@
 from IPlayerFactory import IPlayerFactory 
 
-class PlayerTomiRFactory(IPlayerFactory):
+class PlayerNicolasFactory(IPlayerFactory):
 
     def createPlayer(self):
-        
+        pass
