@@ -26,7 +26,6 @@ class Player(pygame.sprite.Sprite):
         self.velocidad_y = 0
         self.ball = ball
         self.hasBall = False
-        self.is_passing = False
         self.vision_angle = 126 # angulo de vision en función del ancho del arco
         self.vision_range = 223 # rango de visión en funcion de la distancia del comienzo del area grande con el arco
         self.direction = pygame.math.Vector2(1, 0) # direccion inicial hacia la derecha
@@ -98,11 +97,9 @@ class Player(pygame.sprite.Sprite):
         #...
         
         #si la distancia entre el jugador y la pelota es menor que 20 entonces el jugador tiene la pelota
-        if not self.is_passing and self.rect.colliderect(self.ball.rect):
+        if self.rect.colliderect(self.ball.rect): #and (pygame.math.Vector2(self.rect.center).distance_to(self.ball.rect.center)) < (20):
             self.hasBall = True
-            self.ball.rect.center = self.rect.center
-        else:
-            self.hasBall = False                
+            self.ball.rect.center = self.rect.center                
         
         if self.hasBall:
             # logica de movimiento con pelota
@@ -118,12 +115,16 @@ class Player(pygame.sprite.Sprite):
                 distance_to_teammate = direction_to_teammate.length()
                 #angulo entre el jugador y el companiero
                 angle = direction_to_teammate.angle_to(self.direction) 
-                if distance_to_teammate <= self.vision_range and abs(angle) < self.vision_angle / 2:
-                    # companiero dentro del rango y angulo de vision del jugador -> ejecutar pase
-                    # (mas adelante debo considerar pasarsela a la mejor opcion (companiero mejor posicionado))
-                    self.is_passing = True
-                    self.ball.animate_pass(teammate.rect.centerx, teammate.rect.centery)
-                    self.is_passing = False
+                if keys[pygame.K_SPACE]: 
+                    if distance_to_teammate <= self.vision_range and abs(angle) < self.vision_angle / 2:
+                        # companiero dentro del rango y angulo de vision del jugador -> ejecutar pase
+                        # (mas adelante debo considerar pasarsela a la mejor opcion (companiero mejor posicionado))
+                        
+                        self.ball.animate_pass(teammate.rect.centerx, teammate.rect.centery)
+                        self.hasBall = False
+        
+    def notify(self):
+        self.sleep = False 
 
     def addTeammate(self, teammate):   
         if isinstance(teammate, Player):
@@ -146,6 +147,7 @@ class Ball(pygame.sprite.Sprite):
         self.dy = 0
         self.distance = 0
         self.teammates = []
+        self.player = None
 
     def update(self):
 
@@ -160,9 +162,9 @@ class Ball(pygame.sprite.Sprite):
             self.is_moving = False
         
         # Si la posición en y de la pelota supera algun lateral -> efecto rebote en y
-        if self.rect.top >= 48 or self.rect.bottom <= 719:
-            if self.is_moving:
-                self.dy *= -1
+        if self.rect.top <= 48 or self.rect.bottom >= 719:
+            #if self.is_moving:
+            self.dy *= -1
         
         # Si la posición en y de la pelota no se encuentra entre los palos y la posicion en x supera la linea de fondo (der o izq) -> efecto rebote en x 
         if (self.rect.bottom >= 445 or self.rect.top <= 317) and (self.rect.left <= 101 or self.rect.right >= 1252):
@@ -188,9 +190,10 @@ class Ball(pygame.sprite.Sprite):
             self.rect.x += self.dx / self.distance * self.move_speed
             self.rect.y += self.dy / self.distance * self.move_speed
             self.move_speed -= 1
-            if self.move_speed <= 0: #or self.rect.collidedictall(self.teammates):
+            if self.move_speed <= 0 or pygame.sprite.spritecollide(self, self.teammates, False):#or self.rect.collidedictall(self.teammates):
                 self.move_speed = 35
                 self.is_moving = False
+                
                 
     '''
     def animate_pass(self, player_rect_center):
@@ -203,6 +206,7 @@ class Ball(pygame.sprite.Sprite):
         self.dy = player_rect_centery - self.rect.centery
         self.distance = (self.dx ** 2 + self.dy ** 2) ** 0.5
         self.is_moving = True
+    
 
     def addTeammate(self, teammate):   
         if isinstance(teammate, Player):
@@ -214,21 +218,40 @@ class Game(object):
 
     def __init__(self):
         self.sprites = pygame.sprite.Group()
+        self.initialize_game()
+
+    def initialize_game(self):
+        self.sprites = pygame.sprite.Group()
         self.ball = Ball()
         self.player1 = Player((WIDTH // 2)-200, (HEIGHT // 2)-200, self.ball)
-        self.player2 = Player((WIDTH // 2)-200, (HEIGHT // 2)-50, self.ball)
+        self.player2 = Player((WIDTH // 2), (HEIGHT // 2)-200, self.ball)
+        self.player3 = Player((WIDTH // 2)-200, (HEIGHT // 2), self.ball)
         self.player1.addTeammate(self.player2)
+        self.player1.addTeammate(self.player3)
         self.player2.addTeammate(self.player1)
+        self.player2.addTeammate(self.player3)
+        self.player3.addTeammate(self.player1)
+        self.player3.addTeammate(self.player2)
         self.ball.addTeammate(self.player1)
         self.ball.addTeammate(self.player2)
+        self.ball.addTeammate(self.player3)
         self.sprites.add(self.player1)
         self.sprites.add(self.player2)
+        self.sprites.add(self.player3)
         self.sprites.add(self.ball)
 
+    def reset_game(self):
+        self.sprites.empty()  # Elimina todos los sprites actuales
+        self.initialize_game()
+    
     def process_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
+            elif event.type == pygame.KEYDOWN:
+                # Verificar si se presionó Ctrl+R para resetear el juego
+                if event.key == pygame.K_r and pygame.key.get_mods() & pygame.KMOD_CTRL:
+                    self.reset_game()
         return False
 
     def run_logic(self):
