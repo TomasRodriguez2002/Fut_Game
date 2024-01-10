@@ -24,13 +24,12 @@ class Ball(pygame.sprite.Sprite):
         
         # gol arco derecho -> saque del centro
         if self.rect.left > FONDO_DER and self.rect.top < PALO_SUP and self.rect.bottom > PALO_INF:
-            self.referee.
-            self.rect.center = (MITAD_CANCHA, SAQUE)
-             
+            # self.referee.
+            # self.rect.center = (MITAD_CANCHA, SAQUE)
 
         # gol arco izquierdo -> saque del centro
         if self.rect.right < FONDO_IZQ and self.rect.top < PALO_SUP and self.rect.bottom > PALO_INF:
-            self.rect.center = (MITAD_CANCHA, SAQUE)
+            # self.rect.center = (MITAD_CANCHA, SAQUE)
 
         # Si la posición en y de la pelota supera algun lateral -> efecto rebote en y
         if self.rect.top >= LATERAL_IZQ or self.rect.bottom <= LATERAL_DER:
