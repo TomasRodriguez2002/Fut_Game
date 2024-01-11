@@ -1,5 +1,6 @@
 import pygame
 from Constantes import *
+import random
 
 pygame.font.init()
 font = pygame.font.Font(None, 100)
@@ -68,30 +69,7 @@ class GoalKeeper(pygame.sprite.Sprite):
         new_x = self.rect.x + self.velocidad_x
         new_y = self.rect.y + self.velocidad_y
 
-        # Verificar la distancia con los compañeros
-        if (AREA_G_SUP-7 < new_y < AREA_G_INF - self.rect.height+7):
-            flag = False
-            if self.team:
-                if FONDO_IZQ-5 < new_x < AREA_G_MID_IZQ - self.rect.width+5:
-                    flag = True
-            else:
-                if AREA_G_MID_DER-5 < new_x < FONDO_DER - self.rect.width+5:
-                    flag = True
-            if flag:
-                # Verificar la distancia con los compañeros
-                can_move = True
-                for teammate in self.teammates:
-                    distancia_entre_jugadores = pygame.math.Vector2(teammate.rect.center) - pygame.math.Vector2(new_x, new_y)
-                    if distancia_entre_jugadores.length() < (PALO_INF-SAQUE):
-                        can_move = False
-                        break
 
-                if can_move:
-                    # Actualizar la posición solo si se puede mover
-                    self.rect.x = new_x
-                    self.rect.y = new_y
-
-        '''
         # Verificar límites laterales
         if AREA_G_SUP-7 < new_y < AREA_G_INF - self.rect.height+7:
             self.rect.y = new_y
@@ -103,7 +81,6 @@ class GoalKeeper(pygame.sprite.Sprite):
         else:
             if AREA_G_MID_DER-5 < new_x < FONDO_DER - self.rect.width+5:
                 self.rect.x = new_x
-        '''
 
         if self.rect.colliderect(self.ball.rect): #and (pygame.math.Vector2(self.rect.center).distance_to(self.ball.rect.center)) < (20):
             self.hasBall = True
@@ -136,7 +113,7 @@ class GoalKeeper(pygame.sprite.Sprite):
         
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, coor_x, coor_y, ball):
+    def __init__(self, coor_x, coor_y, ball, team):
         super().__init__()
 
         self.image = pygame.image.load("player.png").convert()
@@ -152,6 +129,7 @@ class Player(pygame.sprite.Sprite):
         self.vision_range = 223 # rango de visión en funcion de la distancia del comienzo del area grande con el arco
         self.direction = pygame.math.Vector2(1, 0) # direccion inicial hacia la derecha
         self.teammates = []
+        self.team = team
 
     def update(self):
         '''
@@ -210,10 +188,11 @@ class Player(pygame.sprite.Sprite):
             # Verificar la distancia con los compañeros
             can_move = True
             for teammate in self.teammates:
-                distancia_entre_jugadores = pygame.math.Vector2(teammate.rect.center) - pygame.math.Vector2(new_x, new_y)
-                if distancia_entre_jugadores.length() < (PALO_INF-SAQUE):
-                    can_move = False
-                    break
+                if not isinstance(teammate, GoalKeeper):
+                    distancia_entre_jugadores = pygame.math.Vector2(teammate.rect.center) - pygame.math.Vector2(new_x, new_y)
+                    if distancia_entre_jugadores.length() < (PALO_INF-SAQUE):
+                        can_move = False
+                        break
 
             if can_move:
                 # Actualizar la posición solo si se puede mover
@@ -266,9 +245,14 @@ class Player(pygame.sprite.Sprite):
                         
                         self.ball.animate_pass(teammate.rect.centerx, teammate.rect.centery)
                         self.hasBall = False
-        
-    def notify(self):
-        self.sleep = False 
+
+            if keys [pygame.K_c]:
+                if self.team:
+                    self.ball.animate_pass(FONDO_DER, random.randint(PALO_SUP-10, PALO_INF+10))
+                else:
+                    self.ball.animate_pass(FONDO_IZQ, random.randint(PALO_SUP-10, PALO_INF+10))
+                self.hasBall = False
+
 
     def addTeammate(self, teammate):   
         self.teammates.append(teammate)
@@ -337,9 +321,10 @@ class Ball(pygame.sprite.Sprite):
         '''
 
         if self.is_moving:
-            self.rect.x += self.dx / self.distance * self.move_speed
-            self.rect.y += self.dy / self.distance * self.move_speed
-            self.move_speed -= 1
+            if self.move_speed != 0:
+                self.rect.x += self.dx / self.distance * self.move_speed
+                self.rect.y += self.dy / self.distance * self.move_speed
+                self.move_speed -= 1
             if self.move_speed <= 0 or pygame.sprite.spritecollide(self, self.teammates, False):#or self.rect.collidedictall(self.teammates):
                 self.move_speed = 35
                 self.is_moving = False
@@ -371,9 +356,9 @@ class Game(object):
     def initialize_game(self):
         self.sprites = pygame.sprite.Group()
         self.ball = Ball(self)
-        self.player1 = Player((WIDTH // 2)-200, (HEIGHT // 2)-200, self.ball)
-        self.player2 = Player((WIDTH // 2), (HEIGHT // 2)-200, self.ball)
-        self.player3 = Player((WIDTH // 2)-200, (HEIGHT // 2), self.ball)
+        self.player1 = Player((WIDTH // 2)-200, (HEIGHT // 2)-200, self.ball, True)
+        self.player2 = Player((WIDTH // 2), (HEIGHT // 2)-200, self.ball, True)
+        self.player3 = Player((WIDTH // 2)-200, (HEIGHT // 2), self.ball, True)
         self.goalkeeper1 = GoalKeeper(self.ball, True)        
         self.goal_message = None         
         self.current_goal_message = None
