@@ -68,6 +68,30 @@ class GoalKeeper(pygame.sprite.Sprite):
         new_x = self.rect.x + self.velocidad_x
         new_y = self.rect.y + self.velocidad_y
 
+        # Verificar la distancia con los compañeros
+        if (AREA_G_SUP-7 < new_y < AREA_G_INF - self.rect.height+7):
+            flag = False
+            if self.team:
+                if FONDO_IZQ-5 < new_x < AREA_G_MID_IZQ - self.rect.width+5:
+                    flag = True
+            else:
+                if AREA_G_MID_DER-5 < new_x < FONDO_DER - self.rect.width+5:
+                    flag = True
+            if flag:
+                # Verificar la distancia con los compañeros
+                can_move = True
+                for teammate in self.teammates:
+                    distancia_entre_jugadores = pygame.math.Vector2(teammate.rect.center) - pygame.math.Vector2(new_x, new_y)
+                    if distancia_entre_jugadores.length() < (PALO_INF-SAQUE):
+                        can_move = False
+                        break
+
+                if can_move:
+                    # Actualizar la posición solo si se puede mover
+                    self.rect.x = new_x
+                    self.rect.y = new_y
+
+        '''
         # Verificar límites laterales
         if AREA_G_SUP-7 < new_y < AREA_G_INF - self.rect.height+7:
             self.rect.y = new_y
@@ -79,6 +103,7 @@ class GoalKeeper(pygame.sprite.Sprite):
         else:
             if AREA_G_MID_DER-5 < new_x < FONDO_DER - self.rect.width+5:
                 self.rect.x = new_x
+        '''
 
         if self.rect.colliderect(self.ball.rect): #and (pygame.math.Vector2(self.rect.center).distance_to(self.ball.rect.center)) < (20):
             self.hasBall = True
@@ -180,14 +205,36 @@ class Player(pygame.sprite.Sprite):
         new_x = self.rect.x + self.velocidad_x
         new_y = self.rect.y + self.velocidad_y
 
-        # Verificar límites laterales
-        if LATERAL_IZQ-7 < new_y < LATERAL_DER - self.rect.height+7:
-            self.rect.y = new_y
+        # Verificar límites laterales y de fondo
+        if LATERAL_IZQ - 7 < new_y < LATERAL_DER - self.rect.height + 7 and FONDO_IZQ - 5 < new_x < FONDO_DER - self.rect.width + 5:
+            # Verificar la distancia con los compañeros
+            can_move = True
+            for teammate in self.teammates:
+                distancia_entre_jugadores = pygame.math.Vector2(teammate.rect.center) - pygame.math.Vector2(new_x, new_y)
+                if distancia_entre_jugadores.length() < (PALO_INF-SAQUE):
+                    can_move = False
+                    break
 
-        # Verificar límites de fondo
-        if FONDO_IZQ-5 < new_x < FONDO_DER - self.rect.width+5:
-            self.rect.x = new_x
+            if can_move:
+                # Actualizar la posición solo si se puede mover
+                self.rect.x = new_x
+                self.rect.y = new_y
 
+        '''
+        for teammate in self.teammates:
+            distancia_entre_jugadores = pygame.math.Vector2(teammate.rect.center) - pygame.math.Vector2(self.rect.center)
+            print(distancia_entre_jugadores)
+            if distancia_entre_jugadores.length() > (PALO_INF-SAQUE):
+            
+            if not self.rect.colliderect(teammate.rect):
+                # Verificar límites laterales
+                if LATERAL_IZQ-7 < new_y < LATERAL_DER - self.rect.height+7:
+                    self.rect.y = new_y
+
+                # Verificar límites de fondo
+                if FONDO_IZQ-5 < new_x < FONDO_DER - self.rect.width+5:
+                    self.rect.x = new_x
+        '''
         # limites
         #if self.rect.left < FONDO_IZQ:
         #    self.rect = FONDO_IZQ:
