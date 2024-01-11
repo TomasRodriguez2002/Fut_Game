@@ -1,6 +1,9 @@
 import pygame
 from Constantes import *
 
+pygame.font.init()
+font = pygame.font.Font(None, 100)
+
 FPS = 30
 
 # Dimensiones de pantalla
@@ -13,12 +16,32 @@ AZUL = (0,0,255)
 # Limites de la cancha
 #...
 
+class GoalKeeper(object):
+
+    def GoalKeeper(self, coor_x, coor_y, ball):
+        self.image = pygame.image.load("player.png").convert()
+        self.image = pygame.transform.scale(self.image, (self.image.get_width() - 485, self.image.get_height() - 485))
+        self.image.set_colorkey([0,0,0])
+        self.rect = self.image.get_rect() 
+        self.rect.center = (coor_x, coor_y)
+        #self.velocidad_x = 0
+        self.velocidad_y = 0
+        self.velocidad = 7
+        self.ball = ball
+        self.hasBall = False
+        self.teammates = []
+    
+    def update(self):
+        velocidad_jugador= 7
+        self.velocidad_y = 0
+        
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, coor_x, coor_y, ball):
         super().__init__()
 
         self.image = pygame.image.load("player.png").convert()
-        self.image = pygame.transform.scale(self.image, (self.image.get_width() - 480, self.image.get_height() - 480))
+        self.image = pygame.transform.scale(self.image, (self.image.get_width() - 485, self.image.get_height() - 485))
         self.image.set_colorkey([0,0,0])
         self.rect = self.image.get_rect() 
         self.rect.center = (coor_x, coor_y)
@@ -55,7 +78,7 @@ class Player(pygame.sprite.Sprite):
         '''
 
         self.vision_angle = 126
-        self.vision_range = 223
+        self.vision_range = 1151 #223
 
     
         velocidad_jugador= 7
@@ -115,7 +138,7 @@ class Player(pygame.sprite.Sprite):
                 distance_to_teammate = direction_to_teammate.length()
                 #angulo entre el jugador y el companiero
                 angle = direction_to_teammate.angle_to(self.direction) 
-                if keys[pygame.K_SPACE]: 
+                if keys[pygame.K_SPACE]:
                     if distance_to_teammate <= self.vision_range and abs(angle) < self.vision_angle / 2:
                         # companiero dentro del rango y angulo de vision del jugador -> ejecutar pase
                         # (mas adelante debo considerar pasarsela a la mejor opcion (companiero mejor posicionado))
@@ -132,7 +155,7 @@ class Player(pygame.sprite.Sprite):
                 self.teammates.append(teammate)
 
 class Ball(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, game):
         super().__init__()
 
         self.image = pygame.image.load("ball1.png").convert()
@@ -148,18 +171,26 @@ class Ball(pygame.sprite.Sprite):
         self.distance = 0
         self.teammates = []
         self.player = None
+        self.game = game
 
-    def update(self):
-
+    def detect_goal(self):
+        # Lógica para detectar si se marcó un gol
         # gol arco derecho -> saque del centro  
         if self.rect.left > 1252 and self.rect.top < 445 and self.rect.bottom > 317:
             self.rect.center = (677, 383)
             self.is_moving = False
-
+            return True
         # gol arco izquierdo -> saque del centro
         if self.rect.right < 101 and self.rect.top < 445 and self.rect.bottom > 317:
             self.rect.center = (677, 383)
             self.is_moving = False
+            return True
+        return False
+
+    def update(self):
+
+        if self.detect_goal():
+            self.game.show_goal_message("¡Goooaaal!", 25)  # Ajusta la duración según sea necesario
         
         # Si la posición en y de la pelota supera algun lateral -> efecto rebote en y
         if self.rect.top <= 48 or self.rect.bottom >= 719:
@@ -222,10 +253,12 @@ class Game(object):
 
     def initialize_game(self):
         self.sprites = pygame.sprite.Group()
-        self.ball = Ball()
+        self.ball = Ball(self)
         self.player1 = Player((WIDTH // 2)-200, (HEIGHT // 2)-200, self.ball)
         self.player2 = Player((WIDTH // 2), (HEIGHT // 2)-200, self.ball)
         self.player3 = Player((WIDTH // 2)-200, (HEIGHT // 2), self.ball)
+        self.goal_message = None         
+        self.current_goal_message = None
         self.player1.addTeammate(self.player2)
         self.player1.addTeammate(self.player3)
         self.player2.addTeammate(self.player1)
@@ -260,7 +293,18 @@ class Game(object):
     def display_frame(self, screen, background):
         screen.blit(background, [0 , 0])
         self.sprites.draw(screen)
+        if self.current_goal_message:
+            screen.blit(self.current_goal_message, ((WIDTH - self.current_goal_message.get_width()) // 2, HEIGHT // 2))
+            # Reduzca el temporizador del mensaje de gol en cada iteración
+            self.goal_message_timer -= 1
+            if self.goal_message_timer <= 0:
+                self.current_goal_message = None  # Borra el mensaje cuando el temporizador llega a cero
         pygame.display.flip()
+
+    def show_goal_message(self, message, duration):
+            self.goal_message_timer = duration
+            self.current_goal_message = font.render(message, True, (255, 255, 255))  # Color blanco
+
 
 def main():
     pygame.init()
