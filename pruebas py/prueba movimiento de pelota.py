@@ -125,9 +125,9 @@ class Player(pygame.sprite.Sprite):
         self.velocidad_y = 0
         self.ball = ball
         self.hasBall = False
-        self.vision_angle = 126 # angulo de vision en función del ancho del arco
-        self.vision_range = 223 # rango de visión en funcion de la distancia del comienzo del area grande con el arco
-        self.direction = pygame.math.Vector2(1, 0) # direccion inicial hacia la derecha
+        #self.vision_angle = 126 # angulo de vision en función del ancho del arco
+        #self.vision_range = 223 # rango de visión en funcion de la distancia del comienzo del area grande con el arco
+        #self.direction = pygame.math.Vector2(1, 0) # direccion inicial hacia la derecha
         self.teammates = []
         self.team = team
 
@@ -154,8 +154,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.velocidad_y
         '''
 
-        self.vision_angle = 126
-        self.vision_range = 1151 #223
+        #self.vision_angle = 126
+        #self.vision_range = 1151 #223
 
     
         velocidad_jugador= 7
@@ -232,19 +232,21 @@ class Player(pygame.sprite.Sprite):
             # logica de visualizacion de companieros (nota: mas adelante puedo implementar que cada jugador se le pase
             # la lista solo con sus compañeros sin ellos incluidos (ver patron creacional))
             for teammate in self.teammates:
+                '''
                 teammate_vector = pygame.math.Vector2(teammate.rect.center)
                 self_vector = pygame.math.Vector2(self.rect.center)
                 direction_to_teammate = teammate_vector - self_vector
                 distance_to_teammate = direction_to_teammate.length()
                 #angulo entre el jugador y el companiero
-                angle = direction_to_teammate.angle_to(self.direction) 
+                angle = direction_to_teammate.angle_to(self.direction)
+                ''' 
                 if keys[pygame.K_SPACE]:
-                    if distance_to_teammate <= self.vision_range and abs(angle) < self.vision_angle / 2:
+                    #if distance_to_teammate <= self.vision_range and abs(angle) < self.vision_angle / 2:
                         # companiero dentro del rango y angulo de vision del jugador -> ejecutar pase
                         # (mas adelante debo considerar pasarsela a la mejor opcion (companiero mejor posicionado))
                         
-                        self.ball.animate_pass(teammate.rect.centerx, teammate.rect.centery)
-                        self.hasBall = False
+                    self.ball.animate_pass(teammate.rect.centerx, teammate.rect.centery)
+                    self.hasBall = False
 
             if keys [pygame.K_c]:
                 if self.team:
@@ -321,7 +323,7 @@ class Ball(pygame.sprite.Sprite):
         '''
 
         if self.is_moving:
-            if self.move_speed != 0:
+            if self.move_speed != 0 and self.distance != 0:
                 self.rect.x += self.dx / self.distance * self.move_speed
                 self.rect.y += self.dy / self.distance * self.move_speed
                 self.move_speed -= 1
