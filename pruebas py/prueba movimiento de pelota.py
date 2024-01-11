@@ -107,8 +107,7 @@ class GoalKeeper(pygame.sprite.Sprite):
                         self.hasBall = False
 
     def addTeammate(self, teammate):   
-        if isinstance(teammate, Player):
-            self.teammates.append(teammate)
+        self.teammates.append(teammate)
         
 
 class Player(pygame.sprite.Sprite):
@@ -225,9 +224,7 @@ class Player(pygame.sprite.Sprite):
         self.sleep = False 
 
     def addTeammate(self, teammate):   
-        if isinstance(teammate, Player) or isinstance(teammate, GoalKeeper):
-            if teammate != self:
-                self.teammates.append(teammate)
+        self.teammates.append(teammate)
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, game):
@@ -315,9 +312,7 @@ class Ball(pygame.sprite.Sprite):
     
 
     def addTeammate(self, teammate):   
-        if isinstance(teammate, Player):
-            if teammate != self:
-                self.teammates.append(teammate)
+        self.teammates.append(teammate)
 
 
 class Game(object):
