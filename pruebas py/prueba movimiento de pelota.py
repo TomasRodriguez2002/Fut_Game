@@ -183,6 +183,7 @@ class Player(pygame.sprite.Sprite):
         new_x = self.rect.x + self.velocidad_x
         new_y = self.rect.y + self.velocidad_y
 
+
         # Verificar límites laterales y de fondo
         if LATERAL_IZQ - 7 < new_y < LATERAL_DER - self.rect.height + 7 and FONDO_IZQ - 5 < new_x < FONDO_DER - self.rect.width + 5:
             # Verificar la distancia con los compañeros
@@ -198,6 +199,7 @@ class Player(pygame.sprite.Sprite):
                 # Actualizar la posición solo si se puede mover
                 self.rect.x = new_x
                 self.rect.y = new_y
+
 
         '''
         for teammate in self.teammates:
