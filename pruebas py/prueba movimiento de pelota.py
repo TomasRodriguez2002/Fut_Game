@@ -16,24 +16,99 @@ AZUL = (0,0,255)
 # Limites de la cancha
 #...
 
-class GoalKeeper(object):
+class GoalKeeper(pygame.sprite.Sprite):
 
-    def GoalKeeper(self, coor_x, coor_y, ball):
+    def __init__(self, ball, team):
+        super().__init__()
+
         self.image = pygame.image.load("player.png").convert()
         self.image = pygame.transform.scale(self.image, (self.image.get_width() - 485, self.image.get_height() - 485))
         self.image.set_colorkey([0,0,0])
         self.rect = self.image.get_rect() 
-        self.rect.center = (coor_x, coor_y)
-        #self.velocidad_x = 0
+        self.team = team # True -> team1 | False -> team2
+        if self.team:
+            self.rect.center = (FONDO_IZQ+7, SAQUE)
+        else:
+            self.rect.center = (FONDO_DER-7, SAQUE)
+        self.velocidad_x = 0
         self.velocidad_y = 0
         self.velocidad = 7
         self.ball = ball
         self.hasBall = False
         self.teammates = []
+        self.vision_angle = 126 # angulo de vision en función del ancho del arco
+        self.vision_range = 223 # rango de visión en funcion de la distancia del comienzo del area grande con el arco
+        self.direction = pygame.math.Vector2(1, 0) # direccion inicial hacia la derecha
     
     def update(self):
-        velocidad_jugador= 7
+        self.velocidad= 7
+        self.velocidad_x = 0
         self.velocidad_y = 0
+        self.vision_angle = 126
+        self.vision_range = 1151 #223
+        keys = pygame.key.get_pressed()
+
+        # movimiento lateral
+        if keys[pygame.K_LEFT]:
+            self.velocidad_x = -self.velocidad
+            self.direction = pygame.math.Vector2(-1, 0)
+        if keys[pygame.K_RIGHT]:
+            self.velocidad_x = self.velocidad
+            self.direction = pygame.math.Vector2(1, 0)
+
+        # movimiento vertical
+        if keys[pygame.K_UP]:
+            self.velocidad_y = -self.velocidad
+            self.direction = pygame.math.Vector2(0, -1)
+        if keys[pygame.K_DOWN]:
+            self.velocidad_y = self.velocidad
+            self.direction = pygame.math.Vector2(0, 1)
+
+        # Actualizar posición
+        new_x = self.rect.x + self.velocidad_x
+        new_y = self.rect.y + self.velocidad_y
+
+        # Verificar límites laterales
+        if AREA_G_SUP-7 < new_y < AREA_G_INF - self.rect.height+7:
+            self.rect.y = new_y
+
+        # Verificar límites de fondo
+        if self.team:
+            if FONDO_IZQ-5 < new_x < AREA_G_MID_IZQ - self.rect.width+5:
+                self.rect.x = new_x
+        else:
+            if AREA_G_MID_DER-5 < new_x < FONDO_DER - self.rect.width+5:
+                self.rect.x = new_x
+
+        if self.rect.colliderect(self.ball.rect): #and (pygame.math.Vector2(self.rect.center).distance_to(self.ball.rect.center)) < (20):
+            self.hasBall = True
+            self.ball.rect.center = self.rect.center                
+        
+        if self.hasBall:
+            # logica de movimiento con pelota
+            self.ball.rect.x += self.velocidad_x
+            self.ball.rect.y += self.velocidad_y
+
+            # logica de visualizacion de companieros (nota: mas adelante puedo implementar que cada jugador se le pase
+            # la lista solo con sus compañeros sin ellos incluidos (ver patron creacional))
+            for teammate in self.teammates:
+                teammate_vector = pygame.math.Vector2(teammate.rect.center)
+                self_vector = pygame.math.Vector2(self.rect.center)
+                direction_to_teammate = teammate_vector - self_vector
+                distance_to_teammate = direction_to_teammate.length()
+                #angulo entre el jugador y el companiero
+                angle = direction_to_teammate.angle_to(self.direction) 
+                if keys[pygame.K_SPACE]:
+                    if distance_to_teammate <= self.vision_range and abs(angle) < self.vision_angle / 2:
+                        # companiero dentro del rango y angulo de vision del jugador -> ejecutar pase
+                        # (mas adelante debo considerar pasarsela a la mejor opcion (companiero mejor posicionado))
+                        
+                        self.ball.animate_pass(teammate.rect.centerx, teammate.rect.centery)
+                        self.hasBall = False
+
+    def addTeammate(self, teammate):   
+        if isinstance(teammate, Player):
+            self.teammates.append(teammate)
         
 
 class Player(pygame.sprite.Sprite):
@@ -150,7 +225,7 @@ class Player(pygame.sprite.Sprite):
         self.sleep = False 
 
     def addTeammate(self, teammate):   
-        if isinstance(teammate, Player):
+        if isinstance(teammate, Player) or isinstance(teammate, GoalKeeper):
             if teammate != self:
                 self.teammates.append(teammate)
 
@@ -257,20 +332,29 @@ class Game(object):
         self.player1 = Player((WIDTH // 2)-200, (HEIGHT // 2)-200, self.ball)
         self.player2 = Player((WIDTH // 2), (HEIGHT // 2)-200, self.ball)
         self.player3 = Player((WIDTH // 2)-200, (HEIGHT // 2), self.ball)
+        self.goalkeeper1 = GoalKeeper(self.ball, True)        
         self.goal_message = None         
         self.current_goal_message = None
         self.player1.addTeammate(self.player2)
         self.player1.addTeammate(self.player3)
+        self.player1.addTeammate(self.goalkeeper1)
         self.player2.addTeammate(self.player1)
         self.player2.addTeammate(self.player3)
+        self.player2.addTeammate(self.goalkeeper1)
         self.player3.addTeammate(self.player1)
         self.player3.addTeammate(self.player2)
+        self.player3.addTeammate(self.goalkeeper1)
+        self.goalkeeper1.addTeammate(self.player1)
+        self.goalkeeper1.addTeammate(self.player2)
+        self.goalkeeper1.addTeammate(self.player3)
         self.ball.addTeammate(self.player1)
         self.ball.addTeammate(self.player2)
         self.ball.addTeammate(self.player3)
+        self.ball.addTeammate(self.goalkeeper1)
         self.sprites.add(self.player1)
         self.sprites.add(self.player2)
         self.sprites.add(self.player3)
+        self.sprites.add(self.goalkeeper1)
         self.sprites.add(self.ball)
 
     def reset_game(self):
