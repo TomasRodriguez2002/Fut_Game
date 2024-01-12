@@ -1,9 +1,11 @@
-from players.TeamFactory import TeamFactory 
-from Strategies.TomasRStrategy import TomasRStrategy
-from players.PlayerField import PlayerField
-from players.GoalKeeper import GoalKeeper
+#from TeamFactory import TeamFactory 
+from ..Strategies.TomasRStrategy import TomasRStrategy
+from players.TeamFactory import TeamFactory
+#from ..Strategies.TomasRStrategy import TomasRStrategy
+from PlayerField import PlayerField
+from GoalKeeper import GoalKeeper
 
-class TeamTomiRFactory(TeamFactory):
+class TeamTomasRFactory(TeamFactory):
 
     def createPlayer(self, spritePNG, mediator, team, cantPlayers):
         team = []
