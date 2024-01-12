@@ -1,31 +1,24 @@
 import pygame
 from Ball import Ball
-from players.PlayerTomiRFactory import PlayerTomiRFactory
-from players.PlayerGonzaloFactory import PlayerGonzaloFactory
-from players.PlayerNicolasFactory import PlayerNicolasFactory
-from players.GoalKeeperFactory import GoalKeeperFactory
-
+from Mediator import Mediator
 
 class Game(object):
 
     def __init__(self):
         self.sprites = pygame.sprite.Group()
         self.ball = Ball()
-        self.playerTomiRFactory = PlayerTomiRFactory()
-        self.playerNicolasFactory = PlayerNicolasFactory()
-        self.playersField1 = self.playerTomiRFactory.createPlayer()
-        self.playersField2 = self.playerNicolasFactory.createPlayer()
-        self.goalKeeperFactory = GoalKeeperFactory()
-        self.goalKeeper1 = self.goalKeeperFactory.createGoalKeeper()
-        self.goalKeeper2 = self.goalKeeperFactory.createGoalKeeper()
-        #self.player1 = Player((WIDTH // 2)-200, (HEIGHT // 2)-200, self.ball)
-        #self.player2 = Player((WIDTH // 2)+23, (HEIGHT // 2)-200, self.ball)
+        self.nicolasFactory = TeamNicolasFactory()
+        self.team1 = self.nicolasFactory.create()
+        self.tomasGFactory = TeamTomasGFactory()
+        self.team2 = self.tomasGFactory.create()
+        self.mediator = Mediator()
+        self.mediator.setBall(self.ball)
         self.sprites.add(self.ball)
-        self.sprites.add(self.goalKeeper1)
-        self.sprites.add(self.goalKeeper2)
-        for player in self.playersField1:
+        for player in self.team1:
+            self.mediator.addPlayer1(player)
             self.sprites.add(player)
-        for player in self.playersField2:
+        for player in self.team2:
+            self.mediator.addPlayer2(player)
             self.sprites.add(player)
 
     def process_events(self):

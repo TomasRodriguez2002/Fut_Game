@@ -137,6 +137,8 @@ class Player(pygame.sprite.Sprite):
             #    self.hasBall = False
             int accion # 1 -> pateo | 2 -> pasarla | 3 -> moverse
             
+            action = strategy.with_ball(self, referee)
+
             if accion == 1:
                 if self.team:
                     self.ball.animate_pass(FONDO_DER, random.randint(PALO_SUP-20, PALO_INF+20))
@@ -144,9 +146,13 @@ class Player(pygame.sprite.Sprite):
                     self.ball.animate_pass(FONDO_IZQ, random.randint(PALO_SUP-20, PALO_INF+20))
                 self.hasBall = False
             elif accion == 2:
-                # logica de pase
+                x, y = estrategias.estrategia_pase()
+                self.ball.animate_pass(x, y)
+                self.hasBall = False
             elif accion == 3:
-                # logica de accion
+                estrategias.estrategia_de_movimiento(target_x, target_y)
+                logica_de_movimiento(target_x, target_y)
+
 
             #if self.rect.x > MITAD_CANCHA+150:
                 if self.team:
@@ -161,13 +167,20 @@ class Player(pygame.sprite.Sprite):
         else:
             
             # hacia donde nos movemos 
-            #estrategia_de_movimiento(target_x, target_y)
+            # estrategia_de_movimiento(target_x, target_y)
+
+            # constructor de player
+            playerNico = Player(ball, ..., Estrategias(new EstrategiasWarrior))
+            self.estrategias = estrategiasWarrior
+
+            estrategias.estrategia_de_movimiento(target_x, target_y)
 
             # se modifican en el metodo de arriba (no son)
             target_x = self.ball.rect.centerx
             target_y = self.ball.rect.centery
-            #
-
+            
+            # logica_de_movimiento(){
+            
             self.dx = target_x - self.rect.centerx
             self.dy = target_y - self.rect.centery
             self.distance = (self.dx ** 2 + self.dy ** 2) ** 0.5

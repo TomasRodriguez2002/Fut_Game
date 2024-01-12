@@ -2,20 +2,14 @@ from IPlayer import IPlayer
 from Constantes import * 
 import pygame
 
-class GoalKeeper(IPlayer):
-
-    def __init__(self, spritePNG, strategy, mediator, team):
+class PlayerField(IPlayer):
+    def __init__(self, coor_x, coor_y, spritePNG, strategy, mediator, team):
         super().__init__(strategy, mediator, team)
-
         self.image = pygame.image.load(spritePNG).convert()
         self.image = pygame.transform.scale(self.image, (self.image.get_width() - 485, self.image.get_height() - 485))
         self.image.set_colorkey([0,0,0])
         self.rect = self.image.get_rect() 
-        # True -> team1 | False -> team2 
-        if super.team:
-            self.rect.center = (FONDO_IZQ+7, SAQUE)
-        else:
-            self.rect.center = (FONDO_DER-7, SAQUE)
+        self.rect.center = (coor_x, coor_y)
 
     def update(self):
         
@@ -45,15 +39,9 @@ class GoalKeeper(IPlayer):
 
             new_x, new_y = super.calculate_new_pos(target_x, target_y)
 
-            # Verificar límites laterales
-            if AREA_G_SUP-7 < new_y < AREA_G_INF - self.rect.height+7:
-                # Verificar límites de fondo
-                flag = False
-                if self.team:
-                    if FONDO_IZQ-5 < new_x < AREA_G_MID_IZQ - self.rect.width+5:
-                        flag = True
-                else:
-                    if AREA_G_MID_DER-5 < new_x < FONDO_DER - self.rect.width+5:
-                        flag = True
-                if flag:
+            # Verificar límites laterales y de fondo
+            if LATERAL_IZQ - 7 < new_y < LATERAL_DER - self.rect.height + 7 and \
+                FONDO_IZQ - 5 < new_x < FONDO_DER - self.rect.width + 5:
+                # Verificar la distancia con los compañeros
+                if super.mediator.can_move(super.team, new_x, new_y):
                     super.animation_of_move()
