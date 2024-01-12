@@ -4,16 +4,23 @@ import pygame
 class Strategy(ABC, pygame.sprite.Sprite):
 
     def __init__(self):
+        self.mediator = None
+        self.player = None
+
+    def setMediator(self, mediator):
+        self.mediator = mediator
+
+    def setPlayer(self, player):
+        self.player = player
+
+    @abstractmethod
+    def getProxPos(self):
         pass
 
     @abstractmethod
-    def getProxPos(self,player,mediator):
+    def with_ball(self):
         pass
 
     @abstractmethod
-    def with_ball(self,player,mediator):
-        pass
-
-    @abstractmethod
-    def where_to_pass(self,player,mediator):
+    def where_to_pass(self):
         pass

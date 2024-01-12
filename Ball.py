@@ -21,7 +21,6 @@ class Ball(pygame.sprite.Sprite):
     def detect_goal(self):
         if self.rect.left > FONDO_DER and self.rect.centery < PALO_INF and self.rect.centery > PALO_SUP or \
             self.rect.right < FONDO_IZQ and self.rect.centery < PALO_INF and self.rect.centery > PALO_SUP:    
-            self.rect.center = (MITAD_CANCHA, SAQUE)
             self.is_moving = False
             self.mediator.restart_positions()
             return True

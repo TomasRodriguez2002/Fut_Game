@@ -1,14 +1,14 @@
 from Strategy import Strategy
 
 class BraianStrategy(Strategy):
-    def __init__(self) -> None:
-        pass
+    def __init__(self):
+        super().__init__()
        
-    def getProxPos(self,player,mediator):
+    def getProxPos(self):
         pass
 
-    def with_ball(self,player,mediator):
+    def with_ball(self):
         pass
 
-    def where_to_pass(self,player,mediator):
+    def where_to_pass(self):
         pass

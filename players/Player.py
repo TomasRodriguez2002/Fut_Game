@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 import pygame
-from pygame.sprite import _Group
+#from pygame.sprite import _Group
 
-class IPlayer(ABC, pygame.sprite.Sprite):
+class Player(ABC, pygame.sprite.Sprite):
 
     def __init__(self, strategy, mediator, team):
         self.strategy = strategy
@@ -37,3 +37,5 @@ class IPlayer(ABC, pygame.sprite.Sprite):
             new_y = (self.rect.y + self.dy / self.distance * self.move_speed)
             return new_x, new_y
 
+    def setPosition(self, pos):
+         self.rect.center = pos

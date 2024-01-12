@@ -18,6 +18,18 @@ class Mediator(object):
     def addPlayer1(self, player):
         self.players2.add(player)
 
+    def restart_positions(self):
+        self.ball.rect.center = (MITAD_CANCHA, SAQUE)
+        i = 0
+        for pos in POS_TEAM1_F5:
+            self.players1[i].setPosition(pos)
+            i+=1
+        i = 0
+        for pos in POS_TEAM2_F5:
+            self.players2[i].setPosition(pos)
+            i+=1
+        
+
     def check_collision_between_players(self, new_x, new_y, players):
         for teammate in players:
             if not isinstance(teammate, GoalKeeper):
@@ -45,3 +57,7 @@ class Mediator(object):
 
     def pass_ball(self, x, y):
         self.ball.set_prox_pos(x, y)
+
+    # BORRAR
+    def prueba(self):
+        return self.ball.rect.x, self.ball.rect.y

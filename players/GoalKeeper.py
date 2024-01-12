@@ -1,8 +1,8 @@
-from IPlayer import IPlayer
+from players.Player import Player
 from Constantes import * 
 import pygame
 
-class GoalKeeper(IPlayer):
+class GoalKeeper(Player):
 
     def __init__(self, spritePNG, strategy, mediator, team):
         super().__init__(strategy, mediator, team)

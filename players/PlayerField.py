@@ -1,15 +1,15 @@
-from IPlayer import IPlayer
+from players.Player import Player
 from Constantes import * 
 import pygame
 
-class PlayerField(IPlayer):
-    def __init__(self, coor_x, coor_y, spritePNG, strategy, mediator, team):
+class PlayerField(Player):
+    def __init__(self, spritePNG, strategy, mediator, team):
         super().__init__(strategy, mediator, team)
         self.image = pygame.image.load(spritePNG).convert()
         self.image = pygame.transform.scale(self.image, (self.image.get_width() - 485, self.image.get_height() - 485))
         self.image.set_colorkey([0,0,0])
         self.rect = self.image.get_rect() 
-        self.rect.center = (coor_x, coor_y)
+        #self.rect.center = (coor_x, coor_y)
 
     def update(self):
         
