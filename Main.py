@@ -7,7 +7,10 @@ def main():
     screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)
     clock = pygame.time.Clock()
     done = False
-    background = pygame.image.load("estadio2.png").convert() 
+    background = pygame.image.load("estadio2.png").convert()
+    pygame.display.set_caption("Fut_Game")
+    icon = pygame.image.load('pelotaicon.png')
+    pygame.display.set_icon(icon)
     game = Game()
 
     while not done:
