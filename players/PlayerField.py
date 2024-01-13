@@ -1,3 +1,5 @@
+from hmac import new
+
 from players.Player import Player
 from Constantes import * 
 import pygame
@@ -39,5 +41,6 @@ class PlayerField(Player, pygame.sprite.Sprite):
             if LATERAL_IZQ - 7 < new_y < LATERAL_DER - self.rect.height + 7 and \
                 FONDO_IZQ - 5 < new_x < FONDO_DER - self.rect.width + 5:
                 # Verificar la distancia con los compañeros
-                if self.mediator.can_move(self.team, new_x, new_y):
+                #if self.mediator.can_move(self.team, new_x, new_y):
+                if self.mediator.can_move2(self.team, self):
                     self.animation_of_move()

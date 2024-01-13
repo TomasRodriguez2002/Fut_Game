@@ -3,6 +3,7 @@ from players.GoalKeeper import GoalKeeper
 from players.PlayerField import PlayerField
 from players.TeamFactory import TeamFactory
 
+
 class TeamTomasRFactory(TeamFactory):
 
     def __init__(self, spritePNG, mediator, team, cantPlayers):
@@ -13,9 +14,9 @@ class TeamTomasRFactory(TeamFactory):
         strategy = None
         player = None
         # creacion de jugadores de campo
-        for i in range(self.cantPlayers-1):
+        for i in range(self.cantPlayers - 1):
             strategy = TomasRStrategy()
-            player = PlayerField(self.spritePNG, strategy, self.mediator, self.team) 
+            player = PlayerField(self.spritePNG, strategy, self.mediator, self.team)
             strategy.setMediator(self.mediator)
             strategy.setPlayer(player)
             players.add(player)

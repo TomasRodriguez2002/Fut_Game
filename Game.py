@@ -10,6 +10,14 @@ font = pygame.font.Font(None, 100)
 class Game(object):
 
     def __init__(self):
+        self.team2 = None
+        self.tomasRFactory = None
+        self.team1 = None
+        self.nicolasFactory = None
+        self.ball = None
+        self.mediator = None
+        self.goal_message = None
+        self.current_goal_message = None
         self.sprites = pygame.sprite.Group()
         self.initialize_game()
 

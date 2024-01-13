@@ -11,8 +11,6 @@ class TeamNicolasFactory(TeamFactory):
 
     def createTeam(self):
         players = set()
-        strategy = None
-        player = None
         # creacion de jugadores de campo
         for i in range(self.cantPlayers-1):
             strategy = NicolasStrategy()
