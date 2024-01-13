@@ -1,11 +1,11 @@
-from Strategies import Strategy
+from Strategies.Strategy import Strategy
 
 class NicolasStrategy(Strategy):
     def __init__(self):
         super().__init__()
        
     def getProxPos(self):
-        return super.mediator.prueba()
+        return self.mediator.prueba()
 
     def with_ball(self):
         return 1

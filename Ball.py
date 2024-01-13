@@ -19,10 +19,13 @@ class Ball(pygame.sprite.Sprite):
         self.mediator = mediator
 
     def detect_goal(self):
-        if self.rect.left > FONDO_DER and self.rect.centery < PALO_INF and self.rect.centery > PALO_SUP or \
-            self.rect.right < FONDO_IZQ and self.rect.centery < PALO_INF and self.rect.centery > PALO_SUP:    
+        if self.rect.left > FONDO_DER and self.rect.centery < PALO_INF and self.rect.centery > PALO_SUP:
             self.is_moving = False
-            self.mediator.restart_positions()
+            self.mediator.restart_positions(True)
+            return True        
+        if self.rect.right < FONDO_IZQ and self.rect.centery < PALO_INF and self.rect.centery > PALO_SUP:    
+            self.is_moving = False
+            self.mediator.restart_positions(False)
             return True
         return False
 
@@ -46,7 +49,7 @@ class Ball(pygame.sprite.Sprite):
             self.rect.y += self.dy / self.distance * self.move_speed
             self.move_speed -= 1
         # AL REFEREE    
-        if self.move_speed <= 0 or self.mediator.check_collision():    
+        if self.move_speed <= 0 or self.mediator.check_collision_with_players():    
             self.move_speed = 35
             self.is_moving = False
 

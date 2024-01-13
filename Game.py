@@ -1,8 +1,9 @@
-import pygame
+import pygame, random
 from Constantes import *
 from Ball import Ball
 from Mediator import Mediator
 from players.TeamNicolasFactory import TeamNicolasFactory
+from players.TeamTomasRFactory import TeamTomasRFactory
 pygame.font.init()
 font = pygame.font.Font(None, 100)
 
@@ -13,13 +14,15 @@ class Game(object):
         self.initialize_game()
 
     def initialize_game(self):
+        self.goal_message = None         
+        self.current_goal_message = None
         self.sprites = pygame.sprite.Group()
         self.mediator = Mediator()
-        self.ball = Ball(self,self.mediator,"ball.png")
+        self.ball = Ball(self, self.mediator, "ball.png")
         self.nicolasFactory = TeamNicolasFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
-        self.team1 = self.nicolasFactory.create()
+        self.team1 = self.nicolasFactory.createTeam()
         self.tomasRFactory = TeamTomasRFactory("player.png", self.mediator, False, 5)
-        self.team2 = self.tomasRFactory.create()
+        self.team2 = self.tomasRFactory.createTeam()
         self.sprites.add(self.ball)
         self.mediator.setBall(self.ball)
         for player in self.team1:
@@ -28,7 +31,7 @@ class Game(object):
         for player in self.team2:
             self.mediator.addPlayer2(player)
             self.sprites.add(player)
-        self.mediator.restart_positions()
+        self.mediator.restart_positions(random.choice([True, False]))
 
     def reset_game(self):
         self.sprites.empty()  # Elimina todos los sprites actuales
