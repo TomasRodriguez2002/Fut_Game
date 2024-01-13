@@ -1,4 +1,4 @@
-from Strategy import Strategy
+from Strategies import Strategy
 
 class NicolasStrategy(Strategy):
     def __init__(self):

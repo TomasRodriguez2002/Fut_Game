@@ -6,7 +6,12 @@ from PlayerField import PlayerField
 from GoalKeeper import GoalKeeper
 
 class TeamTomasRFactory(TeamFactory):
-
+    def __init__(self,spritePNG, mediator, team, cantPlayers):
+        super().__init__()
+        self.spritePNG=spritePNG
+        self.mediator=mediator
+        self.team=team
+        self.cantPlayer=cantPlayers
     def createPlayer(self, spritePNG, mediator, team, cantPlayers):
         team = []
         strategy = None

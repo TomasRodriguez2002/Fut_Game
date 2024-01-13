@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import pygame
 
-class Strategy(ABC, pygame.sprite.Sprite):
+class Strategy(ABC):
 
     def __init__(self):
         self.mediator = None

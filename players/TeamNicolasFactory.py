@@ -1,9 +1,15 @@
 from players.TeamFactory import TeamFactory 
-from Strategies.NicolasStrategy import NicolasStrategy
+from Strategies import *
 from players.PlayerField import PlayerField
 from players.GoalKeeper import GoalKeeper
 
 class TeamNicolasFactory(TeamFactory):
+    def __init__(self,spritePNG, mediator, team, cantPlayers):
+        super().__init__()
+        self.spritePNG=spritePNG
+        self.mediator=mediator
+        self.team=team
+        self.cantPlayer=cantPlayers
 
     def createPlayer(self, spritePNG, mediator, team, cantPlayers):
         team = []

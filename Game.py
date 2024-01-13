@@ -2,7 +2,6 @@ import pygame
 from Constantes import *
 from Ball import Ball
 from Mediator import Mediator
-from players.TeamTomasRFactory import TeamTomasRFactory
 from players.TeamNicolasFactory import TeamNicolasFactory
 pygame.font.init()
 font = pygame.font.Font(None, 100)
@@ -15,8 +14,8 @@ class Game(object):
 
     def initialize_game(self):
         self.sprites = pygame.sprite.Group()
-        self.ball = Ball()
         self.mediator = Mediator()
+        self.ball = Ball(self,self.mediator,"ball.png")
         self.nicolasFactory = TeamNicolasFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
         self.team1 = self.nicolasFactory.create()
         self.tomasRFactory = TeamTomasRFactory("player.png", self.mediator, False, 5)

@@ -1,4 +1,4 @@
-from Strategy import Strategy
+from Strategies import Strategy
 
 class BraianStrategy(Strategy):
     def __init__(self):
