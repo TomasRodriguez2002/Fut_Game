@@ -38,8 +38,7 @@ class Mediator(object):
                 i += 1
 
     def restart_positions(self, team):
-        #self.ball.rect.center = (MITAD_CANCHA, SAQUE)
-        self.ball.rect.center = (FONDO_IZQ+20, SAQUE-350)
+        self.ball.rect.center = (MITAD_CANCHA, SAQUE)
         # Equipo 1 hizo gol
         if team:
             self.restart_players_positions(self.players2, self.players1)
