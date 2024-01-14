@@ -39,7 +39,6 @@ class GoalKeeper(Player, pygame.sprite.Sprite):
             target_x, target_y = self.strategy.getProxPos()
             new_x, new_y = self.calculate_new_pos(target_x, target_y)
 
-            
             # Verificar límites laterales
             if AREA_G_SUP-7 < new_y < AREA_G_INF - self.rect.height+7:
                 # Verificar límites de fondo
