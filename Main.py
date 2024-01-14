@@ -9,7 +9,7 @@ def main():
     done = False
     background = pygame.image.load("estadio2.png").convert()
     pygame.display.set_caption("Fut_Game")
-    icon = pygame.image.load('pelotaicon.png')
+    icon = pygame.image.load("pelotaicon.png")
     pygame.display.set_icon(icon)
     game = Game()
 

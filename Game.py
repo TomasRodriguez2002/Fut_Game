@@ -29,7 +29,7 @@ class Game(object):
         self.ball = Ball(self, self.mediator, "ball.png")
         self.nicolasFactory = TeamNicolasFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
         self.team1 = self.nicolasFactory.createTeam()
-        self.tomasRFactory = TeamTomasRFactory("player.png", self.mediator, False, 5)
+        self.tomasRFactory = TeamTomasRFactory("sprites/playerMateo.png", self.mediator, False, 5)
         self.team2 = self.tomasRFactory.createTeam()
         self.sprites.add(self.ball)
         self.mediator.setBall(self.ball)
