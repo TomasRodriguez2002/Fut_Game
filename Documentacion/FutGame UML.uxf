@@ -1,0 +1,158 @@
+<diagram program="umletino" version="15.1"><zoom_level>4</zoom_level><element><id>UMLClass</id><coordinates><x>320</x><y>360</y><w>108</w><h>100</h></coordinates><panel_attributes>/Player/
+--
+image: Surface
+rect: Rect
+strategy: Strategy
+mediator: Mediator
+dx: float
+dy: float
+distance: float
+move_speed: int
+hasBall: boolean
+team: boolean
+--
+/update()/
+animation_of_move()
+calculate_new_pos(float, float): float float
+setPosition(float)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>372</x><y>456</y><w>12</w><h>36</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>336</x><y>480</y><w>84</w><h>12</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;190;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>336</x><y>660</y><w>84</w><h>52</h></coordinates><panel_attributes>/TeamFactory/
+--
+spritePNG: str
+mediator: Mediator
+team: boolean
+cantPlayers: int
+--
+/createTeam(): List&lt;Player&gt;/</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>132</x><y>620</y><w>492</w><h>12</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;1210;10</additional_attributes></element><element><id>Relation</id><coordinates><x>132</x><y>592</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>228</x><y>592</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>324</x><y>592</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>592</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>516</x><y>592</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>612</x><y>592</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>372</x><y>620</y><w>12</w><h>48</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>52</x><y>400</y><w>292</w><h>284</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>670;10;10;10;10;690;710;690</additional_attributes></element><element><id>UMLClass</id><coordinates><x>312</x><y>504</y><w>56</w><h>24</h></coordinates><panel_attributes>PlayerField
+--
+update()
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>384</x><y>504</y><w>56</w><h>24</h></coordinates><panel_attributes>GoalKeeper
+--
+update()
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>336</x><y>480</y><w>12</w><h>32</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>408</x><y>480</y><w>12</w><h>32</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>96</x><y>572</y><w>88</w><h>24</h></coordinates><panel_attributes>TeamNicolasFactory
+--
+createTeam(): List&lt;Player&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>192</x><y>572</y><w>88</w><h>24</h></coordinates><panel_attributes>TeamMateoFactory
+--
+createTeam(): List&lt;Player&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>288</x><y>572</y><w>88</w><h>24</h></coordinates><panel_attributes>TeamTomasGFactory
+--
+createTeam(): List&lt;Player&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>572</y><w>88</w><h>24</h></coordinates><panel_attributes>TeamBraianFactory
+--
+createTeam(): List&lt;Player&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>384</x><y>572</y><w>88</w><h>24</h></coordinates><panel_attributes>TeamTomasRFactory
+--
+createTeam(): List&lt;Player&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>576</x><y>572</y><w>88</w><h>24</h></coordinates><panel_attributes>TeamGonzaloFactory
+--
+createTeam(): List&lt;Player&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>488</x><y>236</y><w>152</w><h>100</h></coordinates><panel_attributes>Mediator
+--
+ball: Ball
+players1: List&lt;Player&gt;
+players2: List&lt;Player&gt;
+--
+setBall(Ball)
+addPlayer1(Player)
+addPlayer2(Player)
+restartPositions(Boolean)
+check_colision_between_players(int,int,List&lt;Player&gt;):Boolean
+can_move(Boolean,Float,Float):Boolean
+can_move2(Boolean,Player):Boolean
+shoot_ball(Boolean)
+pass_ball(int,int)
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>384</x><y>284</y><w>112</w><h>84</h></coordinates><panel_attributes>lt=-
+m1=1..1
+m2=0..n
+&lt; posee</panel_attributes><additional_attributes>260;20;10;22;10;190</additional_attributes></element><element><id>Relation</id><coordinates><x>636</x><y>252</y><w>72</w><h>20</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=1..1
+tiene &gt;</panel_attributes><additional_attributes>10;20;160;20</additional_attributes></element><element><id>Relation</id><coordinates><x>636</x><y>284</y><w>72</w><h>20</h></coordinates><panel_attributes>lt=-
+m1=1..1
+m2=0..1
+&lt; comunica a traves de</panel_attributes><additional_attributes>10;20;160;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>700</x><y>236</y><w>88</w><h>100</h></coordinates><panel_attributes>Ball
+--
+image : Surface
+rect : Rect
+move_speed: int
+is_moving: boolean
+dx: float
+dy: float
+distance: float
+game: Game
+mediator: Mediator
+--
+detect_goal()
+detect_limits()
+animation_of_move()
+set_prox_pos(Float, Float)
+update()
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>344</x><y>264</y><w>152</w><h>104</h></coordinates><panel_attributes>lt=-
+m1=1..1
+m2=0..n
+comunica a traves de &gt;</panel_attributes><additional_attributes>360;20;10;22;10;240</additional_attributes></element><element><id>UMLClass</id><coordinates><x>832</x><y>392</y><w>92</w><h>96</h></coordinates><panel_attributes>Game
+--
+team1: List&lt;Player&gt;
+team2: List&lt;Player&gt;
+ball: Ball
+mediator: Mediator
+goal_message_timer: int
+current_goal_message: Surface
+sprites: Group
+--
+initialize_game()
+reset_game()
+process_events()
+run_logic()
+display_frame(Surface, Surface)
+show_goal_message(String, int)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>692</x><y>108</y><w>104</w><h>36</h></coordinates><panel_attributes>GonzaloStrategy
+--
+getProxPos(Player, Mediator)
+with_ball(Player, Mediator): int
+where_to_pass(Player, Mediator): float float
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>180</x><y>140</y><w>580</w><h>32</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>1430;10;1430;60;10;60;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>572</x><y>108</y><w>104</w><h>36</h></coordinates><panel_attributes>BraianStrategy
+--
+getProxPos(Player, Mediator)
+with_ball(Player, Mediator): int
+where_to_pass(Player, Mediator): float float
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>636</x><y>140</y><w>12</w><h>32</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>516</x><y>140</y><w>12</w><h>32</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>UMLClass</id><coordinates><x>452</x><y>108</y><w>104</w><h>36</h></coordinates><panel_attributes>TomasGStrategy
+--
+getProxPos(Player, Mediator)
+with_ball(Player, Mediator): int
+where_to_pass(Player, Mediator): float float
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>336</x><y>108</y><w>104</w><h>36</h></coordinates><panel_attributes>TomasRStrategy
+--
+getProxPos(Player, Mediator)
+with_ball(Player, Mediator): int
+where_to_pass(Player, Mediator): float float
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>396</x><y>140</y><w>12</w><h>32</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>284</x><y>140</y><w>12</w><h>32</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>UMLClass</id><coordinates><x>220</x><y>108</y><w>104</w><h>36</h></coordinates><panel_attributes>MateoStrategy
+--
+getProxPos(Player, Mediator)
+with_ball(Player, Mediator): int
+where_to_pass(Player, Mediator): float float
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>112</x><y>108</y><w>104</w><h>36</h></coordinates><panel_attributes>NicolasStrategy
+--
+getProxPos(Player, Mediator)
+with_ball(Player, Mediator): int
+where_to_pass(Player, Mediator): float float
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>384</x><y>16</y><w>100</w><h>36</h></coordinates><panel_attributes>/Strategy/
+--
+/getProxPos(Player, Mediator)/
+/with_ball(Player, Mediator): int/
+/where_to_pass(Player, Mediator):float float/
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>428</x><y>48</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>784</x><y>288</y><w>120</w><h>112</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=1..1
+informa a &gt;</panel_attributes><additional_attributes>10;10;210;10;210;260</additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>332</y><w>260</w><h>68</h></coordinates><panel_attributes>lt=-
+m1=1..1
+m2=0..1
+&lt; posee</panel_attributes><additional_attributes>10;10;10;60;610;60;610;150</additional_attributes></element><element><id>Relation</id><coordinates><x>424</x><y>388</y><w>416</w><h>20</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..1
+&lt; posee</panel_attributes><additional_attributes>10;20;1020;20</additional_attributes></element><element><id>Relation</id><coordinates><x>784</x><y>268</y><w>148</w><h>132</h></coordinates><panel_attributes>lt=-
+m1=1..1
+m2=0..1
+&lt; posee</panel_attributes><additional_attributes>10;10;300;10;300;310</additional_attributes></element><element><id>Relation</id><coordinates><x>168</x><y>76</y><w>580</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>1430;80;1430;10;10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>272</x><y>76</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>384</x><y>76</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>504</x><y>76</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>76</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>160</y><w>12</w><h>84</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;190;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>332</x><y>160</y><w>12</w><h>208</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;500;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>32</x><y>32</y><w>360</w><h>356</h></coordinates><panel_attributes>lt=-
+m1=1..1
+m2=0..1
+tiene una &gt;</panel_attributes><additional_attributes>880;10;10;10;10;860;720;860</additional_attributes></element><element><id>Relation</id><coordinates><x>136</x><y>540</y><w>492</w><h>12</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;1210;10</additional_attributes></element><element><id>Relation</id><coordinates><x>136</x><y>540</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>232</x><y>540</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>328</x><y>540</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>424</x><y>540</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>540</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>616</x><y>540</y><w>12</w><h>40</h></coordinates><panel_attributes>lt=..</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>436</y><w>48</w><h>116</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>100;10;10;10;10;270</additional_attributes></element></diagram>
