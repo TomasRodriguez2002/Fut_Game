@@ -18,51 +18,59 @@ class Mediator(object):
     def addPlayer2(self, player):
         self.players2.add(player)
 
+    def restart_players_positions(self, players1, players2):
+        i = 0
+        for player in players1:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P5_F5)
+            else:
+                if i == 0:
+                    player.setPosition(POS_SAQUE)
+                else:
+                    player.setPosition(POS_TEAM2_F5[i])
+                i += 1
+        i = 0
+        for player in players2:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P10_F5)
+            else:
+                player.setPosition(POS_TEAM1_F5[i])
+                i += 1
+
     def restart_positions(self, team):
-        self.ball.rect.center = (MITAD_CANCHA, SAQUE)
+        #self.ball.rect.center = (MITAD_CANCHA, SAQUE)
+        self.ball.rect.center = (FONDO_IZQ+20, SAQUE-350)
         # Equipo 1 hizo gol
         if team:
-            i = 0
-            for player in self.players2:
-                if isinstance(player, GoalKeeper):
-                    player.setPosition(POS_P5_F5)
-                else:
-                    player.setPosition(POS_TEAM2_F5[i])
-                    i += 1
-            i = 0
-            for player in self.players1:
-                if isinstance(player, GoalKeeper):
-                    player.setPosition(POS_P10_F5)
-                else:
-                    player.setPosition(POS_TEAM1_F5[i])
-                    i += 1
+            self.restart_players_positions(self.players2, self.players1)
         # Equipo 2 hizo gol
         else:
-            i = 0
-            for player in self.players1:
-                if isinstance(player, GoalKeeper):
-                    player.setPosition(POS_P10_F5)
-                else:
-                    player.setPosition(POS_TEAM1_F5[i])
-                    i += 1
-            i = 0
-            for player in self.players2:
-                if isinstance(player, GoalKeeper):
-                    player.setPosition(POS_P5_F5)
-                else:
-                    player.setPosition(POS_TEAM2_F5[i])
-                    i += 1
-        '''
-        i = 0
-        for pos in POS_TEAM1_F5:
-            self.players1[i].setPosition(pos)
-            i+=1
-        i = 0
-        for pos in POS_TEAM2_F5:
-            self.players2[i].setPosition(pos)
-            i+=1
-        '''
+            self.restart_players_positions(self.players1, self.players2)
 
+    def restart_players_positions2(self):
+        i = 0
+        for player in self.players2:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P5_F5)
+            else:
+                player.setPosition(POS_TEAM2_F5[i])
+                i += 1
+        i = 0
+        for player in self.players1:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P10_F5)
+            else:
+                player.setPosition(POS_TEAM1_F5[i])
+                i += 1
+
+    def restart_positions2(self, team):
+        # Saca del arco equipo 1
+        if team:
+            self.ball.rect.center = (POS_P10_F5)
+        # Saca del arco equipo 2
+        else:
+            self.ball.rect.center = (POS_P5_F5)
+        self.restart_players_positions2()
 
     def check_collision_between_players(self, new_x, new_y, players):
         for teammate in players:

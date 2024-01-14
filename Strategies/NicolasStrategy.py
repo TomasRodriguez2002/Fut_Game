@@ -9,7 +9,8 @@ class NicolasStrategy(Strategy):
         super().__init__()
 
     def getProxPos(self):
-        # return self.mediator.prueba()
+        return self.mediator.prueba()
+        '''
         if isinstance(self.player, GoalKeeper):
             if self.player.team == True:
                 random_x = random.randint(0, 500)
@@ -21,6 +22,7 @@ class NicolasStrategy(Strategy):
                 return random_x, random_y
         else:
             return self.mediator.prueba()
+        '''
 
     def with_ball(self):
         return 2

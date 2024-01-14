@@ -8,9 +8,9 @@ class GoalKeeper(Player, pygame.sprite.Sprite):
         super().__init__(spritePNG, strategy, mediator, team)
         # True -> team1 | False -> team2 
         if self.team:
-            self.rect.center = (FONDO_IZQ+7, SAQUE)
+            self.rect.center = (FONDO_IZQ+10, SAQUE)
         else:
-            self.rect.center = (FONDO_DER-7, SAQUE)
+            self.rect.center = (FONDO_DER-10, SAQUE)
 
     def update(self):
         
@@ -37,16 +37,14 @@ class GoalKeeper(Player, pygame.sprite.Sprite):
         else:
 
             target_x, target_y = self.strategy.getProxPos()
-            print(target_x, target_y)
             new_x, new_y = self.calculate_new_pos(target_x, target_y)
 
-
+            
             # Verificar límites laterales
             if AREA_G_SUP-7 < new_y < AREA_G_INF - self.rect.height+7:
                 # Verificar límites de fondo
                 flag = False
-                if not self.team:
-                    print(flag, new_x, new_y)
+                if self.team:
                     if FONDO_IZQ - 5 < new_x < AREA_G_MID_IZQ - self.rect.width + 5:
                         flag = True
                 else:

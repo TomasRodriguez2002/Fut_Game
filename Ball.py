@@ -10,7 +10,7 @@ class Ball(pygame.sprite.Sprite):
         self.image.set_colorkey([0,0,0])
         self.rect = self.image.get_rect()
         self.rect.center = (MITAD_CANCHA, SAQUE) 
-        self.move_speed = 35
+        self.move_speed = 0#35
         self.is_moving = False
         self.dx = 0
         self.dy = 0
@@ -33,15 +33,29 @@ class Ball(pygame.sprite.Sprite):
         if self.detect_goal():
             self.game.show_goal_message("¡Goooaaal!", 25)  # Ajusta la duración según sea necesario
         
-        # Si la posición en y de la pelota supera algun lateral -> efecto rebote en y
-        if self.rect.top <= LATERAL_IZQ or self.rect.bottom >= LATERAL_DER:
-            #if self.is_moving:
-            self.dy *= -1
-        
+        if (self.rect.top <= LATERAL_IZQ) or (self.rect.bottom >= LATERAL_DER):
+            # Si la pelota se frenó fuera de la cancha -> saque del arco izq
+            if self.move_speed <= 0:
+                if self.rect.centerx <= MITAD_CANCHA:
+                    self.mediator.restart_positions2(True)
+                else:
+                    self.mediator.restart_positions2(False)
+            # efecto rebote en y
+            else: 
+                self.dy *= -1
+            
         # Si la posición en y de la pelota no se encuentra entre los palos y la posicion en x supera la linea de fondo (der o izq) -> efecto rebote en x 
-        if (self.rect.bottom >= PALO_INF or self.rect.top <= PALO_SUP) and \
-            (self.rect.left <= FONDO_IZQ or self.rect.right >= FONDO_DER):
-            self.dx *= -1
+        if (self.rect.left <= FONDO_IZQ) or (self.rect.right >= FONDO_DER):
+            if (self.rect.bottom >= PALO_INF or self.rect.top <= PALO_SUP):
+                # Si la pelota se frenó fuera de la cancha -> saque del arco izq
+                if self.move_speed <= 0:
+                    if self.rect.centerx <= MITAD_CANCHA:
+                        self.mediator.restart_positions2(True)
+                    else:
+                        self.mediator.restart_positions2(False)
+                # efecto rebote en x
+                else:
+                    self.dx *= -1
 
     def animation_of_move(self):
         if self.move_speed != 0 and self.distance != 0:
