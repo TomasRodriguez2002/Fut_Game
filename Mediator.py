@@ -119,7 +119,6 @@ class Mediator(object):
         return False
 
     def shot_ball(self, team):
-        print(team)
         if team:
             self.ball.set_prox_pos(FONDO_DER, random.randint(PALO_SUP - 20, PALO_INF + 20))
         else:
