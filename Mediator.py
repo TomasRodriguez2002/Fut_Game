@@ -2,7 +2,6 @@ from players.GoalKeeper import GoalKeeper
 from Constantes import *
 import pygame, random
 
-
 class Mediator(object):
 
     def __init__(self):
@@ -84,6 +83,7 @@ class Mediator(object):
             self.ball.rect.center = (POS_P5_F5)
         self.restart_players_positions2()
 
+    '''
     def check_collision_between_players(self, new_x, new_y, players):
         for teammate in players:
             if teammate is not self and not isinstance(teammate, GoalKeeper):
@@ -97,18 +97,20 @@ class Mediator(object):
             return self.check_collision_between_players(new_x, new_y, self.players1)
         else:
             return self.check_collision_between_players(new_x, new_y, self.players2)
-
-    def can_move2(self, team, player):
+    '''
+            
+    def can_move(self, team, player):
         if team:
             return pygame.sprite.spritecollide(player, self.players1, False)
         else:
             return pygame.sprite.spritecollide(player, self.players2, False)
 
-
     def check_collision_with_ball(self, player):
         if player.rect.colliderect(self.ball.rect):
             player.hasBall = True
             self.ball.rect.center = player.rect.center
+        else:
+            player.hasBall = False
 
     def check_collision_with_players(self):
         if pygame.sprite.spritecollide(self.ball, self.players1, False) or \
@@ -123,11 +125,24 @@ class Mediator(object):
         else:
             self.ball.set_prox_pos(FONDO_IZQ, random.randint(PALO_SUP - 20, PALO_INF + 20))
 
-
     def pass_ball(self, x, y):
         self.ball.set_prox_pos(x, y)
 
     # BORRAR
     def prueba(self):
         return self.ball.rect.centerx, self.ball.rect.centery
-
+    
+    def getTeammates(self, team):
+        if team:
+            return self.players1
+        else:
+            return self.players2
+    
+    def getRivals(self, team):
+        if team:
+            return self.players2
+        else:
+            return self.players1
+        
+    def getBallsPosition(self):
+        return self.ball.rect.centerx, self.ball.rect.centery

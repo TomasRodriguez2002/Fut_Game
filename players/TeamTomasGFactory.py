@@ -1,17 +1,16 @@
-from Strategies.NicolasStrategy import NicolasStrategy
+from Strategies.TomasGStrategy import TomasGStrategy
 from players.GoalKeeper import GoalKeeper
 from players.PlayerField import PlayerField
 from players.TeamFactory import TeamFactory
 
-
-class TeamNicolasFactory(TeamFactory):
+class TeamTomasGFactory(TeamFactory):
 
     def __init__(self, spritePNG, mediator, team, cantPlayers):
         super().__init__(spritePNG, mediator, team, cantPlayers)
 
     def createTeam(self):
         players = set()
-        strategy = NicolasStrategy()
+        strategy = TomasGStrategy()
         strategy.setMediator(self.mediator)
         player = None
         # creacion de jugadores de campo

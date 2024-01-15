@@ -4,22 +4,18 @@ class Strategy(ABC):
 
     def __init__(self):
         self.mediator = None
-        self.player = None
 
     def setMediator(self, mediator):
         self.mediator = mediator
 
-    def setPlayer(self, player):
-        self.player = player
-
     @abstractmethod
-    def getProxPos(self):
+    def getProxPos(self, player):
         pass
 
     @abstractmethod
-    def with_ball(self):
+    def with_ball(self, player):
         pass
 
     @abstractmethod
-    def where_to_pass(self):
+    def where_to_pass(self, player):
         pass
