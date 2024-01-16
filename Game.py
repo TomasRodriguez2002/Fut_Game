@@ -3,7 +3,7 @@ from Constantes import *
 from Ball import Ball
 from Mediator import Mediator
 from players.TeamNicolasFactory import TeamNicolasFactory
-from players.TeamTomasRFactory import TeamTomasRFactory
+from players.TeamTomasGFactory import TeamTomasGFactory
 pygame.font.init()
 font = pygame.font.Font(None, 100)
 
@@ -27,9 +27,9 @@ class Game(object):
         self.sprites = pygame.sprite.Group()
         self.mediator = Mediator()
         self.ball = Ball(self, self.mediator, "ball.png")
-        self.nicolasFactory = TeamNicolasFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
+        self.nicolasFactory = TeamTomasGFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
         self.team1 = self.nicolasFactory.createTeam()
-        self.tomasRFactory = TeamTomasRFactory("sprites/playerMateo.png", self.mediator, False, 5)
+        self.tomasRFactory = TeamTomasGFactory("sprites/playerMateo.png", self.mediator, False, 5)
         self.team2 = self.tomasRFactory.createTeam()
         self.sprites.add(self.ball)
         self.mediator.setBall(self.ball)

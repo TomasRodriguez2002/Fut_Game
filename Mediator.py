@@ -8,6 +8,7 @@ class Mediator(object):
         self.ball = None
         self.players1 = pygame.sprite.Group()
         self.players2 = pygame.sprite.Group()
+        self.pinch = False
     def setBall(self, ball):
         self.ball = ball
 
@@ -106,7 +107,7 @@ class Mediator(object):
             return pygame.sprite.spritecollide(player, self.players2, False)
 
     def check_collision_with_ball(self, player):
-        if player.rect.colliderect(self.ball.rect):
+        if player.rect.colliderect(self.ball.rect) and not self.pinch:
             player.hasBall = True
             self.ball.rect.center = player.rect.center
         else:
@@ -141,3 +142,22 @@ class Mediator(object):
         
     def getBallsPosition(self):
         return self.ball.rect.centerx, self.ball.rect.centery
+
+    def fighting_for_ball(self):
+        cont1 = 0
+        cont2 = 0
+        for player in self.players1:
+            if player.rect.colliderect(self.ball):
+                cont1+=1
+
+        for player in self.players2:
+            if player.rect.colliderect(self.ball):
+                cont2+=1
+
+        if (cont1 > 0 and cont2 > 0) or (cont1 > 1) or (cont2 > 1):
+            self.pinch = True
+            random_x = random.randint(FONDO_IZQ,FONDO_DER)
+            random_y = random.randint(LATERAL_IZQ,LATERAL_DER)
+            self.ball.set_prox_pos(random_x, random_y)
+        else:
+            self.pinch = False

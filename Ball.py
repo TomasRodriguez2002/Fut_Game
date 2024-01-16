@@ -64,7 +64,7 @@ class Ball(pygame.sprite.Sprite):
             self.move_speed -= 1
         # AL REFEREE    
         if self.move_speed <= 0 or self.mediator.check_collision_with_players():    
-            self.move_speed = 35
+            self.move_speed = 35#35
             self.is_moving = False
 
     def set_prox_pos(self, x, y):
@@ -74,7 +74,7 @@ class Ball(pygame.sprite.Sprite):
         self.is_moving = True
 
     def update(self):
-
+        self.mediator.fighting_for_ball()
         self.detect_limits()
 
         if self.is_moving:
