@@ -126,10 +126,6 @@ class Mediator(object):
 
     def pass_ball(self, x, y):
         self.ball.set_prox_pos(x, y)
-
-    # BORRAR
-    def prueba(self):
-        return self.ball.rect.centerx, self.ball.rect.centery
     
     def getTeammates(self, team):
         if team:
