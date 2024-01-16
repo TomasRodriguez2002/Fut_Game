@@ -18,8 +18,8 @@ class PlayerField(Player, pygame.sprite.Sprite):
             FONDO_IZQ - 5 < new_x < FONDO_DER - self.rect.width + 5:
             # Verificar la distancia con los compañeros
             #if self.mediator.can_move(self.team, new_x, new_y):
-            if self.mediator.can_move(self.team, self):
-                self.animation_of_move()
+            #if self.mediator.can_move(self.team, self):
+            self.animation_of_move()
 
     def update(self):
         

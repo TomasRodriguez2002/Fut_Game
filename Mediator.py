@@ -98,13 +98,14 @@ class Mediator(object):
             return self.check_collision_between_players(new_x, new_y, self.players1)
         else:
             return self.check_collision_between_players(new_x, new_y, self.players2)
-    '''
+    
             
     def can_move(self, team, player):
         if team:
             return pygame.sprite.spritecollide(player, self.players1, False)
         else:
             return pygame.sprite.spritecollide(player, self.players2, False)
+    '''
 
     def check_collision_with_ball(self, player):
         if player.rect.colliderect(self.ball.rect) and not self.pinch:
