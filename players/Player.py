@@ -29,9 +29,15 @@ class Player(pygame.sprite.Sprite, ABC):
             self.rect.y += self.dy / self.distance * self.move_speed
 
     def calculate_new_pos(self, target_x, target_y):
+        if (target_x == self.rect.centerx) and (target_y == self.rect.centery):
+            return target_x, target_y
         self.dx = target_x - self.rect.centerx
         self.dy = target_y - self.rect.centery
         self.distance = (self.dx ** 2 + self.dy ** 2) ** 0.5
+
+        new_x = (self.rect.x + self.dx / self.distance * self.move_speed)
+        new_y = (self.rect.y + self.dy / self.distance * self.move_speed)
+        return new_x, new_y
 
     def setPosition(self, pos):
          self.rect.center = pos
