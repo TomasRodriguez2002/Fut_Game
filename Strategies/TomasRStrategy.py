@@ -103,13 +103,16 @@ class TomasRStrategy(Strategy):
                             else:
                                 return AREA_C_MID_IZQ, PALO_INF
                         else:
-                            # movimiento del arquero (pelota en dentro o fuera del area grande)
+                            # movimiento del arquero (pelota dentro o fuera del area grande)
                             if 420 > ball_centery:
                                 if 340 < ball_centery:
+                                    print ("A")
                                     return (FONDO_IZQ+10, SAQUE)
                                 else:
+                                    print("B")
                                     return FONDO_IZQ+10, 340
                             else:
+                                print("C")
                                 return FONDO_IZQ+10, 420
                     else:
                         if ball_centerx < MITAD_CANCHA:
@@ -230,10 +233,13 @@ class TomasRStrategy(Strategy):
         return jugador_mas_alejado.rect.center if jugador_mas_alejado else (MITAD_CANCHA, SAQUE)
 
     def where_to_pass(self, player):
+        return MITAD_CANCHA-200, AREA_G_INF+50
+        '''
         teammates = self.mediator.getTeammates(player.team)
         rivals = self.mediator.getRivals(player.team)
 
         return self.encontrar_jugador_mas_alejado(player, teammates, rivals)
+        '''
 '''
     def where_to_pass(self, player):
         # puedo:
