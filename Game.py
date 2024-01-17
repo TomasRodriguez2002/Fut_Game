@@ -2,8 +2,7 @@ import pygame, random
 from Constantes import *
 from Ball import Ball
 from Mediator import Mediator
-from players.TeamNicolasFactory import TeamNicolasFactory
-from players.TeamTomasGFactory import TeamTomasGFactory
+from players.TeamTomasRFactory import TeamTomasRFactory
 pygame.font.init()
 font = pygame.font.Font(None, 100)
 
@@ -27,10 +26,10 @@ class Game(object):
         self.sprites = pygame.sprite.Group()
         self.mediator = Mediator()
         self.ball = Ball(self, self.mediator, "ball.png")
-        self.nicolasFactory = TeamTomasGFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
-        self.team1 = self.nicolasFactory.createTeam()
-        self.tomasRFactory = TeamTomasGFactory("sprites/playerMateo.png", self.mediator, False, 5)
-        self.team2 = self.tomasRFactory.createTeam()
+        self.team1Factory = TeamTomasRFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
+        self.team1 = self.team1Factory.createTeam()
+        self.team2Factory = TeamTomasRFactory("player.png", self.mediator, False, 5)
+        self.team2 = self.team2Factory.createTeam()
         self.sprites.add(self.ball)
         self.mediator.setBall(self.ball)
         for player in self.team1:
