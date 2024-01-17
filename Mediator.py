@@ -98,6 +98,7 @@ class Mediator(object):
             return self.check_collision_between_players(new_x, new_y, self.players1)
         else:
             return self.check_collision_between_players(new_x, new_y, self.players2)
+    
             
     def can_move(self, team, player):
         if team:
