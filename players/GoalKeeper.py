@@ -1,8 +1,7 @@
 from players.Player import Player
-from Constantes import * 
-import pygame
+from Constantes import *
 
-class GoalKeeper(Player, pygame.sprite.Sprite):
+class GoalKeeper(Player):
 
     def __init__(self, spritePNG, strategy, mediator, team):
         super().__init__(spritePNG, strategy, mediator, team)
