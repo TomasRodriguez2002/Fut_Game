@@ -1,6 +1,5 @@
 from players.Player import Player
-from Constantes import * 
-import pygame
+from Constantes import *
 
 class GoalKeeper(Player):
 
