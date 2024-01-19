@@ -4,16 +4,21 @@ from Ball import Ball
 from Mediator import Mediator
 from players.TeamNicolasFactory import TeamNicolasFactory
 from players.TeamTomasGFactory import TeamTomasGFactory
+from players.TeamGonzaloFactory import TeamGonzaloFactory
+from players.TeamMateoFactory import TeamMateoFactory
+from players.TeamBraianFactory import TeamBraianFactory
+from players.TeamTomasRFactory import TeamTomasRFactory
+
 pygame.font.init()
 font = pygame.font.Font(None, 100)
 
 class Game(object):
 
     def __init__(self):
+        self.team1_name = ""
+        self.team2_name = ""
         self.team2 = None
-        self.tomasRFactory = None
         self.team1 = None
-        self.nicolasFactory = None
         self.ball = None
         self.mediator = None
         self.goal_message = None
@@ -27,10 +32,49 @@ class Game(object):
         self.sprites = pygame.sprite.Group()
         self.mediator = Mediator()
         self.ball = Ball(self, self.mediator, "ball.png")
-        self.nicolasFactory = TeamTomasGFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
-        self.team1 = self.nicolasFactory.createTeam()
-        self.tomasRFactory = TeamTomasGFactory("sprites/playerMateo.png", self.mediator, False, 5)
-        self.team2 = self.tomasRFactory.createTeam()
+
+        if self.team1_name == "braian":
+            braianFactory = TeamBraianFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
+            self.team1 = braianFactory.createTeam()
+        elif self.team2_name == "braian":
+            braianFactory = TeamBraianFactory("sprites/playerNico(Peruano).png", self.mediator, False, 5)
+            self.team2 = braianFactory.createTeam()
+            
+        if self.team1_name == "mateo":
+            mateoFactory = TeamMateoFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
+            self.team1 = mateoFactory.createTeam()
+        elif self.team2_name == "mateo":
+            mateoFactory = TeamMateoFactory("sprites/playerNico(Peruano).png", self.mediator, False, 5)
+            self.team2 = mateoFactory.createTeam()
+
+        if self.team1_name == "gonzalo":
+            gonzaloFactory = TeamGonzaloFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
+            self.team1 = gonzaloFactory.createTeam()
+        elif self.team2_name == "gonzalo":
+            gonzaloFactory = TeamGonzaloFactory("sprites/playerNico(Peruano).png", self.mediator, False, 5)
+            self.team2 = gonzaloFactory.createTeam()
+
+        if self.team1_name == "nicolas":
+            nicolasFactory = TeamNicolasFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
+            self.team1 = nicolasFactory.createTeam()
+        elif self.team2_name == "nicolas":
+            nicolasFactory = TeamNicolasFactory("sprites/playerNico(Peruano).png", self.mediator, False, 5)
+            self.team2 = nicolasFactory.createTeam()
+
+        if self.team1_name == "tomas_r":
+            tomasRFactory = TeamTomasRFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
+            self.team1 = tomasRFactory.createTeam()
+        elif self.team2_name == "tomas_r":
+            tomasRFactory = TeamTomasRFactory("sprites/playerNico(Peruano).png", self.mediator, False, 5)
+            self.team2 = tomasRFactory.createTeam()
+
+        if self.team1_name == "tomas_g":
+            tomasGFactory = TeamTomasGFactory("sprites/playerNico(Peruano).png", self.mediator, True, 5)
+            self.team1 = tomasGFactory.createTeam()
+        elif self.team2_name == "tomas_g":
+            tomasGFactory = TeamTomasGFactory("sprites/playerNico(Peruano).png", self.mediator, False, 5)
+            self.team2 = tomasGFactory.createTeam()
+
         self.sprites.add(self.ball)
         self.mediator.setBall(self.ball)
         for player in self.team1:
@@ -40,6 +84,28 @@ class Game(object):
             self.mediator.addPlayer2(player)
             self.sprites.add(player)
         self.mediator.restart_positions(random.choice([True, False]))
+
+    def setTeam1Name(self, name):
+        self.team1_name = name
+
+    def setTeam2Name(self, name):
+        self.team2_name = name
+
+    def play(self):
+        pygame.init()
+        screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)
+        clock = pygame.time.Clock()
+        done = False
+        background = pygame.image.load("estadio2.png").convert()
+        pygame.display.set_caption("Fut_Game")
+        icon = pygame.image.load("pelotaicon.png")
+        pygame.display.set_icon(icon)
+        while not done:
+            done = self.process_events()
+            self.run_logic()
+            self.display_frame(screen, background)
+            clock.tick(FPS)
+        pygame.quit()
 
     def reset_game(self):
         self.sprites.empty()  # Elimina todos los sprites actuales
