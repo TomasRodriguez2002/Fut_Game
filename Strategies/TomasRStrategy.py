@@ -7,7 +7,6 @@ class TomasRStrategy(Strategy):
 
     # 27 px de width y height el sprite del player
 
-
     MARKS_DISTANCE = 80
 
     def __init__(self):
