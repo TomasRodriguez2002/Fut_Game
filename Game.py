@@ -17,6 +17,13 @@ class Game(object):
     def __init__(self, team1_name, team2_name):
         self.team1_name = team1_name
         self.team2_name = team2_name
+        self.whistle = pygame.mixer.Sound("Sounds/whistle.wav")
+        self.goal = pygame.mixer.Sound("Sounds/goal.wav")
+        self.goal.set_volume(0.05)
+        pygame.mixer.music.load("Sounds/ambiente.wav")
+        pygame.mixer.music.set_volume(0.1)
+        pygame.mixer.music.play(-1)
+        
         self.initialize_game()
 
     def initialize_game(self):
@@ -120,6 +127,8 @@ class Game(object):
             if event.type == pygame.QUIT:
                 return True
             elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return True
                 # Verificar si se presionó Ctrl+R para resetear el juego
                 if event.key == pygame.K_r and pygame.key.get_mods() & pygame.KMOD_CTRL:
                     self.reset_game()

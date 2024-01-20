@@ -79,6 +79,9 @@ def process_events(cursor, botonBraian, botonGonzalo, botonMateo, botonNicolas, 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return True
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                return True
         if event.type == pygame.MOUSEBUTTONDOWN:
             if cursor.colliderect(botonBraian.rect):
                 set_team_names(BRAIAN)
