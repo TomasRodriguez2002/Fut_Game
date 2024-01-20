@@ -27,7 +27,7 @@ class Game(object):
         self.goal.set_volume(0.05)
         self.environment = pygame.mixer.Sound("Sounds/ambiente.wav")
         self.environment.set_volume(0.1)
-        self.environment.play(-1)
+        self.canal1 = self.environment.play(-1)
         self.initialize_game()
 
     def initialize_game(self):
@@ -153,11 +153,12 @@ class Game(object):
     def process_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.mixer.pause()
+                self.canal1.pause()
                 return True
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    pygame.mixer.pause()
+                    #pygame.mixer.pause()
+                    self.canal1.pause()
                     return True
                 # Verificar si se presionó Ctrl+R para resetear el juego
                 if event.key == pygame.K_r and pygame.key.get_mods() & pygame.KMOD_CTRL:
@@ -168,8 +169,8 @@ class Game(object):
         self.sprites.update()
         if self.minutes == 1 and not self.half_time:
             self.resume_game()
-        if self.seconds == 20:
-            pass
+        if self.minutes == 2:
+            self.canal1.stop()
         self.total_ticks += 1
         # Actualizar el tiempo cada segundo (30 ticks)
         if self.total_ticks % 30 == 0:
