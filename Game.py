@@ -14,9 +14,9 @@ font = pygame.font.Font(None, 100)
 
 class Game(object):
 
-    def __init__(self):
-        self.team1_name = ""
-        self.team2_name = ""
+    def __init__(self, team1_name, team2_name):
+        self.team1_name = team1_name
+        self.team2_name = team2_name
         self.team2 = None
         self.team1 = None
         self.ball = None
@@ -74,7 +74,7 @@ class Game(object):
         elif self.team2_name == "tomas_g":
             tomasGFactory = TeamTomasGFactory("sprites/playerNico(Peruano).png", self.mediator, False, 5)
             self.team2 = tomasGFactory.createTeam()
-
+        
         self.sprites.add(self.ball)
         self.mediator.setBall(self.ball)
         for player in self.team1:
@@ -84,12 +84,6 @@ class Game(object):
             self.mediator.addPlayer2(player)
             self.sprites.add(player)
         self.mediator.restart_positions(random.choice([True, False]))
-
-    def setTeam1Name(self, name):
-        self.team1_name = name
-
-    def setTeam2Name(self, name):
-        self.team2_name = name
 
     def play(self):
         pygame.init()
