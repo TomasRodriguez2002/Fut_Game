@@ -36,7 +36,7 @@ class TomasGStrategy(Strategy):
         if isinstance(player, GoalKeeper):
 
             if player.team:
-                if AREA_G_MID_IZQ > ball_position[0] > FONDO_IZQ and AREA_G_SUP < ball_position[1] < AREA_G_INF:
+                if AREA_G_MID_IZQ - player.rect.width + 5 > ball_position[0] > FONDO_IZQ and AREA_G_SUP-7 < ball_position[1] < AREA_G_INF - player.rect.height+7:
                     if self.is_goalkeeper_closest_to_ball(player,teammates):
                         return ball_position
                     else:
@@ -50,7 +50,7 @@ class TomasGStrategy(Strategy):
                         return current_position[0], new_y
                     return POS_P10_F5
             else:
-                if AREA_G_MID_DER < ball_position[0] < FONDO_DER and AREA_G_SUP < ball_position[1] < AREA_G_INF:
+                if AREA_G_MID_DER - 5 < ball_position[0] < FONDO_DER - player.rect.width + 5 and AREA_G_SUP-7 < ball_position[1] < AREA_G_INF - player.rect.height+7:
                     if self.is_goalkeeper_closest_to_ball(player, teammates):
                         return ball_position
                     else:
