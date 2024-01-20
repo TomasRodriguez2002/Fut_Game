@@ -59,16 +59,6 @@ class TomasRStrategy(Strategy):
     
     def distance_to_ball(self, player, ball_centerx, ball_centery):
         return math.sqrt((ball_centerx - player.rect.centerx)**2 + (ball_centery - player.rect.centery)**2)
-    
-    def marked_player(self, player):
-        rivals = self.mediator.getRivals(player.team)
-        for rival in rivals:
-            # se considera marcado si el rival se encuentra en frente
-            if ((player.team) and (player.rect.centerx < rival.rect.centerx)) or \
-                ((not player.team) and (player.rect.centerx > rival.rect.centerx)):
-                    if self.distance_to_player(player, rival) < self.MARKS_DISTANCE:
-                        return True
-        return False
 
     def getProxPos(self, player):
         ball_centerx, ball_centery = self.mediator.getBallsPosition()
@@ -419,6 +409,16 @@ class TomasRStrategy(Strategy):
                                 y = rival.rect.centery
                 return x, y
                 '''
+    # retorna si un jugador esta siendo o no marcado
+    def marked_player(self, player):
+        rivals = self.mediator.getRivals(player.team)
+        for rival in rivals:
+            # se considera marcado si el rival se encuentra en frente
+            if ((player.team) and (player.rect.centerx < rival.rect.centerx)) or \
+                ((not player.team) and (player.rect.centerx > rival.rect.centerx)):
+                    if self.distance_to_player(player, rival) < self.MARKS_DISTANCE:
+                        return True
+        return False
 
     def with_ball(self, player):
         # 1 -> patear | 2 -> pasar | 3 -> moverse
@@ -462,10 +462,11 @@ class TomasRStrategy(Strategy):
         x, y = player.rect.centerx, LATERAL_DER
         for rival in rivals:
             for teammate in teammates:
-                if teammate != player:
+                # evitar pasarsela al arquero
+                if teammate != player and not isinstance(teammate, GoalKeeper):
                     # verificar que el jugador no este a la espalda del rival para evitar pases al rival
-                    if (player.team and teammate.rect.centerx < rival.rect.centerx) or \
-                    (not player.team and teammate.rect.centerx > rival.rect.centerx):
+                    if (player.team and teammate.rect.centerx < rival.rect.centerx-40) or \
+                    (not player.team and teammate.rect.centerx > rival.rect.centerx+20):
                         
                         teammate_distance_to_rival = self.distance_to_player(teammate, rival)
                         if teammate_distance_to_rival > max_distance_general:

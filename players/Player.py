@@ -18,6 +18,7 @@ class Player(pygame.sprite.Sprite, ABC):
         self.move_speed = 7
         self.hasBall = False
         self.team = team
+        self.direction_of_movement = ""
             
     @abstractmethod
     def update(self):
@@ -25,8 +26,25 @@ class Player(pygame.sprite.Sprite, ABC):
 
     def animation_of_move(self):
         if self.distance != 0:
+            self.direction_of_movement = ""
+            old_x = self.rect.x
+            old_y = self.rect.y
+
             self.rect.x += self.dx / self.distance * self.move_speed
             self.rect.y += self.dy / self.distance * self.move_speed
+
+            if self.rect.x > old_x: # avanzo hacia la derecha (Right)
+                self.direction_of_movement += "R"
+            elif self.rect.x < old_x: # avanzo hacia la izquierda (Left)
+                self.direction_of_movement += "L"
+          # else:  no hay movimiento en x 
+            if self.rect.y > old_y: # avanzo hacia abajo (Bottom)
+                self.direction_of_movement += "B"
+            elif self.rect.y < old_y: # avanzo hacia arriba (Top)
+                self.direction_of_movement += "T"
+          # else:  no hay movimiento en y
+
+            # RB | RT | LB | LT = movimientos en diagonal
 
     def calculate_new_pos(self, target_x, target_y):
         if (target_x == self.rect.centerx) and (target_y == self.rect.centery):

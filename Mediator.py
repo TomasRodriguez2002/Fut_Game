@@ -110,7 +110,33 @@ class Mediator(object):
     def check_collision_with_ball(self, player):
         if player.rect.colliderect(self.ball.rect) and not self.pinch:
             player.hasBall = True
-            self.ball.rect.center = player.rect.center
+            # self.ball.rect.center = player.rect.center
+            if player.direction_of_movement == "R":
+                self.ball.rect.left = player.rect.right
+                self.ball.rect.centery = player.rect.centery
+            elif player.direction_of_movement == "L":
+                self.ball.rect.right = player.rect.left
+                self.ball.rect.centery = player.rect.centery
+            elif player.direction_of_movement == "B":
+                self.ball.rect.top = player.rect.bottom
+                self.ball.rect.centerx = player.rect.centerx
+            elif player.direction_of_movement == "T":
+                self.ball.rect.bottom = player.rect.top
+                self.ball.rect.centerx = player.rect.centerx
+            '''
+            elif player.direction_of_movement == "RB":
+                self.ball.rect.left = player.rect.right
+                self.ball.rect.top = player.rect.bottom
+            elif player.direction_of_movement == "RT":
+                self.ball.rect.left = player.rect.right
+                self.ball.rect.bottom = player.rect.top
+            elif player.direction_of_movement == "LB":
+                self.ball.rect.right = player.rect.left
+                self.ball.rect.top = player.rect.bottom
+            elif player.direction_of_movement == "LT":
+                self.ball.rect.right = player.rect.left
+                self.ball.rect.bottom = player.rect.top
+            '''
         else:
             player.hasBall = False
 
