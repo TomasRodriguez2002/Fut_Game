@@ -33,6 +33,9 @@ def selectMain():
     pygame.display.set_caption("Menu de seleccion")
     icon = pygame.image.load("pelotaicon.png")
     pygame.display.set_icon(icon)
+    environment = pygame.mixer.Sound("Sounds/SonidoMenu.wav")
+    environment.set_volume(0.3)
+    canal1 = environment.play(-1)
 
     cursor = Cursor()
     # Calcular posiciones de los botones
@@ -60,7 +63,11 @@ def selectMain():
         done = process_events(cursor, botonBraian, botonGonzalo, botonMateo, botonNicolas, botonTomasG, botonTomasR)
         if team1_name != "" and team2_name != "":
             game = Game(team1_name, team2_name)
+            canal1.stop()
             game.play()
+            canal1.play(-1)
+            unpush(team1_name, botonMateo, botonBraian, botonNicolas, botonTomasG, botonTomasR, botonGonzalo)
+            unpush(team2_name, botonMateo, botonBraian, botonNicolas, botonTomasG, botonTomasR, botonGonzalo)
             team1_name = ""
             team2_name = ""
             count_press = 0
@@ -68,6 +75,20 @@ def selectMain():
         display_frame(screen, background, cursor, botones)
         clock.tick(FPS)
     pygame.quit()
+
+def unpush(team_name, botonMateo, botonBraian, botonNicolas, botonTomasG, botonTomasR, botonGonzalo):
+    if team_name == BRAIAN:
+        botonBraian.push()
+    elif team_name == GONZALO:
+        botonGonzalo.push()
+    elif team_name == NICOLAS:
+        botonNicolas.push()
+    elif team_name == TOMAS_G:
+        botonTomasG.push()
+    elif team_name == TOMAS_R:
+        botonTomasR.push()
+    elif team_name == MATEO:
+        botonMateo.push()
 
 def set_team_names(name):
     global count_press, team1_name, team2_name
@@ -96,8 +117,10 @@ def process_events(cursor, botonBraian, botonGonzalo, botonMateo, botonNicolas, 
                 set_team_names(NICOLAS)
             elif cursor.colliderect(botonTomasR.rect):
                 set_team_names(TOMAS_R)
+                botonTomasR.push()
             elif cursor.colliderect(botonTomasG.rect):
                 set_team_names(TOMAS_G)
+                botonTomasG.push()
     return False
 
 def display_frame(screen, background, cursor, botones):
