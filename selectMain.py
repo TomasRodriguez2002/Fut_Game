@@ -61,6 +61,9 @@ def selectMain():
         if team1_name != "" and team2_name != "":
             game = Game(team1_name, team2_name)
             game.play()
+            team1_name = ""
+            team2_name = ""
+            count_press = 0
         botones = [botonMateo, botonBraian, botonNicolas, botonTomasG, botonTomasR, botonGonzalo]
         display_frame(screen, background, cursor, botones)
         clock.tick(FPS)

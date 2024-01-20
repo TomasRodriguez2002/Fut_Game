@@ -17,13 +17,15 @@ class Game(object):
     def __init__(self, team1_name, team2_name):
         self.team1_name = team1_name
         self.team2_name = team2_name
+        self.goals_team1 = 0
+        self.goals_team2 = 0
+        self.half_time = False
         self.whistle = pygame.mixer.Sound("Sounds/whistle.wav")
         self.goal = pygame.mixer.Sound("Sounds/goal.wav")
         self.goal.set_volume(0.05)
-        pygame.mixer.music.load("Sounds/ambiente.wav")
-        pygame.mixer.music.set_volume(0.1)
-        pygame.mixer.music.play(-1)
-        
+        self.environment = pygame.mixer.Sound("Sounds/ambiente.wav")
+        self.environment.set_volume(0.1)
+        self.environment.play(-1)
         self.initialize_game()
 
     def initialize_game(self):
@@ -34,9 +36,12 @@ class Game(object):
         self.goal_message = None
         self.current_goal_message = None
         self.sprites = pygame.sprite.Group()
-        self.total_ticks = 0
-        self.minutes = 0
-        self.seconds = 0
+        if not self.half_time:
+            self.total_ticks = 0
+            self.minutes = 0
+            self.seconds = 0
+            self.goals_team1 = 0
+            self.goals_team2 = 0
         self.team1_created = False
         self.goal_message = None         
         self.current_goal_message = None
@@ -116,18 +121,29 @@ class Game(object):
             self.run_logic()
             self.display_frame(screen, background)
             clock.tick(FPS)
-        pygame.quit()
+        return
 
     def reset_game(self):
-        self.sprites.empty()  # Elimina todos los sprites actuales
+        self.sprites.empty() 
+        self.half_time = False 
+        self.initialize_game()
+
+    def resume_game(self):
+        self.half_time = True
+        self.sprites.empty()
+        aux = self.team1_name
+        self.team1_name = self.team2_name
+        self.team2_name = aux
         self.initialize_game()
 
     def process_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.mixer.pause()
                 return True
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    pygame.mixer.pause()
                     return True
                 # Verificar si se presionó Ctrl+R para resetear el juego
                 if event.key == pygame.K_r and pygame.key.get_mods() & pygame.KMOD_CTRL:
@@ -136,6 +152,10 @@ class Game(object):
 
     def run_logic(self):
         self.sprites.update()
+        if self.seconds == 10 and not self.half_time:
+            self.resume_game()
+        if self.seconds == 20:
+            pass
         self.total_ticks += 1
         # Actualizar el tiempo cada segundo (30 ticks)
         if self.total_ticks % 30 == 0:
@@ -157,10 +177,24 @@ class Game(object):
         # Mostrar el contador de tiempo en la parte superior al centro
         timer_text = f"{self.minutes:02d}:{self.seconds:02d}"
         timer_surface = font.render(timer_text, True, (255, 255, 255))
-        timer_position = ((WIDTH - timer_surface.get_width()) // 2, 20)
+        # Ajustar el tamaño en y del contador de tiempo a 50
+        timer_surface = pygame.transform.scale(timer_surface, (75, 45))
+        timer_position = (MITAD_CANCHA-(timer_surface.get_width()//2), 5)
+        
         screen.blit(timer_surface, timer_position)
 
+        # Mostrar contadores de goles
+        goals_text = f"{self.goals_team1} - {self.goals_team2}"
+        goals_surface = font.render(goals_text, True, (255, 255, 255))
+        goals_position = (650, 5)
+        
+        # Ajustar el tamaño en y del contador de goles a 50
+        goals_surface = pygame.transform.scale(goals_surface, (75, 45))
+        
+        screen.blit(goals_surface, goals_position)
+
         pygame.display.flip()
+
 
     def show_goal_message(self, message, duration):
             self.goal_message_timer = duration

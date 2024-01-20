@@ -109,7 +109,7 @@ class TomasGStrategy(Strategy):
                                 opposing_players = [opponent for opponent in rivals if
                                                     opponent.rect.x > ball_position[0]] #ARREGLAR ESTA PARTEeeeeeeeeeeeeeeeeeeee
                                 with self.marked_opponents_lock:
-                                    print("HGola")
+                                    #print("HGola")
                                     unmarked_opponents = [opp for opp in opposing_players if
                                                           opp not in self.marked_opponents.values()]
                                     if unmarked_opponents:
