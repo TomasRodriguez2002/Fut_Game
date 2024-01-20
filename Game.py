@@ -166,7 +166,7 @@ class Game(object):
 
     def run_logic(self):
         self.sprites.update()
-        if self.seconds == 60 and not self.half_time:
+        if self.minutes == 1 and not self.half_time:
             self.resume_game()
         if self.seconds == 20:
             pass
