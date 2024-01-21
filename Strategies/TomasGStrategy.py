@@ -36,33 +36,43 @@ class TomasGStrategy(Strategy):
         if isinstance(player, GoalKeeper):
 
             if player.team:
-                if AREA_G_MID_IZQ - player.rect.width + 5 > ball_position[0] > FONDO_IZQ and AREA_G_SUP-7 < ball_position[1] < AREA_G_INF - player.rect.height+7:
-                    if self.is_goalkeeper_closest_to_ball(player,teammates):
-                        return ball_position
+                #SI EL ARQUERO TIENE LA PELOTA CHECKEAR QUE NO SE PASE DE LOS LIMITES.
+                if player.hasBall:
+                    return AREA_G_MID_IZQ - player.rect.width+5,player.rect.centery
+                    #SOY DEL TEAM IZQUIERDO ME MUEVO PARA LA DERECHA CHECKEAR LIMITES.
+                else:
+                    if AREA_G_MID_IZQ - player.rect.width + 5 > ball_position[0] > FONDO_IZQ and AREA_G_SUP-7 < ball_position[1] < AREA_G_INF - player.rect.height+7:
+                        if self.is_goalkeeper_closest_to_ball(player,teammates):
+                            return ball_position
+                        else:
+                            return POS_P10_F5
                     else:
+                        rival_with_ball = next((rival for rival in rivals if rival.hasBall), None)
+                        if rival_with_ball:
+                            current_position = POS_P10_F5
+                            small_range = 200
+                            new_y = current_position[1] + random.randint(-small_range, small_range)
+                            return current_position[0], new_y
                         return POS_P10_F5
-                else:
-                    rival_with_ball = next((rival for rival in rivals if rival.hasBall), None)
-                    if rival_with_ball:
-                        current_position = POS_P10_F5
-                        small_range = 200
-                        new_y = current_position[1] + random.randint(-small_range, small_range)
-                        return current_position[0], new_y
-                    return POS_P10_F5
             else:
-                if AREA_G_MID_DER - 5 < ball_position[0] < FONDO_DER - player.rect.width + 5 and AREA_G_SUP-7 < ball_position[1] < AREA_G_INF - player.rect.height+7:
-                    if self.is_goalkeeper_closest_to_ball(player, teammates):
-                        return ball_position
-                    else:
-                        return POS_P5_F5
+                #SI EL ARQUERO TIENE LA PELOTA CHECKEAR QUE NO SE PASE DE LOS LIMITES.
+                if player.hasBall:
+                    return AREA_G_MID_DER + 5, player.rect.centery
+                # SOY DEL TEAM DERECHO ME MUEVO PARA LA DERECHA CHECKEAR LIMITES.
                 else:
-                    rival_with_ball = next((rival for rival in rivals if rival.hasBall), None)
-                    if rival_with_ball:
-                        current_position = POS_P5_F5
-                        small_range = 200
-                        new_y = current_position[1] + random.randint(-small_range, small_range)
-                        return current_position[0], new_y
-                    return POS_P5_F5
+                    if AREA_G_MID_DER + 5 < ball_position[0] < FONDO_DER - player.rect.width + 5 and AREA_G_SUP-7 < ball_position[1] < AREA_G_INF - player.rect.height+7:
+                        if self.is_goalkeeper_closest_to_ball(player, teammates):
+                            return ball_position
+                        else:
+                            return POS_P5_F5
+                    else:
+                        rival_with_ball = next((rival for rival in rivals if rival.hasBall), None)
+                        if rival_with_ball:
+                            current_position = POS_P5_F5
+                            small_range = 200
+                            new_y = current_position[1] + random.randint(-small_range, small_range)
+                            return current_position[0], new_y
+                        return POS_P5_F5
         else:
             if player.hasBall:
                 # Si el jugador tiene la pelota, dirigirse hacia el área del equipo rival
@@ -115,7 +125,7 @@ class TomasGStrategy(Strategy):
                                                                    key=lambda opp: self.get_distance2(player, opp.rect.center))
                                             self.marked_opponents[
                                                 player] = closest_opponent  # Marcar al oponente para evitar que otros jugadores lo elijan
-                                            print("El jugador", player.rect.center, "marca a", closest_opponent.rect.center)
+
 
                                             return closest_opponent.rect.center
                             else:
@@ -163,13 +173,13 @@ class TomasGStrategy(Strategy):
                     new_y = SAQUE + random.uniform(-small_range, small_range)
                     new_position = (new_x, new_y)
             else:
-                small_range = 270
+                small_range = 200
                 if player.team:
-                    new_x = AREA_G_MID_DER + random.uniform(-small_range, small_range)
+                    new_x = AREA_G_MID_DER + random.randint(0,small_range)
                     new_y = SAQUE + random.uniform(-small_range, small_range)
                     new_position = (new_x, new_y)
                 else:
-                    new_x = AREA_G_MID_IZQ + random.uniform(-small_range, small_range)
+                    new_x = AREA_G_MID_IZQ + random.randint(-small_range,0)
                     new_y = SAQUE + random.uniform(-small_range, small_range)
                     new_position = (new_x, new_y)
 
@@ -182,36 +192,66 @@ class TomasGStrategy(Strategy):
         # Implementa según tus necesidades específicas
         return (x, y)
 
+    def closses_teammate_in_area(self,player,teammates):
+        if player.team:
+            closest_teammate = min(teammates.sprites(),
+                                   key=lambda teammate: self.get_distance(player,
+                                teammate) if teammate.rect.centerx >= AREA_G_MID_DER - 130 else float('inf'))
+            return closest_teammate
+        else:
+            closest_teammate = min(teammates.sprites(),
+                                   key=lambda teammate: self.get_distance(player,
+                                                                          teammate) if teammate.rect.centerx <= AREA_G_MID_IZQ + 130 else float('inf'))
+            return closest_teammate
+
     def with_ball(self, player):
         # Obtener información sobre la posición del jugador, compañeros de equipo y rivales
         player_position = (player.rect.centerx, player.rect.centery)
         teammates = self.mediator.getTeammates(player.team)
         rivals = self.mediator.getRivals(player.team)
         # Ejemplo: Si el jugador está cerca del área del equipo contrario, dispara al arco
-        if player.team and player.rect.centerx >= AREA_G_MID_DER - 120:
+        if player.team and player.rect.centerx >= AREA_G_MID_DER - 80:
             return 1
-        elif not player.team and player.rect.centerx <= AREA_G_MID_IZQ + 120:
+        elif not player.team and player.rect.centerx <= AREA_G_MID_IZQ + 80:
             return 1
         else:
+            closest_rival = min(rivals.sprites(), key=lambda rival: self.get_distance(player, rival))
+            closest_teammate = min(teammates.sprites(),
+                                   key=lambda teammate: self.get_distance(player, teammate))
+            # Ejemplo: Si hay compañeros de equipo cerca, pasa la pelota
+            if player.team:
+                closest_teammate_in_area = self.closses_teammate_in_area(player, teammates)
+                if not isinstance(player,GoalKeeper) and player.rect.centerx >= AREA_G_MID_DER - 200 and closest_teammate_in_area.rect.centerx > player.rect.centerx:
+                    print("HolaEntro")
+                    return 2
+                else:
+                    if isinstance(player, GoalKeeper):
+                        return 2
+            else:
+                closest_teammate_in_area = self.closses_teammate_in_area(player, teammates)
+                if not isinstance(player,GoalKeeper) and player.rect.centerx <= AREA_G_MID_IZQ + 200 and closest_teammate_in_area.rect.centerx < player.rect.centerx:
+
+                    print("HolaEASDASDSADntro")
+                    return 2
+                else:
+                    if isinstance(player, GoalKeeper):
+                        return 2
+
+            if teammates:
+                # Obtener el jugador más cercano entre los compañeros de equipo
+
+                # Ejemplo: Si el compañero de equipo más cercano está en una posición para recibir un pase, realiza el pase
+                if (self.get_distance(player, closest_teammate) > 15 and not self.player_collision_rival(closest_teammate,closest_rival)) or self.get_distance(player,closest_rival) < 15:
+                    return 2
 
             # Ejemplo: Si hay rivales cerca, mueve el balón para evitar pérdidas
             if rivals:
                 # Obtener el rival más cercano
-                closest_rival = min(rivals.sprites(), key=lambda rival: self.get_distance(player, rival))
-
                 # Ejemplo: Si el rival más cercano está en una posición para interceptar, mueve el balón
-                if self.get_distance(player, closest_rival) < 100:
+                #if self.get_distance(player, closest_rival) < 100:
+                #CORRECCION DE CODIGO PROBAR.
+                if self.get_distance(player, closest_rival) > 25:
                     return 3
-
-            # Ejemplo: Si hay compañeros de equipo cerca, pasa la pelota
-            if teammates:
-                # Obtener el jugador más cercano entre los compañeros de equipo
-                closest_teammate = min(teammates.sprites(),
-                                       key=lambda teammate: self.get_distance(player, teammate))
-
-                # Ejemplo: Si el compañero de equipo más cercano está en una posición para recibir un pase, realiza el pase
-                if self.get_distance(player, closest_teammate) < 25:
-                    return 2
 
         # Si no se cumple ninguna condición anterior, mueve con la pelota
         return 3
@@ -225,6 +265,13 @@ class TomasGStrategy(Strategy):
         player_position = pygame.math.Vector2(player.rect.center)
         target_position = pygame.math.Vector2(target_position)
         return player_position.distance_to(target_position)
+
+    def player_collision_rival(self, player, rival):
+        rect_player = player.rect
+        rect_rival = rival.rect
+        if rect_player.colliderect(rect_rival):
+            return True
+        return False
 
     def where_to_pass(self, player):
         teammates = self.mediator.getTeammates(player.team)
@@ -243,10 +290,10 @@ class TomasGStrategy(Strategy):
                         closest_distance = distance
 
             # Verificar si el jugador más cercano está a menos de 50 pixeles
-            if closest_teammate and closest_distance < 100:
+            if closest_teammate and closest_distance < 100 and not self.player_collision_rival(player,closest_teammate):
                 # Buscar otro compañero de equipo al cual pasarle la pelota
                 for other_teammate in teammates.sprites(): #TENDRIA QUE BUSCAR AL PROXIMO MAS CERCANO CREO.
-                    if other_teammate != player and other_teammate != closest_teammate:
+                    if other_teammate != player and other_teammate != closest_teammate and not self.player_collision_rival(player,other_teammate):
                         return other_teammate.rect.centerx, other_teammate.rect.centery
 
             # Si se encontró un compañero de equipo, devolver las coordenadas
