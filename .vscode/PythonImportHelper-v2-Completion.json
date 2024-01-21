@@ -1,0 +1,1242 @@
+[
+    {
+        "label": "Player",
+        "importPath": "players.Player",
+        "description": "players.Player",
+        "isExtraImport": true,
+        "detail": "players.Player",
+        "documentation": {}
+    },
+    {
+        "label": "Player",
+        "importPath": "players.Player",
+        "description": "players.Player",
+        "isExtraImport": true,
+        "detail": "players.Player",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "isExtraImport": true,
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "isExtraImport": true,
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "isExtraImport": true,
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "isExtraImport": true,
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "isExtraImport": true,
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "isExtraImport": true,
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "isExtraImport": true,
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "isExtraImport": true,
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "isExtraImport": true,
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "isExtraImport": true,
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "ABC",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "abstractmethod",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "ABC",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "abstractmethod",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "ABC",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "abstractmethod",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "pygame",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pygame",
+        "description": "pygame",
+        "detail": "pygame",
+        "documentation": {}
+    },
+    {
+        "label": "new",
+        "importPath": "hmac",
+        "description": "hmac",
+        "isExtraImport": true,
+        "detail": "hmac",
+        "documentation": {}
+    },
+    {
+        "label": "BraianStrategy",
+        "importPath": "Strategies.BraianStrategy",
+        "description": "Strategies.BraianStrategy",
+        "isExtraImport": true,
+        "detail": "Strategies.BraianStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "PlayerField",
+        "importPath": "players.PlayerField",
+        "description": "players.PlayerField",
+        "isExtraImport": true,
+        "detail": "players.PlayerField",
+        "documentation": {}
+    },
+    {
+        "label": "PlayerField",
+        "importPath": "players.PlayerField",
+        "description": "players.PlayerField",
+        "isExtraImport": true,
+        "detail": "players.PlayerField",
+        "documentation": {}
+    },
+    {
+        "label": "PlayerField",
+        "importPath": "players.PlayerField",
+        "description": "players.PlayerField",
+        "isExtraImport": true,
+        "detail": "players.PlayerField",
+        "documentation": {}
+    },
+    {
+        "label": "PlayerField",
+        "importPath": "players.PlayerField",
+        "description": "players.PlayerField",
+        "isExtraImport": true,
+        "detail": "players.PlayerField",
+        "documentation": {}
+    },
+    {
+        "label": "PlayerField",
+        "importPath": "players.PlayerField",
+        "description": "players.PlayerField",
+        "isExtraImport": true,
+        "detail": "players.PlayerField",
+        "documentation": {}
+    },
+    {
+        "label": "PlayerField",
+        "importPath": "players.PlayerField",
+        "description": "players.PlayerField",
+        "isExtraImport": true,
+        "detail": "players.PlayerField",
+        "documentation": {}
+    },
+    {
+        "label": "TeamFactory",
+        "importPath": "players.TeamFactory",
+        "description": "players.TeamFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamFactory",
+        "importPath": "players.TeamFactory",
+        "description": "players.TeamFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamFactory",
+        "importPath": "players.TeamFactory",
+        "description": "players.TeamFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamFactory",
+        "importPath": "players.TeamFactory",
+        "description": "players.TeamFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamFactory",
+        "importPath": "players.TeamFactory",
+        "description": "players.TeamFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamFactory",
+        "importPath": "players.TeamFactory",
+        "description": "players.TeamFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamFactory",
+        "documentation": {}
+    },
+    {
+        "label": "GonzaloStrategy",
+        "importPath": "Strategies.GonzaloStrategy",
+        "description": "Strategies.GonzaloStrategy",
+        "isExtraImport": true,
+        "detail": "Strategies.GonzaloStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "MateoStrategy",
+        "importPath": "Strategies.MateoStrategy",
+        "description": "Strategies.MateoStrategy",
+        "isExtraImport": true,
+        "detail": "Strategies.MateoStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "NicolasStrategy",
+        "importPath": "Strategies.NicolasStrategy",
+        "description": "Strategies.NicolasStrategy",
+        "isExtraImport": true,
+        "detail": "Strategies.NicolasStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "TomasGStrategy",
+        "importPath": "Strategies.TomasGStrategy",
+        "description": "Strategies.TomasGStrategy",
+        "isExtraImport": true,
+        "detail": "Strategies.TomasGStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "TomasRStrategy",
+        "importPath": "Strategies.TomasRStrategy",
+        "description": "Strategies.TomasRStrategy",
+        "isExtraImport": true,
+        "detail": "Strategies.TomasRStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "Strategy",
+        "importPath": "Strategies.Strategy",
+        "description": "Strategies.Strategy",
+        "isExtraImport": true,
+        "detail": "Strategies.Strategy",
+        "documentation": {}
+    },
+    {
+        "label": "Strategy",
+        "importPath": "Strategies.Strategy",
+        "description": "Strategies.Strategy",
+        "isExtraImport": true,
+        "detail": "Strategies.Strategy",
+        "documentation": {}
+    },
+    {
+        "label": "Strategy",
+        "importPath": "Strategies.Strategy",
+        "description": "Strategies.Strategy",
+        "isExtraImport": true,
+        "detail": "Strategies.Strategy",
+        "documentation": {}
+    },
+    {
+        "label": "Strategy",
+        "importPath": "Strategies.Strategy",
+        "description": "Strategies.Strategy",
+        "isExtraImport": true,
+        "detail": "Strategies.Strategy",
+        "documentation": {}
+    },
+    {
+        "label": "Strategy",
+        "importPath": "Strategies.Strategy",
+        "description": "Strategies.Strategy",
+        "isExtraImport": true,
+        "detail": "Strategies.Strategy",
+        "documentation": {}
+    },
+    {
+        "label": "Strategy",
+        "importPath": "Strategies.Strategy",
+        "description": "Strategies.Strategy",
+        "isExtraImport": true,
+        "detail": "Strategies.Strategy",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "math",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "math",
+        "description": "math",
+        "detail": "math",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "math,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "math.",
+        "description": "math.",
+        "detail": "math.",
+        "documentation": {}
+    },
+    {
+        "label": "pygame,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pygame.",
+        "description": "pygame.",
+        "detail": "pygame.",
+        "documentation": {}
+    },
+    {
+        "label": "Ball",
+        "importPath": "Ball",
+        "description": "Ball",
+        "isExtraImport": true,
+        "detail": "Ball",
+        "documentation": {}
+    },
+    {
+        "label": "Mediator",
+        "importPath": "Mediator",
+        "description": "Mediator",
+        "isExtraImport": true,
+        "detail": "Mediator",
+        "documentation": {}
+    },
+    {
+        "label": "TeamNicolasFactory",
+        "importPath": "players.TeamNicolasFactory",
+        "description": "players.TeamNicolasFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamNicolasFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamTomasGFactory",
+        "importPath": "players.TeamTomasGFactory",
+        "description": "players.TeamTomasGFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamTomasGFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamGonzaloFactory",
+        "importPath": "players.TeamGonzaloFactory",
+        "description": "players.TeamGonzaloFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamGonzaloFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamMateoFactory",
+        "importPath": "players.TeamMateoFactory",
+        "description": "players.TeamMateoFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamMateoFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamBraianFactory",
+        "importPath": "players.TeamBraianFactory",
+        "description": "players.TeamBraianFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamBraianFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamTomasRFactory",
+        "importPath": "players.TeamTomasRFactory",
+        "description": "players.TeamTomasRFactory",
+        "isExtraImport": true,
+        "detail": "players.TeamTomasRFactory",
+        "documentation": {}
+    },
+    {
+        "label": "Game",
+        "importPath": "Game",
+        "description": "Game",
+        "isExtraImport": true,
+        "detail": "Game",
+        "documentation": {}
+    },
+    {
+        "label": "Game",
+        "importPath": "Game",
+        "description": "Game",
+        "isExtraImport": true,
+        "detail": "Game",
+        "documentation": {}
+    },
+    {
+        "label": "Boton",
+        "importPath": "boton",
+        "description": "boton",
+        "isExtraImport": true,
+        "detail": "boton",
+        "documentation": {}
+    },
+    {
+        "label": "Cursor",
+        "importPath": "cursor",
+        "description": "cursor",
+        "isExtraImport": true,
+        "detail": "cursor",
+        "documentation": {}
+    },
+    {
+        "label": "GoalKeeper",
+        "kind": 6,
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "peekOfCode": "class GoalKeeper(Player):\n    def __init__(self, spritePNG, strategy, mediator, team):\n        super().__init__(spritePNG, strategy, mediator, team)\n        # True -> team1 | False -> team2 \n        if self.team:\n            self.rect.center = (FONDO_IZQ+10, SAQUE)\n        else:\n            self.rect.center = (FONDO_DER-10, SAQUE)\n    def move(self):\n        target_x, target_y = self.strategy.getProxPos(self)",
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
+        "label": "Player",
+        "kind": 6,
+        "importPath": "players.Player",
+        "description": "players.Player",
+        "peekOfCode": "class Player(pygame.sprite.Sprite, ABC):\n    def __init__(self, spritePNG, strategy, mediator, team):\n        super().__init__()\n        self.image = pygame.image.load(spritePNG).convert()\n        self.image = pygame.transform.scale(self.image, (self.image.get_width() - 485, self.image.get_height() - 485))\n        self.image.set_colorkey([0,0,0])\n        self.rect = self.image.get_rect() \n        self.strategy = strategy\n        self.mediator = mediator\n        self.dx = 0",
+        "detail": "players.Player",
+        "documentation": {}
+    },
+    {
+        "label": "PlayerField",
+        "kind": 6,
+        "importPath": "players.PlayerField",
+        "description": "players.PlayerField",
+        "peekOfCode": "class PlayerField(Player):\n    def __init__(self, spritePNG, strategy, mediator, team):\n        super().__init__(spritePNG, strategy, mediator, team)\n    def move(self):\n        target_x, target_y = self.strategy.getProxPos(self)\n        new_x, new_y = self.calculate_new_pos(target_x, target_y)\n        self.calculate_new_pos(target_x, target_y)\n        # Verificar límites laterales y de fondo\n        if LATERAL_IZQ - 7 < new_y < LATERAL_DER - self.rect.height + 7 and \\\n            FONDO_IZQ - 5 < new_x < FONDO_DER - self.rect.width + 5:",
+        "detail": "players.PlayerField",
+        "documentation": {}
+    },
+    {
+        "label": "TeamBraianFactory",
+        "kind": 6,
+        "importPath": "players.TeamBraianFactory",
+        "description": "players.TeamBraianFactory",
+        "peekOfCode": "class TeamBraianFactory(TeamFactory):\n    def __init__(self, spritePNG, mediator, team, cantPlayers):\n        super().__init__(spritePNG, mediator, team, cantPlayers)\n    def createTeam(self):\n        players = set()\n        strategy = BraianStrategy()\n        strategy.setMediator(self.mediator)\n        player = None\n        # creacion de jugadores de campo\n        for i in range(self.cantPlayers - 1):",
+        "detail": "players.TeamBraianFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamFactory",
+        "kind": 6,
+        "importPath": "players.TeamFactory",
+        "description": "players.TeamFactory",
+        "peekOfCode": "class TeamFactory(ABC):\n    def __init__(self, spritePNG, mediator, team, cantPlayers):\n        self.spritePNG = spritePNG\n        self.mediator = mediator\n        self.team = team\n        self.cantPlayers = cantPlayers\n    @abstractmethod\n    def createTeam(self):\n        pass",
+        "detail": "players.TeamFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamGonzaloFactory",
+        "kind": 6,
+        "importPath": "players.TeamGonzaloFactory",
+        "description": "players.TeamGonzaloFactory",
+        "peekOfCode": "class TeamGonzaloFactory(TeamFactory):\n    def __init__(self, spritePNG, mediator, team, cantPlayers):\n        super().__init__(spritePNG, mediator, team, cantPlayers)\n    def createTeam(self):\n        players = set()\n        strategy = GonzaloStrategy()\n        strategy.setMediator(self.mediator)\n        player = None\n        # creacion de jugadores de campo\n        for i in range(self.cantPlayers - 1):",
+        "detail": "players.TeamGonzaloFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamMateoFactory",
+        "kind": 6,
+        "importPath": "players.TeamMateoFactory",
+        "description": "players.TeamMateoFactory",
+        "peekOfCode": "class TeamMateoFactory(TeamFactory):\n    def __init__(self, spritePNG, mediator, team, cantPlayers):\n        super().__init__(spritePNG, mediator, team, cantPlayers)\n    def createTeam(self):\n        players = set()\n        strategy = MateoStrategy()\n        strategy.setMediator(self.mediator)\n        player = None\n        # creacion de jugadores de campo\n        for i in range(self.cantPlayers - 1):",
+        "detail": "players.TeamMateoFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamNicolasFactory",
+        "kind": 6,
+        "importPath": "players.TeamNicolasFactory",
+        "description": "players.TeamNicolasFactory",
+        "peekOfCode": "class TeamNicolasFactory(TeamFactory):\n    def __init__(self, spritePNG, mediator, team, cantPlayers):\n        super().__init__(spritePNG, mediator, team, cantPlayers)\n    def createTeam(self):\n        players = set()\n        strategy = NicolasStrategy()\n        strategy.setMediator(self.mediator)\n        player = None\n        # creacion de jugadores de campo\n        for i in range(self.cantPlayers - 1):",
+        "detail": "players.TeamNicolasFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamTomasGFactory",
+        "kind": 6,
+        "importPath": "players.TeamTomasGFactory",
+        "description": "players.TeamTomasGFactory",
+        "peekOfCode": "class TeamTomasGFactory(TeamFactory):\n    def __init__(self, spritePNG, mediator, team, cantPlayers):\n        super().__init__(spritePNG, mediator, team, cantPlayers)\n    def createTeam(self):\n        players = set()\n        strategy = TomasGStrategy()\n        strategy.setMediator(self.mediator)\n        player = None\n        # creacion de jugadores de campo\n        for i in range(self.cantPlayers - 1):",
+        "detail": "players.TeamTomasGFactory",
+        "documentation": {}
+    },
+    {
+        "label": "TeamTomasRFactory",
+        "kind": 6,
+        "importPath": "players.TeamTomasRFactory",
+        "description": "players.TeamTomasRFactory",
+        "peekOfCode": "class TeamTomasRFactory(TeamFactory):\n    def __init__(self, spritePNG, mediator, team, cantPlayers):\n        super().__init__(spritePNG, mediator, team, cantPlayers)\n    def createTeam(self):\n        players = set()\n        strategy = TomasRStrategy()\n        strategy.setMediator(self.mediator)\n        player = None\n        # creacion de jugadores de campo\n        for i in range(self.cantPlayers - 1):",
+        "detail": "players.TeamTomasRFactory",
+        "documentation": {}
+    },
+    {
+        "label": "BraianStrategy",
+        "kind": 6,
+        "importPath": "Strategies.BraianStrategy",
+        "description": "Strategies.BraianStrategy",
+        "peekOfCode": "class BraianStrategy(Strategy):\n    def __init__(self):\n        super().__init__()\n    def getProxPos(self, player):\n        pass\n    def with_ball(self, player):\n        pass\n    def where_to_pass(self, player):\n        pass",
+        "detail": "Strategies.BraianStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "GonzaloStrategy",
+        "kind": 6,
+        "importPath": "Strategies.GonzaloStrategy",
+        "description": "Strategies.GonzaloStrategy",
+        "peekOfCode": "class GonzaloStrategy(Strategy):\n    def __init__(self):\n        super().__init__()\n    def getProxPos(self, player):\n        pass\n    def with_ball(self, player):\n        pass\n    def where_to_pass(self, player):\n        pass",
+        "detail": "Strategies.GonzaloStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "MateoStrategy",
+        "kind": 6,
+        "importPath": "Strategies.MateoStrategy",
+        "description": "Strategies.MateoStrategy",
+        "peekOfCode": "class MateoStrategy(Strategy):\n    def __init__(self):\n        super().__init__()\n    def getProxPos(self, player):\n        pass\n    def with_ball(self, player):\n        pass\n    def where_to_pass(self, player):\n        pass",
+        "detail": "Strategies.MateoStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "NicolasStrategy",
+        "kind": 6,
+        "importPath": "Strategies.NicolasStrategy",
+        "description": "Strategies.NicolasStrategy",
+        "peekOfCode": "class NicolasStrategy(Strategy):\n    def __init__(self):\n        super().__init__()\n    def getProxPos(self, player):\n        if not player.hasBall:\n            return self.mediator.prueba()\n        else:\n            random_x = random.randint(0, 1000)\n            random_y = random.randint(0, 1000)\n            return random_x, random_y",
+        "detail": "Strategies.NicolasStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "Strategy",
+        "kind": 6,
+        "importPath": "Strategies.Strategy",
+        "description": "Strategies.Strategy",
+        "peekOfCode": "class Strategy(ABC):\n    def __init__(self):\n        self.mediator = None\n    def setMediator(self, mediator):\n        self.mediator = mediator\n    @abstractmethod\n    def getProxPos(self, player):\n        pass\n    @abstractmethod\n    def with_ball(self, player):",
+        "detail": "Strategies.Strategy",
+        "documentation": {}
+    },
+    {
+        "label": "TomasGStrategy",
+        "kind": 6,
+        "importPath": "Strategies.TomasGStrategy",
+        "description": "Strategies.TomasGStrategy",
+        "peekOfCode": "class TomasGStrategy(Strategy):\n    def __init__(self):\n        super().__init__()\n        self.marked_opponents = {}\n        self.marked_opponents_lock = threading.Lock()\n    def is_goalkeeper_closest_to_ball(self, player, teammates):\n        ball_position = self.mediator.getBallsPosition()\n        outfield_teammates = [teammate for teammate in teammates if not isinstance(teammate, GoalKeeper)]\n        if outfield_teammates:\n            distances_to_teammates = [self.get_distance2(teammate, ball_position) for teammate in outfield_teammates]",
+        "detail": "Strategies.TomasGStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "TomasRStrategy",
+        "kind": 6,
+        "importPath": "Strategies.TomasRStrategy",
+        "description": "Strategies.TomasRStrategy",
+        "peekOfCode": "class TomasRStrategy(Strategy):\n    # 27 px de width y height el sprite del player\n    MARKS_DISTANCE = 80\n    def __init__(self):\n        super().__init__()\n    def isMyTeamWithBall(self, team):\n        teammates = self.mediator.getTeammates(team)\n        for teammate in teammates:\n            if teammate.hasBall:\n                return True",
+        "detail": "Strategies.TomasRStrategy",
+        "documentation": {}
+    },
+    {
+        "label": "Ball",
+        "kind": 6,
+        "importPath": "Ball",
+        "description": "Ball",
+        "peekOfCode": "class Ball(pygame.sprite.Sprite):\n    def __init__(self, game, mediator, spritePNG):\n        super().__init__()\n        self.image = pygame.image.load(spritePNG).convert()\n        self.image = pygame.transform.scale(self.image, (self.image.get_width() - 785, self.image.get_height() - 785))\n        self.image.set_colorkey([0,0,0])\n        self.rect = self.image.get_rect()\n        self.rect.center = (MITAD_CANCHA, SAQUE) \n        self.move_speed = 0#35\n        self.is_moving = False",
+        "detail": "Ball",
+        "documentation": {}
+    },
+    {
+        "label": "Boton",
+        "kind": 6,
+        "importPath": "boton",
+        "description": "boton",
+        "peekOfCode": "class Boton(pygame.sprite.Sprite):\n    def __init__(self, image1_path, image2_path, x, y):\n        self.normal_image = pygame.image.load(image1_path).convert()\n        self.select_image = pygame.image.load(image2_path).convert()\n        self.actual_image = self.normal_image\n        self.rect = self.actual_image.get_rect()\n        self.rect.left, self.rect.top = (x,y)\n        self.isPush = False\n        self.boton_sound = pygame.mixer.Sound(\"Sounds/boton.wav\")\n    def push(self): ",
+        "detail": "boton",
+        "documentation": {}
+    },
+    {
+        "label": "FPS",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "FPS = 30\n# Dimensiones de pantalla\nWIDTH = 1356\nHEIGHT = 755\n# Paleta de colores\nAZUL = (0,0,255)\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x ",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "WIDTH",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "WIDTH = 1356\nHEIGHT = 755\n# Paleta de colores\nAZUL = (0,0,255)\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "HEIGHT",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "HEIGHT = 755\n# Paleta de colores\nAZUL = (0,0,255)\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "AZUL",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "AZUL = (0,0,255)\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y\nPALO_SUP = 317 # coord en y\nPALO_INF = 445 # coord en y",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "LATERAL_IZQ",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "LATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y\nPALO_SUP = 317 # coord en y\nPALO_INF = 445 # coord en y\nAREA_G_INF = 623 # coord en y\nAREA_G_SUP = 144 # coord en y",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "LATERAL_DER",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "LATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y\nPALO_SUP = 317 # coord en y\nPALO_INF = 445 # coord en y\nAREA_G_INF = 623 # coord en y\nAREA_G_SUP = 144 # coord en y\nAREA_G_MID_DER = 1029 # coord en x ",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "FONDO_DER",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "FONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y\nPALO_SUP = 317 # coord en y\nPALO_INF = 445 # coord en y\nAREA_G_INF = 623 # coord en y\nAREA_G_SUP = 144 # coord en y\nAREA_G_MID_DER = 1029 # coord en x \nAREA_G_MID_IZQ = 324 # coord en x",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "FONDO_IZQ",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "FONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y\nPALO_SUP = 317 # coord en y\nPALO_INF = 445 # coord en y\nAREA_G_INF = 623 # coord en y\nAREA_G_SUP = 144 # coord en y\nAREA_G_MID_DER = 1029 # coord en x \nAREA_G_MID_IZQ = 324 # coord en x\nAREA_C_INF = 527 # coord en y",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "MITAD_CANCHA",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "MITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y\nPALO_SUP = 317 # coord en y\nPALO_INF = 445 # coord en y\nAREA_G_INF = 623 # coord en y\nAREA_G_SUP = 144 # coord en y\nAREA_G_MID_DER = 1029 # coord en x \nAREA_G_MID_IZQ = 324 # coord en x\nAREA_C_INF = 527 # coord en y\nAREA_C_SUP = 240 # coord en y ",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "SAQUE",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "SAQUE = 383  # coord en y\nPALO_SUP = 317 # coord en y\nPALO_INF = 445 # coord en y\nAREA_G_INF = 623 # coord en y\nAREA_G_SUP = 144 # coord en y\nAREA_G_MID_DER = 1029 # coord en x \nAREA_G_MID_IZQ = 324 # coord en x\nAREA_C_INF = 527 # coord en y\nAREA_C_SUP = 240 # coord en y \nAREA_C_MID_IZQ = 209 # coord en x ",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "PALO_SUP",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "PALO_SUP = 317 # coord en y\nPALO_INF = 445 # coord en y\nAREA_G_INF = 623 # coord en y\nAREA_G_SUP = 144 # coord en y\nAREA_G_MID_DER = 1029 # coord en x \nAREA_G_MID_IZQ = 324 # coord en x\nAREA_C_INF = 527 # coord en y\nAREA_C_SUP = 240 # coord en y \nAREA_C_MID_IZQ = 209 # coord en x \nAREA_C_MID_DER = 1144 # coord en x ",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "PALO_INF",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "PALO_INF = 445 # coord en y\nAREA_G_INF = 623 # coord en y\nAREA_G_SUP = 144 # coord en y\nAREA_G_MID_DER = 1029 # coord en x \nAREA_G_MID_IZQ = 324 # coord en x\nAREA_C_INF = 527 # coord en y\nAREA_C_SUP = 240 # coord en y \nAREA_C_MID_IZQ = 209 # coord en x \nAREA_C_MID_DER = 1144 # coord en x \n# Posiciones de jugadores ",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "AREA_G_INF",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "AREA_G_INF = 623 # coord en y\nAREA_G_SUP = 144 # coord en y\nAREA_G_MID_DER = 1029 # coord en x \nAREA_G_MID_IZQ = 324 # coord en x\nAREA_C_INF = 527 # coord en y\nAREA_C_SUP = 240 # coord en y \nAREA_C_MID_IZQ = 209 # coord en x \nAREA_C_MID_DER = 1144 # coord en x \n# Posiciones de jugadores \nPOS_SAQUE = (MITAD_CANCHA, SAQUE)",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "AREA_G_SUP",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "AREA_G_SUP = 144 # coord en y\nAREA_G_MID_DER = 1029 # coord en x \nAREA_G_MID_IZQ = 324 # coord en x\nAREA_C_INF = 527 # coord en y\nAREA_C_SUP = 240 # coord en y \nAREA_C_MID_IZQ = 209 # coord en x \nAREA_C_MID_DER = 1144 # coord en x \n# Posiciones de jugadores \nPOS_SAQUE = (MITAD_CANCHA, SAQUE)\n# Equipo Lado Der",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "AREA_G_MID_DER",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "AREA_G_MID_DER = 1029 # coord en x \nAREA_G_MID_IZQ = 324 # coord en x\nAREA_C_INF = 527 # coord en y\nAREA_C_SUP = 240 # coord en y \nAREA_C_MID_IZQ = 209 # coord en x \nAREA_C_MID_DER = 1144 # coord en x \n# Posiciones de jugadores \nPOS_SAQUE = (MITAD_CANCHA, SAQUE)\n# Equipo Lado Der\nPOS_P1_F5 = (773, SAQUE)",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "AREA_G_MID_IZQ",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "AREA_G_MID_IZQ = 324 # coord en x\nAREA_C_INF = 527 # coord en y\nAREA_C_SUP = 240 # coord en y \nAREA_C_MID_IZQ = 209 # coord en x \nAREA_C_MID_DER = 1144 # coord en x \n# Posiciones de jugadores \nPOS_SAQUE = (MITAD_CANCHA, SAQUE)\n# Equipo Lado Der\nPOS_P1_F5 = (773, SAQUE)\nPOS_P2_F5 = (MITAD_CANCHA+160, AREA_C_SUP)",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "AREA_C_INF",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "AREA_C_INF = 527 # coord en y\nAREA_C_SUP = 240 # coord en y \nAREA_C_MID_IZQ = 209 # coord en x \nAREA_C_MID_DER = 1144 # coord en x \n# Posiciones de jugadores \nPOS_SAQUE = (MITAD_CANCHA, SAQUE)\n# Equipo Lado Der\nPOS_P1_F5 = (773, SAQUE)\nPOS_P2_F5 = (MITAD_CANCHA+160, AREA_C_SUP)\nPOS_P3_F5 = (MITAD_CANCHA+277, SAQUE)",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "AREA_C_SUP",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "AREA_C_SUP = 240 # coord en y \nAREA_C_MID_IZQ = 209 # coord en x \nAREA_C_MID_DER = 1144 # coord en x \n# Posiciones de jugadores \nPOS_SAQUE = (MITAD_CANCHA, SAQUE)\n# Equipo Lado Der\nPOS_P1_F5 = (773, SAQUE)\nPOS_P2_F5 = (MITAD_CANCHA+160, AREA_C_SUP)\nPOS_P3_F5 = (MITAD_CANCHA+277, SAQUE)\nPOS_P4_F5 = (MITAD_CANCHA+160, AREA_C_INF)",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "AREA_C_MID_IZQ",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "AREA_C_MID_IZQ = 209 # coord en x \nAREA_C_MID_DER = 1144 # coord en x \n# Posiciones de jugadores \nPOS_SAQUE = (MITAD_CANCHA, SAQUE)\n# Equipo Lado Der\nPOS_P1_F5 = (773, SAQUE)\nPOS_P2_F5 = (MITAD_CANCHA+160, AREA_C_SUP)\nPOS_P3_F5 = (MITAD_CANCHA+277, SAQUE)\nPOS_P4_F5 = (MITAD_CANCHA+160, AREA_C_INF)\nPOS_P5_F5 = (FONDO_DER-10, SAQUE)",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "AREA_C_MID_DER",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "AREA_C_MID_DER = 1144 # coord en x \n# Posiciones de jugadores \nPOS_SAQUE = (MITAD_CANCHA, SAQUE)\n# Equipo Lado Der\nPOS_P1_F5 = (773, SAQUE)\nPOS_P2_F5 = (MITAD_CANCHA+160, AREA_C_SUP)\nPOS_P3_F5 = (MITAD_CANCHA+277, SAQUE)\nPOS_P4_F5 = (MITAD_CANCHA+160, AREA_C_INF)\nPOS_P5_F5 = (FONDO_DER-10, SAQUE)\nPOS_TEAM2_F5 = [",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_SAQUE",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_SAQUE = (MITAD_CANCHA, SAQUE)\n# Equipo Lado Der\nPOS_P1_F5 = (773, SAQUE)\nPOS_P2_F5 = (MITAD_CANCHA+160, AREA_C_SUP)\nPOS_P3_F5 = (MITAD_CANCHA+277, SAQUE)\nPOS_P4_F5 = (MITAD_CANCHA+160, AREA_C_INF)\nPOS_P5_F5 = (FONDO_DER-10, SAQUE)\nPOS_TEAM2_F5 = [\n    POS_P1_F5,\n    POS_P2_F5,",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_P1_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_P1_F5 = (773, SAQUE)\nPOS_P2_F5 = (MITAD_CANCHA+160, AREA_C_SUP)\nPOS_P3_F5 = (MITAD_CANCHA+277, SAQUE)\nPOS_P4_F5 = (MITAD_CANCHA+160, AREA_C_INF)\nPOS_P5_F5 = (FONDO_DER-10, SAQUE)\nPOS_TEAM2_F5 = [\n    POS_P1_F5,\n    POS_P2_F5,\n    POS_P3_F5,\n    POS_P4_F5,",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_P2_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_P2_F5 = (MITAD_CANCHA+160, AREA_C_SUP)\nPOS_P3_F5 = (MITAD_CANCHA+277, SAQUE)\nPOS_P4_F5 = (MITAD_CANCHA+160, AREA_C_INF)\nPOS_P5_F5 = (FONDO_DER-10, SAQUE)\nPOS_TEAM2_F5 = [\n    POS_P1_F5,\n    POS_P2_F5,\n    POS_P3_F5,\n    POS_P4_F5,\n    POS_P5_F5",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_P3_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_P3_F5 = (MITAD_CANCHA+277, SAQUE)\nPOS_P4_F5 = (MITAD_CANCHA+160, AREA_C_INF)\nPOS_P5_F5 = (FONDO_DER-10, SAQUE)\nPOS_TEAM2_F5 = [\n    POS_P1_F5,\n    POS_P2_F5,\n    POS_P3_F5,\n    POS_P4_F5,\n    POS_P5_F5\n                ]",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_P4_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_P4_F5 = (MITAD_CANCHA+160, AREA_C_INF)\nPOS_P5_F5 = (FONDO_DER-10, SAQUE)\nPOS_TEAM2_F5 = [\n    POS_P1_F5,\n    POS_P2_F5,\n    POS_P3_F5,\n    POS_P4_F5,\n    POS_P5_F5\n                ]\n# Equipo Lado Izq",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_P5_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_P5_F5 = (FONDO_DER-10, SAQUE)\nPOS_TEAM2_F5 = [\n    POS_P1_F5,\n    POS_P2_F5,\n    POS_P3_F5,\n    POS_P4_F5,\n    POS_P5_F5\n                ]\n# Equipo Lado Izq\nPOS_P6_F5 = (582, SAQUE)",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_TEAM2_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_TEAM2_F5 = [\n    POS_P1_F5,\n    POS_P2_F5,\n    POS_P3_F5,\n    POS_P4_F5,\n    POS_P5_F5\n                ]\n# Equipo Lado Izq\nPOS_P6_F5 = (582, SAQUE)\nPOS_P7_F5 = (MITAD_CANCHA-160, AREA_C_SUP)",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_P6_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_P6_F5 = (582, SAQUE)\nPOS_P7_F5 = (MITAD_CANCHA-160, AREA_C_SUP)\nPOS_P8_F5 = (MITAD_CANCHA-277, SAQUE)\nPOS_P9_F5 = (MITAD_CANCHA-160, AREA_C_INF)\nPOS_P10_F5 = (FONDO_IZQ+10, SAQUE)\nPOS_TEAM1_F5 = [\n    POS_P6_F5,\n    POS_P7_F5,\n    POS_P8_F5,\n    POS_P9_F5,",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_P7_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_P7_F5 = (MITAD_CANCHA-160, AREA_C_SUP)\nPOS_P8_F5 = (MITAD_CANCHA-277, SAQUE)\nPOS_P9_F5 = (MITAD_CANCHA-160, AREA_C_INF)\nPOS_P10_F5 = (FONDO_IZQ+10, SAQUE)\nPOS_TEAM1_F5 = [\n    POS_P6_F5,\n    POS_P7_F5,\n    POS_P8_F5,\n    POS_P9_F5,\n    POS_P10_F5",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_P8_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_P8_F5 = (MITAD_CANCHA-277, SAQUE)\nPOS_P9_F5 = (MITAD_CANCHA-160, AREA_C_INF)\nPOS_P10_F5 = (FONDO_IZQ+10, SAQUE)\nPOS_TEAM1_F5 = [\n    POS_P6_F5,\n    POS_P7_F5,\n    POS_P8_F5,\n    POS_P9_F5,\n    POS_P10_F5\n                ]",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_P9_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_P9_F5 = (MITAD_CANCHA-160, AREA_C_INF)\nPOS_P10_F5 = (FONDO_IZQ+10, SAQUE)\nPOS_TEAM1_F5 = [\n    POS_P6_F5,\n    POS_P7_F5,\n    POS_P8_F5,\n    POS_P9_F5,\n    POS_P10_F5\n                ]",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_P10_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_P10_F5 = (FONDO_IZQ+10, SAQUE)\nPOS_TEAM1_F5 = [\n    POS_P6_F5,\n    POS_P7_F5,\n    POS_P8_F5,\n    POS_P9_F5,\n    POS_P10_F5\n                ]",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "POS_TEAM1_F5",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "POS_TEAM1_F5 = [\n    POS_P6_F5,\n    POS_P7_F5,\n    POS_P8_F5,\n    POS_P9_F5,\n    POS_P10_F5\n                ]",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "Cursor",
+        "kind": 6,
+        "importPath": "cursor",
+        "description": "cursor",
+        "peekOfCode": "class Cursor(pygame.Rect):\n    def __init__(self):\n        # (x, y, width, height)\n        pygame.Rect.__init__(self,0,0,1,1)\n    def update(self):\n        self.left, self.top = pygame.mouse.get_pos()",
+        "detail": "cursor",
+        "documentation": {}
+    },
+    {
+        "label": "Game",
+        "kind": 6,
+        "importPath": "Game",
+        "description": "Game",
+        "peekOfCode": "class Game(object):\n    def __init__(self, team1_name, team2_name):\n        self.screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)\n        self.background = pygame.image.load(\"Sprites/estadio.png\").convert()\n        self.team1_name = team1_name\n        self.team2_name = team2_name\n        self.goals_team1 = 0\n        self.goals_team2 = 0\n        self.sprite_player1 = \"\"\n        self.sprite_player2 = \"\"",
+        "detail": "Game",
+        "documentation": {}
+    },
+    {
+        "label": "font",
+        "kind": 5,
+        "importPath": "Game",
+        "description": "Game",
+        "peekOfCode": "font = pygame.font.Font(None, 100)\nclass Game(object):\n    def __init__(self, team1_name, team2_name):\n        self.screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)\n        self.background = pygame.image.load(\"Sprites/estadio.png\").convert()\n        self.team1_name = team1_name\n        self.team2_name = team2_name\n        self.goals_team1 = 0\n        self.goals_team2 = 0\n        self.sprite_player1 = \"\"",
+        "detail": "Game",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "Main",
+        "description": "Main",
+        "peekOfCode": "def main():\n    pygame.init()\n    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)\n    clock = pygame.time.Clock()\n    done = False\n    background = pygame.image.load(\"estadio2.png\").convert()\n    pygame.display.set_caption(\"Fut_Game\")\n    icon = pygame.image.load(\"pelotaicon.png\")\n    pygame.display.set_icon(icon)\n    game = Game()",
+        "detail": "Main",
+        "documentation": {}
+    },
+    {
+        "label": "Mediator",
+        "kind": 6,
+        "importPath": "Mediator",
+        "description": "Mediator",
+        "peekOfCode": "class Mediator(object):\n    def __init__(self):\n        self.ball = None\n        self.players1 = pygame.sprite.Group()\n        self.players2 = pygame.sprite.Group()\n        self.pinch = False\n    def setBall(self, ball):\n        self.ball = ball\n    def addPlayer1(self, player):\n        self.players1.add(player)",
+        "detail": "Mediator",
+        "documentation": {}
+    },
+    {
+        "label": "selectMain",
+        "kind": 2,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "def selectMain():\n    pygame.init()\n    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)\n    clock = pygame.time.Clock()\n    done = False\n    background = pygame.image.load(\"Fondos de pantalla/menu de seleccion.jpg\").convert()\n    pygame.display.set_caption(\"Menu de seleccion\")\n    icon = pygame.image.load(\"pelotaicon.png\")\n    pygame.display.set_icon(icon)\n    environment = pygame.mixer.Sound(\"Sounds/SonidoMenu.wav\")",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "unpush",
+        "kind": 2,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "def unpush(team_name, botonMateo, botonBraian, botonNicolas, botonTomasG, botonTomasR, botonGonzalo):\n    if team_name == BRAIAN:\n        botonBraian.push()\n    elif team_name == GONZALO:\n        botonGonzalo.push()\n    elif team_name == NICOLAS:\n        botonNicolas.push()\n    elif team_name == TOMAS_G:\n        botonTomasG.push()\n    elif team_name == TOMAS_R:",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "set_team_names",
+        "kind": 2,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "def set_team_names(name):\n    global count_press, team1_name, team2_name\n    count_press += 1\n    if count_press == 1:\n        team1_name = name\n    else:\n        team2_name = name\ndef process_events(cursor, botonBraian, botonGonzalo, botonMateo, botonNicolas, botonTomasG, botonTomasR):\n    global count_press, team1_name, team2_name\n    for event in pygame.event.get():",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "process_events",
+        "kind": 2,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "def process_events(cursor, botonBraian, botonGonzalo, botonMateo, botonNicolas, botonTomasG, botonTomasR):\n    global count_press, team1_name, team2_name\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            return True\n        elif event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_ESCAPE:\n                return True\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if cursor.colliderect(botonBraian.rect):",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "display_frame",
+        "kind": 2,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "def display_frame(screen, background, cursor, botones):\n    screen.blit(background, [0 , 0])\n    cursor.update()\n    for boton in botones:\n        boton.update(screen, cursor)\n    pygame.display.update()\nif __name__ == \"__main__\":\n    selectMain()",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "BRAIAN",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "BRAIAN = \"braian\"\nMATEO = \"mateo\"\nGONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "MATEO",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "MATEO = \"mateo\"\nGONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "GONZALO",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "GONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "NICOLAS",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "NICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales\nteam1_name = \"\"",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "TOMAS_R",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "TOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales\nteam1_name = \"\"\nteam2_name = \"\"",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "TOMAS_G",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "TOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales\nteam1_name = \"\"\nteam2_name = \"\"\ncount_press = 0",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "BUTTON_WIDTH",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "BUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales\nteam1_name = \"\"\nteam2_name = \"\"\ncount_press = 0\ndef selectMain():\n    pygame.init()",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "BUTTON_HEIGHT",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "BUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales\nteam1_name = \"\"\nteam2_name = \"\"\ncount_press = 0\ndef selectMain():\n    pygame.init()\n    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "GAP_Y",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "GAP_Y = 20\n# Variables globales\nteam1_name = \"\"\nteam2_name = \"\"\ncount_press = 0\ndef selectMain():\n    pygame.init()\n    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)\n    clock = pygame.time.Clock()\n    done = False",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "team1_name",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "team1_name = \"\"\nteam2_name = \"\"\ncount_press = 0\ndef selectMain():\n    pygame.init()\n    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)\n    clock = pygame.time.Clock()\n    done = False\n    background = pygame.image.load(\"Fondos de pantalla/menu de seleccion.jpg\").convert()\n    pygame.display.set_caption(\"Menu de seleccion\")",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "team2_name",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "team2_name = \"\"\ncount_press = 0\ndef selectMain():\n    pygame.init()\n    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)\n    clock = pygame.time.Clock()\n    done = False\n    background = pygame.image.load(\"Fondos de pantalla/menu de seleccion.jpg\").convert()\n    pygame.display.set_caption(\"Menu de seleccion\")\n    icon = pygame.image.load(\"pelotaicon.png\")",
+        "detail": "selectMain",
+        "documentation": {}
+    },
+    {
+        "label": "count_press",
+        "kind": 5,
+        "importPath": "selectMain",
+        "description": "selectMain",
+        "peekOfCode": "count_press = 0\ndef selectMain():\n    pygame.init()\n    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)\n    clock = pygame.time.Clock()\n    done = False\n    background = pygame.image.load(\"Fondos de pantalla/menu de seleccion.jpg\").convert()\n    pygame.display.set_caption(\"Menu de seleccion\")\n    icon = pygame.image.load(\"pelotaicon.png\")\n    pygame.display.set_icon(icon)",
+        "detail": "selectMain",
+        "documentation": {}
+    }
+]

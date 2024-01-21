@@ -62,74 +62,62 @@ class Game(object):
         self.ball = Ball(self, self.mediator, "Sprites/ball.png")
 
         if self.team1_name == "braian" and not self.team1_created:
-            if not self.half_time:
-                self.sprite_player1 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player1 = "Sprites/playerNico(Peruano).png"
             braianFactory = TeamBraianFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = braianFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "braian":
-            if not self.half_time:
-                self.sprite_player2 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player2 = "Sprites/playerNico(Peruano).png"
             braianFactory = TeamBraianFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = braianFactory.createTeam()
             
         if self.team1_name == "mateo" and not self.team1_created:
-            if not self.half_time:
-                self.sprite_player1 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player1 = "Sprites/playerMateo.png"
             mateoFactory = TeamMateoFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = mateoFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "mateo":
-            if not self.half_time:
-                self.sprite_player2 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player2 = "Sprites/playerMateo.png"
             mateoFactory = TeamMateoFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = mateoFactory.createTeam()
 
         if self.team1_name == "gonzalo" and not self.team1_created:
-            if not self.half_time:
-                self.sprite_player1 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player1 = "Sprites/playerNico(Peruano).png"
             gonzaloFactory = TeamGonzaloFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = gonzaloFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "gonzalo":
-            if not self.half_time:
-                self.sprite_player2 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player2 = "Sprites/playerNico(Peruano).png"
             gonzaloFactory = TeamGonzaloFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = gonzaloFactory.createTeam()
 
         if self.team1_name == "nicolas" and not self.team1_created:
-            if not self.half_time:
-                self.sprite_player1 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player1 = "Sprites/playerNico(Peruano).png"
             nicolasFactory = TeamNicolasFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = nicolasFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "nicolas":
-            if not self.half_time:
-                self.sprite_player2 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player2 = "Sprites/playerNico(Peruano).png"
             nicolasFactory = TeamNicolasFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = nicolasFactory.createTeam()
 
         if self.team1_name == "tomas_r" and not self.team1_created:
-            if not self.half_time:
-                self.sprite_player1 = "Sprites/tr.png"
+            self.sprite_player1 = "Sprites/tr.png"
             tomasRFactory = TeamTomasRFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = tomasRFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "tomas_r":
-            if not self.half_time:
-                self.sprite_player2 = "Sprites/tr.png"
+            self.sprite_player2 = "Sprites/tr.png"
             tomasRFactory = TeamTomasRFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = tomasRFactory.createTeam()
 
         if self.team1_name == "tomas_g" and not self.team1_created:
-            if not self.half_time:
-                self.sprite_player1 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player1 = "Sprites/playerNico(Peruano).png"
             tomasGFactory = TeamTomasGFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = tomasGFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "tomas_g":
-            if not self.half_time:
-                self.sprite_player2 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player2 = "Sprites/playerNico(Peruano).png"
             tomasGFactory = TeamTomasGFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = tomasGFactory.createTeam()
         
@@ -211,6 +199,9 @@ class Game(object):
         aux = self.team1_name
         self.team1_name = self.team2_name
         self.team2_name = aux
+        aux1 = self.goals_team1
+        self.goals_team1 = self.goals_team2
+        self.goals_team2 = aux1
         self.initialize_game()
 
     def process_events(self):
@@ -314,56 +305,29 @@ class Game(object):
         
         self.screen.blit(timer_surface, timer_position)
 
-        if self.half_time:
-            # Mostrar contadores de goles del team 1
-            goals_text_team1 = f"{self.goals_team1}"
-            goals_team1_surface = font.render(goals_text_team1, True, (255, 255, 255))
-            goals_team1_position = (750, 0)
-            # Ajustar el tamaño en y del contador de goles a 50
-            goals_team1_surface = pygame.transform.scale(goals_team1_surface, (45, 45))
+        # Mostrar contadores de goles del team 1
+        goals_text_team1 = f"{self.goals_team1}"
+        goals_team1_surface = font.render(goals_text_team1, True, (255, 255, 255))
+        goals_team1_position = (550, 0)
+        # Ajustar el tamaño en y del contador de goles a 50
+        goals_team1_surface = pygame.transform.scale(goals_team1_surface, (45, 45))
 
-            # Mostrar contadores de goles del team 2
-            goals_text_team2 = f"{self.goals_team2}"
-            goals_team2_surface = font.render(goals_text_team2, True, (255, 255, 255))
-            goals_team2_position = (550, 0)
-            # Ajustar el tamaño en y del contador de goles a 50
-            goals_team2_surface = pygame.transform.scale(goals_team2_surface, (45, 45))
-            
-            # Mostrar sprite_player1 a la izquierda del contador de goles del team 1
-            sprite_player1_image = pygame.image.load(self.sprite_player1)
-            sprite_player1_image = pygame.transform.scale(sprite_player1_image, (45, 45))
-            sprite_player1_position = (goals_team1_position[0] +60, 0)
-            
-            # Mostrar sprite_player2 a la derecha del contador de goles del team 2
-            sprite_player2_image = pygame.image.load(self.sprite_player2)
-            sprite_player2_image = pygame.transform.scale(sprite_player2_image, (45, 45))
-            sprite_player2_position = (goals_team2_position[0] -60, 0)
-            
-        else:
+        # Mostrar contadores de goles del team 2
+        goals_text_team2 = f"{self.goals_team2}"
+        goals_team2_surface = font.render(goals_text_team2, True, (255, 255, 255))
+        goals_team2_position = (750, 0)
+        # Ajustar el tamaño en y del contador de goles a 50
+        goals_team2_surface = pygame.transform.scale(goals_team2_surface, (45, 45))
 
-            # Mostrar contadores de goles del team 1
-            goals_text_team1 = f"{self.goals_team1}"
-            goals_team1_surface = font.render(goals_text_team1, True, (255, 255, 255))
-            goals_team1_position = (550, 0)
-            # Ajustar el tamaño en y del contador de goles a 50
-            goals_team1_surface = pygame.transform.scale(goals_team1_surface, (45, 45))
+        # Mostrar sprite_player1 a la izquierda del contador de goles del team 1
+        sprite_player1_image = pygame.image.load(self.sprite_player1)
+        sprite_player1_image = pygame.transform.scale(sprite_player1_image, (45, 45))
+        sprite_player1_position = (goals_team1_position[0] - 60, 0)
 
-            # Mostrar contadores de goles del team 2
-            goals_text_team2 = f"{self.goals_team2}"
-            goals_team2_surface = font.render(goals_text_team2, True, (255, 255, 255))
-            goals_team2_position = (750, 0)
-            # Ajustar el tamaño en y del contador de goles a 50
-            goals_team2_surface = pygame.transform.scale(goals_team2_surface, (45, 45))
-
-            # Mostrar sprite_player1 a la izquierda del contador de goles del team 1
-            sprite_player1_image = pygame.image.load(self.sprite_player1)
-            sprite_player1_image = pygame.transform.scale(sprite_player1_image, (45, 45))
-            sprite_player1_position = (goals_team1_position[0] - 60, 0)
-            
-            # Mostrar sprite_player2 a la derecha del contador de goles del team 2
-            sprite_player2_image = pygame.image.load(self.sprite_player2)
-            sprite_player2_image = pygame.transform.scale(sprite_player2_image, (45, 45))
-            sprite_player2_position = (goals_team2_position[0] + 60, 0)
+        # Mostrar sprite_player2 a la derecha del contador de goles del team 2
+        sprite_player2_image = pygame.image.load(self.sprite_player2)
+        sprite_player2_image = pygame.transform.scale(sprite_player2_image, (45, 45))
+        sprite_player2_position = (goals_team2_position[0] + 60, 0)
 
         self.screen.blit(sprite_player1_image, sprite_player1_position)
         self.screen.blit(goals_team1_surface, goals_team1_position)
