@@ -221,11 +221,9 @@ class Game(object):
 
     def run_logic(self):
         self.sprites.update()
-        #if self.minutes == 1 and not self.half_time:
-        if self.seconds == 30 and not self.half_time:
+        if self.minutes == 1 and not self.half_time:
             self.resume_game()
-        #if self.minutes == 2:
-        if self.seconds == 59:
+        if self.minutes == 2:
             return self.game_finish()
         self.total_ticks += 1
         # Actualizar el tiempo cada segundo (30 ticks)
