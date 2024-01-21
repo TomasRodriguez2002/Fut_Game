@@ -62,12 +62,12 @@ class Game(object):
         self.ball = Ball(self, self.mediator, "Sprites/ball.png")
 
         if self.team1_name == "braian" and not self.team1_created:
-            self.sprite_player1 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player1 = "Sprites/playerBraian.png"
             braianFactory = TeamBraianFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = braianFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "braian":
-            self.sprite_player2 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player2 = "Sprites/playerBraian.png"
             braianFactory = TeamBraianFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = braianFactory.createTeam()
             
@@ -82,32 +82,32 @@ class Game(object):
             self.team2 = mateoFactory.createTeam()
 
         if self.team1_name == "gonzalo" and not self.team1_created:
-            self.sprite_player1 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player1 = "Sprites/playerGonzalo.png"
             gonzaloFactory = TeamGonzaloFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = gonzaloFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "gonzalo":
-            self.sprite_player2 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player2 = "Sprites/playerGonzalo.png"
             gonzaloFactory = TeamGonzaloFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = gonzaloFactory.createTeam()
 
         if self.team1_name == "nicolas" and not self.team1_created:
-            self.sprite_player1 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player1 = "Sprites/playerNico.png"
             nicolasFactory = TeamNicolasFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = nicolasFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "nicolas":
-            self.sprite_player2 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player2 = "Sprites/playerNico.png"
             nicolasFactory = TeamNicolasFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = nicolasFactory.createTeam()
 
         if self.team1_name == "tomas_r" and not self.team1_created:
-            self.sprite_player1 = "Sprites/tr.png"
+            self.sprite_player1 = "Sprites/uzumaki.png"
             tomasRFactory = TeamTomasRFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = tomasRFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "tomas_r":
-            self.sprite_player2 = "Sprites/tr.png"
+            self.sprite_player2 = "Sprites/uzumaki.png"
             tomasRFactory = TeamTomasRFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = tomasRFactory.createTeam()
 

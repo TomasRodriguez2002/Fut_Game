@@ -9,6 +9,10 @@ class Mediator(object):
         self.players1 = pygame.sprite.Group()
         self.players2 = pygame.sprite.Group()
         self.pinch = False
+        self.pass_sound = pygame.mixer.Sound("Sounds/pass.wav")
+        self.pass_sound.set_volume(0.7)
+        self.shot_sound = pygame.mixer.Sound("Sounds/shot.wav")
+
     def setBall(self, ball):
         self.ball = ball
 
@@ -19,6 +23,7 @@ class Mediator(object):
         self.players2.add(player)
 
     def restart_positions(self, team):
+        self.ball.game.whistle.play()
         self.ball.rect.center = (MITAD_CANCHA, SAQUE)
         # Equipo 1 hizo gol
         if team:
@@ -58,9 +63,8 @@ class Mediator(object):
                 else:
                     player.setPosition(POS_TEAM2_F5[i])
                     i += 1
-        self.ball.game.whistle.play()
 
-    def restart_players_positions2(self):
+    def restart_players_positions_to_goal_kick(self):
         i = 0
         for player in self.players2:
             if isinstance(player, GoalKeeper):
@@ -76,15 +80,127 @@ class Mediator(object):
                 player.setPosition(POS_TEAM1_F5[i])
                 i += 1
 
-    def restart_positions2(self, team):
+    # boolean fondo (True == fondo izq | False == fondo der)
+    def restart_positions_to_goal_kick(self, fondo):
+        self.ball.game.whistle.play()
         # Saca del arco equipo 1
-        if team:
+        if fondo:
             self.ball.rect.center = (POS_P10_F5)
         # Saca del arco equipo 2
         else:
             self.ball.rect.center = (POS_P5_F5)
-        self.restart_players_positions2()
+        self.restart_players_positions_to_goal_kick()
+
+    def restart_players_positions_to_lateral_izq_team1(self):
+        i = 0
+        for player in self.players2:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P5_F5)
+            else:
+                player.setPosition(POS_TEAM2_F5[i])
+                i += 1
+        i = 0
+        for player in self.players1:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P10_F5)
+            # jugador P8 saca lateral
+            elif i == 2:
+                player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_IZQ+7
+                pos_teammate = self.players1.sprites()[0].rect.center
+                self.pass_ball(pos_teammate[0], pos_teammate[1])
+                i +=1
+            else:
+                player.setPosition(POS_TEAM1_F5[i])
+                i += 1
+
+    def restart_players_positions_to_lateral_der_team1(self):
+        i = 0
+        for player in self.players2:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P5_F5)
+            else:
+                player.setPosition(POS_TEAM2_F5[i])
+                i += 1
+        i = 0
+        for player in self.players1:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P10_F5)
+            # jugador P8 saca lateral
+            elif i == 2:
+                player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_DER-7
+                pos_teammate = self.players1.sprites()[0].rect.center
+                self.pass_ball(pos_teammate[0], pos_teammate[1])
+                i +=1
+            else:
+                player.setPosition(POS_TEAM1_F5[i])
+                i += 1
+
+    def restart_players_positions_to_lateral_izq_team2(self):
+        i = 0
+        for player in self.players2:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P5_F5)
+            # jugador P3 saca lateral
+            elif i == 2:
+                player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_IZQ+7
+                pos_teammate = self.players2.sprites()[0].rect.center
+                self.pass_ball(pos_teammate[0], pos_teammate[1])
+                i +=1
+            else:
+                player.setPosition(POS_TEAM2_F5[i])
+                i += 1
+        i = 0
+        for player in self.players1:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P10_F5)
+            else:
+                player.setPosition(POS_TEAM1_F5[i])
+                i += 1
+
+    def restart_players_positions_to_lateral_der_team2(self):
+        i = 0
+        for player in self.players2:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P5_F5)
+            # jugador P3 saca lateral
+            elif i == 2:
+                player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_DER-7
+                pos_teammate = self.players2.sprites()[0].rect.center
+                self.pass_ball(pos_teammate[0], pos_teammate[1])
+                i +=1
+            else:
+                player.setPosition(POS_TEAM2_F5[i])
+                i += 1
+        i = 0
+        for player in self.players1:
+            if isinstance(player, GoalKeeper):
+                player.setPosition(POS_P10_F5)
+            else:
+                player.setPosition(POS_TEAM1_F5[i])
+                i += 1
+
+    # boolean mitad_cancha (True == mitad de cancha de team1 | False == mitad de cancha de team2)
+    # boolean lateral (True == lateral izq, es decir, arriba  | False == lateral der, es decir, abajo)
+    def restart_positions_to_lateral(self, mitad_cancha, lateral):
         self.ball.game.whistle.play()
+        if mitad_cancha:
+            # lateral izq en mitad de cancha team1
+            if lateral:
+                self.ball.rect.centery = LATERAL_IZQ
+                self.restart_players_positions_to_lateral_izq_team1()
+            # lateral der en mitad de cancha team1 
+            else:
+                self.ball.rect.centery = LATERAL_DER
+                self.restart_players_positions_to_lateral_der_team1()
+        # lateral izq en mitad de cancha team2
+        elif lateral:
+            self.ball.rect.centery = LATERAL_IZQ
+            self.restart_players_positions_to_lateral_izq_team2()
+        # lateral der en mitad de cancha team2
+        else:
+            self.ball.rect.centery = LATERAL_DER
+            self.restart_players_positions_to_lateral_der_team2()
+        
 
     '''
     def check_collision_between_players(self, new_x, new_y, players):
@@ -153,9 +269,11 @@ class Mediator(object):
             self.ball.set_prox_pos(FONDO_DER, random.randint(PALO_SUP - 20, PALO_INF + 20))
         else:
             self.ball.set_prox_pos(FONDO_IZQ, random.randint(PALO_SUP - 20, PALO_INF + 20))
+        self.shot_sound.play()
 
     def pass_ball(self, x, y):
         self.ball.set_prox_pos(x, y)
+        self.pass_sound.play()
     
     def getTeammates(self, team):
         if team:
@@ -188,5 +306,6 @@ class Mediator(object):
             random_x = random.randint(FONDO_IZQ,FONDO_DER)
             random_y = random.randint(LATERAL_IZQ,LATERAL_DER)
             self.ball.set_prox_pos(random_x, random_y)
+            self.shot_sound.play()
         else:
             self.pinch = False

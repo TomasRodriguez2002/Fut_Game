@@ -4,20 +4,6 @@ from Game import Game
 from boton import Boton
 from cursor import Cursor
 
-BRAIAN = "braian"
-MATEO = "mateo"
-GONZALO = "gonzalo"
-NICOLAS = "nicolas"
-TOMAS_R = "tomas_r"
-TOMAS_G = "tomas_g"
-
-# Dimensiones de cada botón
-BUTTON_WIDTH = 200
-BUTTON_HEIGHT = 100
-
-# Separación vertical entre botones
-GAP_Y = 20
-
 # Variables globales
 team1_name = ""
 team2_name = ""
