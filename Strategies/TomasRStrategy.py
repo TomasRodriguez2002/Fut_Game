@@ -8,6 +8,7 @@ class TomasRStrategy(Strategy):
     # 27 px de width y height el sprite del player
 
     MARKS_DISTANCE = 80
+    CONSIDERABLE_DISTANCE_TO_MARK = 120
 
     def __init__(self):
         super().__init__()
@@ -45,12 +46,10 @@ class TomasRStrategy(Strategy):
         teammates = self.mediator.getTeammates(player.team)
         rivals = self.mediator.getRivals(player.team)
         for rival in rivals:
-            if (math.sqrt((ball_centerx - rival.rect.centerx)**2 + (ball_centery - rival.rect.centery)**2)) < \
-                (math.sqrt((ball_centerx - player.rect.centerx)**2 + (ball_centery - player.rect.centery)**2)):
+            if self.distance_to_ball(rival, ball_centerx, ball_centery) < self.distance_to_ball(player, ball_centerx, ball_centery):
                 return False
         for teammate in teammates:
-            if (math.sqrt((ball_centerx - teammate.rect.centerx)**2 + (ball_centery - teammate.rect.centery)**2)) < \
-                (math.sqrt((ball_centerx - player.rect.centerx)**2 + (ball_centery - player.rect.centery)**2)):
+            if self.distance_to_ball(teammate, ball_centerx, ball_centery) < self.distance_to_ball(player, ball_centerx, ball_centery):
                 return False
         return True
     
@@ -60,355 +59,244 @@ class TomasRStrategy(Strategy):
     def distance_to_ball(self, player, ball_centerx, ball_centery):
         return math.sqrt((ball_centerx - player.rect.centerx)**2 + (ball_centery - player.rect.centery)**2)
 
+    def mark_the_nearest_player_not_marked_by_a_teammate(self, player):    
+        teammates = self.mediator.getTeammates(player.team)
+        rivals = self.mediator.getRivals(player.team)
+        distance_to_rival = 0
+        min_distance_to_rival = float('inf')
+        # por defecto me quedo en mi posicion actual
+        x, y = player.rect.centerx, player.rect.centery + random.randint(-10, 10)
+        for rival in rivals:
+            if not isinstance(rival, GoalKeeper):
+                distance_to_rival = self.distance_to_player(player, rival)
+                # Verificar si es el rival mas cercano y si eres el jugador más cercano entre tus compañeros a el
+                if distance_to_rival < min_distance_to_rival and all(self.distance_to_player(teammate, rival) > \
+                    distance_to_rival for teammate in teammates if teammate != player \
+                    and not isinstance(teammate, GoalKeeper)):
+                    x, y = rival.rect.centerx, rival.rect.centery
+                    min_distance_to_rival = distance_to_rival
+        return x, y
+    
+    def im_the_only_one_down(self, player):
+        teammates = self.mediator.getTeammates(player.team)
+        if player.team:
+            for teammate in teammates:
+                if teammate != player and not isinstance(teammate, GoalKeeper) and teammate.rect.centerx < MITAD_CANCHA:
+                    return False
+        else:
+            for teammate in teammates:
+                if teammate != player and not isinstance(teammate, GoalKeeper) and teammate.rect.centerx > MITAD_CANCHA:
+                    return False
+        return True
+    
+    def there_is_a_rival_in_my_area(self, team):
+        rivals = self.mediator.getRivals(team)
+        if team:
+            for rival in rivals:
+                if rival.rect.centerx < MITAD_CANCHA:
+                    return rival
+        else:
+            for rival in rivals:
+                if rival.rect.centerx > MITAD_CANCHA:
+                    return rival
+        return None
+
     def getProxPos(self, player):
         ball_centerx, ball_centery = self.mediator.getBallsPosition()
         if isinstance(player, GoalKeeper):
+
             # si la pelota esta dentro del area grande y soy el jugador más cercano a ella voy a buscarla
-            if player.team:
-                if (ball_centerx < AREA_G_MID_IZQ) and (AREA_G_SUP < ball_centery < AREA_G_INF):
+            if (AREA_G_SUP < ball_centery < AREA_G_INF) and (((player.team) and (ball_centerx < AREA_G_MID_IZQ)) or \
+                ((not player.team) and (ball_centerx > AREA_G_MID_DER))):
                     if self.im_the_closest_to_the_ball(player):
                         return ball_centerx, ball_centery
-            else:
-                if (ball_centerx > AREA_G_MID_DER) and (AREA_G_SUP < ball_centery < AREA_G_INF):
-                    if self.im_the_closest_to_the_ball(player):
-                        return ball_centerx, ball_centery
-                    
-            # movimiento del arquero (pelota dentro del area grande)
-            if player.team:
-                if ball_centerx < AREA_G_MID_IZQ:
-                    if 420 > ball_centery:
-                        if 340 < ball_centery:
-                            return (FONDO_IZQ+10, SAQUE)
-                        else:
-                            return FONDO_IZQ+10, 340
+
+            # movimiento del arquero (pelota en area grande)
+            if (player.team) and (ball_centerx < AREA_C_MID_IZQ+200):
+                if PALO_INF > ball_centery:
+                    if PALO_SUP < ball_centery:
+                        return FONDO_IZQ+10, ball_centery
                     else:
-                        return FONDO_IZQ+10, 420
-            else:
-            # movimiento del arquero (pelota dentro del area grande)
-                if ball_centerx > AREA_G_MID_DER:
-                    if 420 > ball_centery:
-                        if 340 < ball_centery:
-                            return (FONDO_DER-10, SAQUE)
-                        else:
-                            return FONDO_DER-10, 340
-                    else:
-                        return FONDO_DER-10, 420
-            if self.isMyTeamWithBall(player.team):
-                if player.team:
-                    # movimiento del arquero (pelota en area rival)
-                    if ball_centerx > MITAD_CANCHA:
-                        if AREA_C_INF > ball_centery:
-                            if AREA_C_SUP < ball_centery:
-                                return (AREA_G_MID_IZQ - player.rect.width + 4), ball_centery
-                            else:
-                                return (AREA_G_MID_IZQ - player.rect.width + 4), AREA_C_SUP
-                        else:
-                            return (AREA_G_MID_IZQ - player.rect.width + 4), AREA_C_INF
-                    # movimiento del arquero (pelota fuera del area grande)
-                    elif ball_centerx > AREA_G_MID_IZQ:
-                        if PALO_INF > ball_centery:
-                            if PALO_SUP < ball_centery:
-                                return AREA_C_MID_IZQ, ball_centery
-                            else:
-                                return AREA_C_MID_IZQ, PALO_SUP
-                        else:
-                            return AREA_C_MID_IZQ, PALO_INF
+                        return FONDO_IZQ+10, PALO_SUP
                 else:
-                    # movimiento del arquero (pelota en area rival)
-                    if ball_centerx < MITAD_CANCHA:
-                        if AREA_C_INF > ball_centery:
-                            if AREA_C_SUP < ball_centery:
-                                return (AREA_G_MID_DER - 5), ball_centery
-                            else:
-                                return (AREA_G_MID_DER - 5), AREA_C_SUP
-                        else:
-                            return (AREA_G_MID_DER - 5), AREA_C_INF
-                    # movimiento del arquero (pelota fuera del area grande)
-                    elif ball_centerx < AREA_G_MID_DER:
-                        if PALO_INF > ball_centery:
-                            if PALO_SUP < ball_centery:
-                                return AREA_C_MID_DER, ball_centery
-                            else:
-                                return AREA_C_MID_DER, PALO_SUP
-                        else:
-                            return AREA_C_MID_DER, PALO_INF
-            # Rival tiene la pelota
-            else:
-                # movimiento del arquero (pelota en area rival). Misma logica que si mi equipo tiene la pelota
-                # y se encuentra fuera del area grande (MODULARIZAR)
-                if player.team:
-                    if ball_centerx > MITAD_CANCHA:
-                        if PALO_INF > ball_centery:
-                            if PALO_SUP < ball_centery:
-                                return AREA_C_MID_IZQ, ball_centery
-                            else:
-                                return AREA_C_MID_IZQ, PALO_SUP
-                        else:
-                            return AREA_C_MID_IZQ, PALO_INF
+                    return FONDO_IZQ+10, PALO_INF
+            elif (not player.team) and (ball_centerx > AREA_C_MID_DER-200):
+                if PALO_INF > ball_centery:
+                    if PALO_SUP < ball_centery:
+                        return FONDO_DER-10, ball_centery
                     else:
-                        # movimiento del arquero (pelota dentro o fuera del area grande)
-                        if 420 > ball_centery:
-                            if 340 < ball_centery:
-                                return (FONDO_IZQ+10, SAQUE)
-                            else:
-                                return FONDO_IZQ+10, 340
-                        else:
-                            return FONDO_IZQ+10, 420
+                        return FONDO_DER-10, PALO_SUP
                 else:
-                    if ball_centerx < MITAD_CANCHA:
-                        if PALO_INF > ball_centery:
-                            if PALO_SUP < ball_centery:
-                                return AREA_C_MID_DER, ball_centery
-                            else:
-                                return AREA_C_MID_DER, PALO_SUP
-                        else:
-                            return AREA_C_MID_DER, PALO_INF
+                    return FONDO_DER-10, PALO_INF
+                
+            # movimiento del arquero (pelota fuera del area grande)
+            if (player.team):
+                if PALO_INF > ball_centery:
+                    if PALO_SUP < ball_centery:
+                        return AREA_C_MID_IZQ, ball_centery
                     else:
-                        # movimiento del arquero (pelota en dentro o fuera del area grande)
-                        if 420 > ball_centery:
-                            if 340 < ball_centery:
-                                return (FONDO_DER-10, SAQUE)
-                            else:
-                                return FONDO_DER-10, 340
-                        else:
-                            return FONDO_DER-10, 420
+                        return AREA_C_MID_IZQ, PALO_SUP
+                else:
+                    return AREA_C_MID_IZQ, PALO_INF
+
+            else:
+                if PALO_INF > ball_centery:
+                    if PALO_SUP < ball_centery:
+                        return AREA_C_MID_DER, ball_centery
+                    else:
+                        return AREA_C_MID_DER, PALO_SUP
+                else:
+                    return AREA_C_MID_DER, PALO_INF
+                
+        # logica de jugador de campo
         else:
-            # logica del jugador de campo
-            # ESTRATEGIA: si mi equipo tiene la pelota avanzo, caso contrario retrocedo a marcar al rival
-            # - si avanzo lo hago hacia los costados de mi rival, es decir, buscando el hueco libre
-            # - si retrocedo el jugador de mi equipo mas cercano a la pelota va a presionar al rival que la tiene,
-            # mientras que los otros marcan POR LA ESPALDA a los demas rivales
-            '''
-            # si tengo la pelota no me muevo porque voy la pase
-            if player.hasBall:
-                return player.rect.centerx, player.rect.centery
-            else:
-            '''
-            # si mi equipo tiene la pelota avanzo hasta el area rival
-            # los puntas si se encuentran en mitad de cancha rival se dirigen hacia el centro en diagonal y sino simplemente avanzan en x
-            # los centrales avanzan solo en x
-            if player.hasBall or self.isMyTeamWithBall(player.team): # el metodo ya chequea si la tiene el jugador, es por prueba el hasball
+            
+            if player.hasBall or self.isMyTeamWithBall(player.team): 
                 if player.team:
-                    if player.rect.centery > AREA_C_INF:
+
+                    '''
+                    # si soy el unico abajo me quedo a defender
+                    if (player.rect.centerx < MITAD_CANCHA and self.im_the_only_one_down(player)):
+                        return AREA_G_MID_DER+100, SAQUE
+                    '''
+
+                    '''PUEDO COLOCAR A UN JUGADOR ABAJO PARA ACOMPAÑAR AL ARQUERO USANDO UN ATRIBUTO BOOLEANO
+                        QUE INDIQUE QUE UN JUGADOR SE DIRIGE AL CENTRO, SI ES FALSE HACE ESO SINO SIGUE FLUJO NORMAL'''
+
+                    # si hay un contrincante en mi area lo marco
+                    rival = self.there_is_a_rival_in_my_area(player.team)
+                    if rival != None:
+                        return rival.rect.centerx, rival.rect.centery
+
+                    # punta lateral derecho o izquierdo
+                    if (player.rect.centery > AREA_C_INF) or (player.rect.centery < AREA_C_SUP):
+                        # punta abajo avanza en x
                         if player.rect.centerx < MITAD_CANCHA:
-                            return player.rect.centerx+10, player.rect.centery
-                        elif player.rect.centerx < AREA_G_MID_DER+10:
-                            return player.rect.centerx+10, player.rect.centery-5
+                            return AREA_G_MID_DER, player.rect.centery
+                        # punta arriba se adentra al area rival
+                        elif player.rect.centerx < AREA_G_MID_DER:
+                            return AREA_G_MID_DER, SAQUE
+                        # punta en area rival (en coord x) sube hacia el arco
                         else:
-                            return player.rect.centerx, player.rect.centery-10
-                    elif player.rect.centery < AREA_C_SUP:
-                        if player.rect.centerx < MITAD_CANCHA:
-                            return player.rect.centerx+10, player.rect.centery
-                        elif player.rect.centerx < AREA_G_MID_DER+10:
-                            return player.rect.centerx+10, player.rect.centery+5
-                        else:
-                            return player.rect.centerx, player.rect.centery+10
-                    elif player.rect.centerx < AREA_C_MID_DER:
-                        return player.rect.centerx+10, player.rect.centery
+                            return player.rect.centerx, SAQUE
+                        
+                    # central se queda en su lugar
+                    elif player.rect.centerx < MITAD_CANCHA:
+                        return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
+                    
+                    # enganche avanza en x
+                    elif player.rect.centerx < AREA_G_MID_DER:
+                        return AREA_G_MID_DER, player.rect.centery
+                    
+                    # nueve se queda en el area (moviendose en y)
                     else:
-                        return player.rect.centerx-10, player.rect.centery
+                        return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
+
                 else:
-                    if player.rect.centery > AREA_C_INF:
+
+                    '''
+                    # si soy el unico abajo me quedo a defender
+                    if (player.rect.centerx > MITAD_CANCHA and self.im_the_only_one_down(player)):
+                        return AREA_G_MID_IZQ-100, SAQUE
+                    '''
+
+                    # punta lateral derecho o izquierdo
+                    if (player.rect.centery > AREA_C_INF) or (player.rect.centery < AREA_C_SUP):
+                        # punta abajo avanza en x
                         if player.rect.centerx > MITAD_CANCHA:
-                            return player.rect.centerx-10, player.rect.centery
-                        elif player.rect.centerx > AREA_G_MID_IZQ-10:
-                            return player.rect.centerx-10, player.rect.centery-5
+                            return AREA_G_MID_IZQ, player.rect.centery
+                        # punta arriba se adentra al area rival
+                        elif player.rect.centerx > AREA_G_MID_IZQ:
+                            return AREA_G_MID_IZQ, SAQUE
+                        # punta en area rival (en coord x) sube hacia el arco
                         else:
-                            return player.rect.centerx, player.rect.centery-10
-                    elif player.rect.centery < AREA_C_SUP:
-                        if player.rect.centerx > MITAD_CANCHA:
-                            return player.rect.centerx-10, player.rect.centery
-                        elif player.rect.centerx > AREA_G_MID_IZQ-10:
-                            return player.rect.centerx-10, player.rect.centery+5
-                        else:
-                            return player.rect.centerx, player.rect.centery+10
-                    elif player.rect.centerx > AREA_C_MID_IZQ:
-                        return player.rect.centerx-10, player.rect.centery
+                            return player.rect.centerx, SAQUE
+                        
+                    # central se queda en su lugar
+                    elif player.rect.centerx > MITAD_CANCHA:
+                        return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
+
+                    # enganche avanza en x
+                    elif player.rect.centerx > AREA_G_MID_IZQ:
+                        return AREA_G_MID_IZQ, player.rect.centery
+                    
+                    # nueve se queda en el area (moviendose en y)
                     else:
-                        return player.rect.centerx+10, player.rect.centery
+                        return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
 
             # si el equipo rival tiene la pelota 
             if self.isMyrivalTeamWithBall(player.team):
                 
-                # si estoy fuera del area grande y los rivales estan en su mitad de cancha retrocedo 
+                # si no estoy a la espalda del rival que tiene la pelota
+                if ((player.team) and (ball_centerx > player.rect.centerx)) or ((not player.team) and (ball_centerx < player.rect.centerx)):
+                    distance_to_ball = self.distance_to_ball(player, ball_centerx, ball_centery)
+                    # si la pelota no esta muy lejos voy a marcarlo en caso de ser el mas cercano al rival con la pelota (logica repetida abajo)
+                    if distance_to_ball < self.CONSIDERABLE_DISTANCE_TO_MARK:
+                        teammates = self.mediator.getTeammates(player.team)
+                        distance_from_ball_to_teammate = 0
+                        min_distance_from_ball_to_teammate = float('inf')
+                        for teammate in teammates:
+                            # no considero al arquero como candidato a ir a buscar la pelota, le dije que no vaya
+                            if teammate != player and not isinstance(teammate, GoalKeeper):
+                                distance_from_ball_to_teammate = self.distance_to_ball(teammate, ball_centerx, ball_centery)
+                                if distance_from_ball_to_teammate < min_distance_from_ball_to_teammate:
+                                    min_distance_from_ball_to_teammate = distance_from_ball_to_teammate
+                        # soy el mas cercano -> voy a buscar la pelota
+                        if (min_distance_from_ball_to_teammate > distance_to_ball):
+                            return ball_centerx, ball_centery
+
+                # si los rivales estan en su mitad de cancha con la pelota
                 if (player.team) and (ball_centerx > MITAD_CANCHA):
-                        if player.rect.centerx > AREA_G_MID_IZQ:
-                            return player.rect.centerx-10, player.rect.centery
-                        return player.rect.centerx+10, player.rect.centery
-                elif (not player.team) and (ball_centerx < MITAD_CANCHA):
-                        if player.rect.centerx < AREA_G_MID_DER:
-                            return player.rect.centerx+10, player.rect.centery
-                        return player.rect.centerx-10, player.rect.centery
+                    # si estoy fuera del area grande retrocedo
+                    if player.rect.centerx > AREA_G_MID_IZQ:
+                        return AREA_G_MID_IZQ, player.rect.centery
+                    # sino me quedo al borde del area
+                    return player.rect.centerx, player.rect.centery + random.randint(-10, 10)
                 
-                # Chequear si algún compañero está más cerca de la pelota, sino voy yo a por ella (codigo repetido abajo)
-                teammates = self.mediator.getTeammates(player.team)
-                distance_to_teammate = 0
-                min_distance_to_teammate = float('inf')
-                for teammate in teammates:
-                    if teammate != player:
-                        distance_to_teammate = self.distance_to_ball(teammate, ball_centerx, ball_centery)
-                        if distance_to_teammate < min_distance_to_teammate:
-                            min_distance_to_teammate = distance_to_teammate
-                # Si soy el jugador de mi equipo que se encuentra más cerca de la pelota voy hacia ella
-                if min_distance_to_teammate > self.distance_to_ball(player, ball_centerx, ball_centery):
-                    return ball_centerx, ball_centery
+                # si los rivales estan en su mitad de cancha con la pelota
+                elif (not player.team) and (ball_centerx < MITAD_CANCHA):
+                    # si estoy fuera del area grande retrocedo
+                    if player.rect.centerx < AREA_G_MID_DER:
+                        return AREA_G_MID_DER, player.rect.centery
+                    # sino me quedo al borde del area
+                    return player.rect.centerx, player.rect.centery + random.randint(-10, 10)
 
-                # en la mitad de cancha de mi equipo marco al juagador de campo rival mas cercano que no este siendo marcado por un compañero
-                teammates = self.mediator.getTeammates(player.team)
-                rivals = self.mediator.getRivals(player.team)
-                distance_to_rival = 0
-                min_distance_to_rival = float('inf')
-                # por defecto me quedo en mi posicion actual
-                if player.team:
-                    x, y = player.rect.centerx, player.rect.centery
-                else:
-                    x, y = player.rect.centerx, player.rect.centery
-
-                for rival in rivals:
-                    if not isinstance(rival, GoalKeeper):
-                        distance_to_rival = self.distance_to_player(player, rival)
-                        # Verificar si es el rival mas cercano y si eres el jugador más cercano entre tus compañeros a el
-                        if distance_to_rival < min_distance_to_rival and all(self.distance_to_player(teammate, rival) > distance_to_rival for teammate in teammates if teammate != player):
-                            x, y = rival.rect.centerx, rival.rect.centery
-                            min_distance_to_rival = distance_to_rival
-                return x, y
+                # en la mitad de cancha de mi equipo marco al juagador de campo rival mas cercano que no este
+                # siendo marcado por un compañero
+                return self.mark_the_nearest_player_not_marked_by_a_teammate(player)
                             
-            # si la pelota esta suelta (ningun jugador tiene posesión de ella)
+            ''' si la pelota esta suelta (ningun jugador tiene posesión de ella)'''
             # Chequear si algún compañero está más cerca de la pelota, sino voy yo a por ella
             teammates = self.mediator.getTeammates(player.team)
-            distance_to_teammate = 0
-            min_distance_to_teammate = float('inf')
+            distance_from_ball_to_teammate = 0
+            min_distance_from_ball_to_teammate = float('inf')
             for teammate in teammates:
-                if teammate != player:
-                    distance_to_teammate = self.distance_to_ball(teammate, ball_centerx, ball_centery)
-                    if distance_to_teammate < min_distance_to_teammate:
-                        min_distance_to_teammate = distance_to_teammate
+                # no considero al arquero como candidato a ir a buscar la pelota, le dije que se quedara quieto
+                if teammate != player and not isinstance(teammate, GoalKeeper):
+                    distance_from_ball_to_teammate = self.distance_to_ball(teammate, ball_centerx, ball_centery)
+                    if distance_from_ball_to_teammate < min_distance_from_ball_to_teammate:
+                        min_distance_from_ball_to_teammate = distance_from_ball_to_teammate
             # Si soy el jugador de mi equipo que se encuentra más cerca de la pelota voy hacia ella
-            if min_distance_to_teammate > self.distance_to_ball(player, ball_centerx, ball_centery):
+            if min_distance_from_ball_to_teammate > self.distance_to_ball(player, ball_centerx, ball_centery):
                 return ball_centerx, ball_centery
-            
+
             # sino, mientras mi compañero va a buscar la pelota:      
-            # si la pelota esta en mi area marco al rival mas cercano que no este siendo marcad por un compañero (codigo repetido) 
+            # si la pelota esta en mi area marco al rival mas cercano que no este siendo marcado por un compañero (codigo repetido) 
+            
             if ((player.team) and (ball_centerx < MITAD_CANCHA)) or ((not player.team) and (ball_centerx > MITAD_CANCHA)):     
-                teammates = self.mediator.getTeammates(player.team)
-                rivals = self.mediator.getRivals(player.team)
-                distance_to_rival = 0
-                min_distance_to_rival = float('inf')
-                # por defecto me quedo en mi posicion actual
-                if player.team:
-                    x, y = player.rect.centerx, player.rect.centery
-                else:
-                    x, y = player.rect.centerx, player.rect.centery
+                return self.mark_the_nearest_player_not_marked_by_a_teammate(player)
 
-                for rival in rivals:
-                    if not isinstance(rival, GoalKeeper):
-                        distance_to_rival = self.distance_to_player(player, rival)
-                        # Verificar si es el rival mas cercano y si eres el jugador más cercano entre tus compañeros a el
-                        if distance_to_rival < min_distance_to_rival and all(self.distance_to_player(teammate, rival) > distance_to_rival for teammate in teammates if teammate != player):
-                            x, y = rival.rect.centerx, rival.rect.centery
-                            min_distance_to_rival = distance_to_rival
-                return x, y
-            '''
-            # si la pelota esta en mi area marco al rival mas cercano (codigo repetido)
-            if ((player.team) and (ball_centerx < MITAD_CANCHA)) or ((not player.team) and (ball_centerx > MITAD_CANCHA)):
-                teammates = self.mediator.getTeammates(player.team)
-                rivals = self.mediator.getRivals(player.team)
-                min_distance_to_rival = float('inf')
-                x, y = player.rect.centerx, player.rect.centery
-                for rival in rivals:
-                    distance_to_rival_squared = math.sqrt((rival.rect.centerx - player.rect.centerx)**2 + (rival.rect.centery - player.rect.centery)**2)
-                    for teammate in teammates:
-                        if teammate != player:
-                            teammate_distance_to_rival_squared = math.sqrt((teammate.rect.centerx - rival.rect.centerx)**2 + (teammate.rect.centery - rival.rect.centery)**2)
-                            if teammate_distance_to_rival_squared > distance_to_rival_squared and \
-                            teammate_distance_to_rival_squared < min_distance_to_rival:
-                                x, y = rival.rect.centerx, rival.rect.centery
-                                min_distance_to_rival = teammate_distance_to_rival_squared
+            # si esta suelta en area rival y no soy el mas cercano para ir a buscarla me quedo en mi lugar
+            #return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
 
-                return x, y
-            '''
-            # si la pelota esta en area rival, si estoy en area rival retrocedo y sino avanzo hasta el area grande rival
-            if player.team:                
-                if player.rect.centery > AREA_C_INF:
-                    if player.rect.centerx < MITAD_CANCHA:
-                        return player.rect.centerx+10, player.rect.centery
-                    elif player.rect.centerx < AREA_G_MID_DER+10:
-                        return player.rect.centerx+10, player.rect.centery-5
-                    else:
-                        return player.rect.centerx, player.rect.centery-10
-                elif player.rect.centery < AREA_C_SUP:
-                    if player.rect.centerx < MITAD_CANCHA:
-                        return player.rect.centerx+10, player.rect.centery
-                    elif player.rect.centerx < AREA_G_MID_DER+10:
-                        return player.rect.centerx+10, player.rect.centery+5
-                    else:
-                        return player.rect.centerx, player.rect.centery+10
-                elif player.rect.centerx < AREA_C_MID_DER:
-                    return player.rect.centerx+10, player.rect.centery
-                else:
-                    return player.rect.centerx-10, player.rect.centery
-            else:
-                if player.rect.centery > AREA_C_INF:
-                    if player.rect.centerx > MITAD_CANCHA:
-                        return player.rect.centerx-10, player.rect.centery
-                    elif player.rect.centerx > AREA_G_MID_IZQ-10:
-                        return player.rect.centerx-10, player.rect.centery-5
-                    else:
-                        return player.rect.centerx, player.rect.centery-10
-                elif player.rect.centery < AREA_C_SUP:
-                    if player.rect.centerx > MITAD_CANCHA:
-                        return player.rect.centerx-10, player.rect.centery
-                    elif player.rect.centerx > AREA_G_MID_IZQ-10:
-                        return player.rect.centerx-10, player.rect.centery+5
-                    else:
-                        return player.rect.centerx, player.rect.centery+10
-                elif player.rect.centerx > AREA_C_MID_IZQ:
-                    return player.rect.centerx-10, player.rect.centery
-                else:
-                    return player.rect.centerx+10, player.rect.centery
+            # estoy en mitad de cancha de mi equipo y la pelota no esta a mi espalda -> avanzo
+            if ((player.team) and (ball_centerx > player.rect.centerx) and (player.rect.centerx < MITAD_CANCHA)) or \
+                ((not player.team) and (ball_centerx < player.rect.centerx) and (player.rect.centerx > MITAD_CANCHA)):
+                    return MITAD_CANCHA, player.rect.centery
+            # sino me quedo en el lugar
+            return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
 
-            '''
-                # marco al rival mas cercano que tengo no marcado por un compañero
-                teammates = self.mediator.getTeammates(player.team)
-                rivals = self.mediator.getRivals(player.team)
-                min_distance_to_rival = float('inf')
-                distance_to_rival_squared = 0
-                teammte_distance_to_rival_squared = 0
-                x, y = player.rect.centerx, player.rect.centery
-                for rival in rivals:
-                    distance_to_rival_squared = math.sqrt((rival.rect.centerx - player.rect.centerx)**2 + (rival.rect.centery - player.rect.centery)**2)
-                    for teammate in teammates:
-                        if teammate != player:
-                            teammte_distance_to_rival_squared = math.sqrt((teammate.rect.centerx - rival.rect.centerx)**2 + (teammate.rect.centery - rival.rect.centery)**2)
-                            # Si estoy más cerca del rival que mi compañero, lo marco
-                            if teammte_distance_to_rival_squared > distance_to_rival_squared and \
-                            teammte_distance_to_rival_squared > min_distance_to_rival:
-                                x, y = rival.rect.centerx, rival.rect.centery
-                                print("QUE ONDA")
-                                min_distance_to_rival = teammte_distance_to_rival_squared
-                return x, y
-                '''
-            '''
-                teammates = self.mediator.getTeammates(player.team)
-                rivals = self.mediator.getRivals(player.team) 
-                min_distance_to_rival = 10000000
-                distance_to_rival = 0
-                teammte_distance_to_rival = 0
-                x = player.rect.centerx
-                y = player.rect.centery
-                for rival in rivals:
-                    distance_to_rival = math.sqrt((rival.rect.centerx - player.rect.centerx)**2 + (rival.rect.centery - player.rect.centery)**2)
-                    if distance_to_rival < min_distance_to_rival:
-                        min_distance_to_rival = distance_to_rival
-                    for teammate in teammates:
-                        if teammate != player:
-                            teammte_distance_to_rival = math.sqrt((rival.rect.centerx - teammate.rect.centerx)**2 + (rival.rect.centery - teammate.rect.centery)**2)
-                            # si estoy mas cerca del rival que mi compañero yo lo marco (el mas cercano que encuentre)
-                            if teammte_distance_to_rival > distance_to_rival and teammte_distance_to_rival > min_distance_to_rival:                              
-                                x = rival.rect.centerx
-                                y = rival.rect.centery
-                return x, y
-                '''
+
     # retorna si un jugador esta siendo o no marcado
     def marked_player(self, player):
         rivals = self.mediator.getRivals(player.team)
@@ -420,66 +308,57 @@ class TomasRStrategy(Strategy):
                         return True
         return False
 
+    # 1 -> patear | 2 -> pasar | 3 -> moverse
     def with_ball(self, player):
-        # 1 -> patear | 2 -> pasar | 3 -> moverse
+        
         if isinstance(player, GoalKeeper):
             return 2
+        
+        # si estoy en el area grande rival pateo
+        if (player.team) and (player.rect.centerx > AREA_G_MID_DER-150) and (AREA_C_SUP < player.rect.centery < AREA_C_INF) or \
+            (not player.team) and (player.rect.centerx < AREA_G_MID_IZQ+150) and (AREA_C_SUP < player.rect.centery < AREA_C_INF):
+                return 1
+        
+        # si no puedo patear chequeo si tengo marca (la paso, sino me muevo hacia el area rival)
+        if self.marked_player(player):
+            return 2
+        return 3
+
+    # retorna la posicion del primer compañero que encuentre que tenga lejos la marca
+    def find_the_furthest_player(self, player, teammates, rivals):
+        x, y = 0, 0
+        # como estoy en mi mitad de cancha, por defecto se la paso al arquero
+        if not isinstance(player, GoalKeeper):
+            i = 0
+            flag = False
+            while (i < len(teammates) and (not flag)):
+                teammate = teammates.sprites()[i]
+                if(isinstance(teammate, GoalKeeper)):
+                    flag = True
+                    x, y = teammate.rect.centerx, teammate.rect.centery
+                i += 1
+        # si soy el arquero, por defecto la despejo hacia arriba
         else:
-            # si estoy en el area grande rival pateo
-            if player.team:
-                if (player.rect.centerx > AREA_G_MID_DER) and (AREA_C_SUP < player.rect.centery < AREA_C_INF):
-                    return 1
-            else:
-                if (player.rect.centerx < AREA_G_MID_IZQ) and (AREA_C_SUP < player.rect.centery < AREA_C_INF):
-                    return 1
-            # si no puedo patear chequeo si tengo marca (la paso, sino me muevo hacia el area rival)
-            if self.marked_player(player):
-                return 2
-            return 3
-
-    '''        
-    def calcular_distancia_cuadrada(self, punto1, punto2):
-        return (punto2[0] - punto1[0])**2 + (punto2[1] - punto1[1])**2
-
-    def find_the_furthest_player(self, player, teammates, rivals):
-        max_distance_general = -1
-        jugador_mas_alejado = None
-
+            x, y = MITAD_CANCHA, LATERAL_IZQ
+        
         for teammate in teammates:
-            if teammate != player:
-                distancia_minima_rival = min(self.calcular_distancia_cuadrada(teammate.rect.center, rival.rect.center) for rival in rivals)
-                if distancia_minima_rival > max_distance_general:
-                    max_distance_general = distancia_minima_rival
-                    jugador_mas_alejado = teammate
-
-        return jugador_mas_alejado.rect.center if jugador_mas_alejado else (MITAD_CANCHA, SAQUE)
-    '''
-    
-    def find_the_furthest_player(self, player, teammates, rivals):
-        max_distance_general = -1
-        teammate_distance_to_rival = 0
-        # despeje hacia abajo en caso de que todos los compañeros esten a la espalda de su marca para evitar pasarsela al rival
-        x, y = player.rect.centerx, LATERAL_DER
-        for rival in rivals:
-            for teammate in teammates:
-                # evitar pasarsela al arquero
-                if teammate != player and not isinstance(teammate, GoalKeeper):
+            for rival in rivals:
+                if teammate != player:
                     # verificar que el jugador no este a la espalda del rival para evitar pases al rival
-                    if (player.team and teammate.rect.centerx < rival.rect.centerx-40) or \
-                    (not player.team and teammate.rect.centerx > rival.rect.centerx+20):
-                        
-                        teammate_distance_to_rival = self.distance_to_player(teammate, rival)
-                        if teammate_distance_to_rival > max_distance_general:
-                            max_distance_general = teammate_distance_to_rival
-                            x, y = teammate.rect.centerx, teammate.rect.centery
+                    if (((player.team) and (teammate.rect.centerx < rival.rect.centerx)) or \
+                    ((not player.team) and (teammate.rect.centerx > rival.rect.centerx+40))) and \
+                    (self.distance_to_player(teammate, rival) > 40):
+                        return teammate.rect.centerx, teammate.rect.centery
         return x, y
 
     def where_to_pass(self, player):
         teammates = self.mediator.getTeammates(player.team)
-        # si tengo la pelota en mi mitad de cancha se la paso al compañero que tenga la marca mas alejada
-        if (player.team and player.rect.centerx <= MITAD_CANCHA) or (not player.team and player.rect.centerx >= MITAD_CANCHA):
-            rivals = self.mediator.getRivals(player.team)
-            return self.find_the_furthest_player(player, teammates, rivals)
+        
+        #if ((player.team) and (player.rect.centerx <= MITAD_CANCHA)) or ((not player.team) and (player.rect.centerx >= MITAD_CANCHA)):
+        # se la paso primer compañero que considere que tiene la marca alejada
+        rivals = self.mediator.getRivals(player.team)
+        return self.find_the_furthest_player(player, teammates, rivals)
+        '''
         # sino se la paso al compañero que este mas cerca del arco
         # por defecto pateo al arco
         x, y = 0, 0
@@ -495,3 +374,4 @@ class TomasRStrategy(Strategy):
                 max_pos_x_teammate = pos_x_teammate
                 x, y = teammate.rect.centerx, teammate.rect.centery
         return x, y
+        '''
