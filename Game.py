@@ -62,12 +62,12 @@ class Game(object):
             self.team2 = braianFactory.createTeam()
             
         if self.team1_name == "mateo" and not self.team1_created:
-            self.sprite_player1 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player1 = "Sprites/playerMateo.png"
             mateoFactory = TeamMateoFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = mateoFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "mateo":
-            self.sprite_player2 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player2 = "Sprites/playerMateo.png"
             mateoFactory = TeamMateoFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = mateoFactory.createTeam()
 
