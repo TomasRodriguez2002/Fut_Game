@@ -1,11 +1,24 @@
+
 FPS = 30
 
 # Dimensiones de pantalla
 WIDTH = 1356
 HEIGHT = 755
 
-# Paleta de colores
-AZUL = (0,0,255)
+# Nombres de botones
+BRAIAN = "braian"
+MATEO = "mateo"
+GONZALO = "gonzalo"
+NICOLAS = "nicolas"
+TOMAS_R = "tomas_r"
+TOMAS_G = "tomas_g"
+
+# Dimensiones de cada botón
+BUTTON_WIDTH = 200
+BUTTON_HEIGHT = 100
+
+# Separación vertical entre botones
+GAP_Y = 20
 
 # Limites de la cancha
 LATERAL_IZQ = 48 # coord en y 
