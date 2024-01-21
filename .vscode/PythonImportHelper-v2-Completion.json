@@ -596,7 +596,7 @@
         "kind": 6,
         "importPath": "players.PlayerField",
         "description": "players.PlayerField",
-        "peekOfCode": "class PlayerField(Player):\n    def __init__(self, spritePNG, strategy, mediator, team):\n        super().__init__(spritePNG, strategy, mediator, team)\n    def move(self):\n        target_x, target_y = self.strategy.getProxPos(self)\n        new_x, new_y = self.calculate_new_pos(target_x, target_y)\n        self.calculate_new_pos(target_x, target_y)\n        # Verificar límites laterales y de fondo\n        if LATERAL_IZQ - 7 < new_y < LATERAL_DER - self.rect.height + 7 and \\\n            FONDO_IZQ - 5 < new_x < FONDO_DER - self.rect.width + 5:",
+        "peekOfCode": "class PlayerField(Player):\n    def __init__(self, spritePNG, strategy, mediator, team):\n        super().__init__(spritePNG, strategy, mediator, team)\n    def move(self):\n        target_x, target_y = self.strategy.getProxPos(self)\n        new_x, new_y = self.calculate_new_pos(target_x, target_y)\n        # Verificar límites laterales y de fondo\n        if LATERAL_IZQ - 7 < new_y < LATERAL_DER - self.rect.height + 7 and \\\n            FONDO_IZQ - 5 < new_x < FONDO_DER - self.rect.width + 5:\n            # Verificar la distancia con los compañeros",
         "detail": "players.PlayerField",
         "documentation": {}
     },
@@ -722,7 +722,7 @@
         "kind": 6,
         "importPath": "Strategies.TomasRStrategy",
         "description": "Strategies.TomasRStrategy",
-        "peekOfCode": "class TomasRStrategy(Strategy):\n    # 27 px de width y height el sprite del player\n    MARKS_DISTANCE = 80\n    def __init__(self):\n        super().__init__()\n    def isMyTeamWithBall(self, team):\n        teammates = self.mediator.getTeammates(team)\n        for teammate in teammates:\n            if teammate.hasBall:\n                return True",
+        "peekOfCode": "class TomasRStrategy(Strategy):\n    # 27 px de width y height el sprite del player\n    MARKS_DISTANCE = 80\n    CONSIDERABLE_DISTANCE_TO_MARK = 120\n    def __init__(self):\n        super().__init__()\n    def isMyTeamWithBall(self, team):\n        teammates = self.mediator.getTeammates(team)\n        for teammate in teammates:\n            if teammate.hasBall:",
         "detail": "Strategies.TomasRStrategy",
         "documentation": {}
     },

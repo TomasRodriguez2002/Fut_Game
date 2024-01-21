@@ -112,12 +112,12 @@ class Game(object):
             self.team2 = tomasRFactory.createTeam()
 
         if self.team1_name == "tomas_g" and not self.team1_created:
-            self.sprite_player1 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player1 = "Sprites/playerTomasG.png"
             tomasGFactory = TeamTomasGFactory(self.sprite_player1, self.mediator, True, 5)
             self.team1 = tomasGFactory.createTeam()
             self.team1_created = True
         if self.team2_name == "tomas_g":
-            self.sprite_player2 = "Sprites/playerNico(Peruano).png"
+            self.sprite_player2 = "Sprites/playerTomasG.png"
             tomasGFactory = TeamTomasGFactory(self.sprite_player2, self.mediator, False, 5)
             self.team2 = tomasGFactory.createTeam()
         
