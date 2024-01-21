@@ -58,6 +58,7 @@ class Mediator(object):
                 else:
                     player.setPosition(POS_TEAM2_F5[i])
                     i += 1
+        self.ball.game.whistle.play()
 
     def restart_players_positions2(self):
         i = 0
@@ -83,6 +84,7 @@ class Mediator(object):
         else:
             self.ball.rect.center = (POS_P5_F5)
         self.restart_players_positions2()
+        self.ball.game.whistle.play()
 
     '''
     def check_collision_between_players(self, new_x, new_y, players):
