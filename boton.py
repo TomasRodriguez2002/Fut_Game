@@ -9,8 +9,10 @@ class Boton(pygame.sprite.Sprite):
         self.rect = self.actual_image.get_rect()
         self.rect.left, self.rect.top = (x,y)
         self.isPush = False
+        self.boton_sound = pygame.mixer.Sound("Sounds/boton.wav")
 
-    def push(self):            
+    def push(self): 
+        self.boton_sound.play()           
         self.isPush = not self.isPush
 
     def update(self, screen, cursor):

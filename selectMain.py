@@ -63,9 +63,9 @@ def selectMain():
         done = process_events(cursor, botonBraian, botonGonzalo, botonMateo, botonNicolas, botonTomasG, botonTomasR)
         if team1_name != "" and team2_name != "":
             game = Game(team1_name, team2_name)
-            canal1.stop()
+            canal1.pause()
             game.play()
-            canal1.play(-1)
+            canal1.unpause()
             unpush(team1_name, botonMateo, botonBraian, botonNicolas, botonTomasG, botonTomasR, botonGonzalo)
             unpush(team2_name, botonMateo, botonBraian, botonNicolas, botonTomasG, botonTomasR, botonGonzalo)
             team1_name = ""
