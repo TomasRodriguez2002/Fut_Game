@@ -5,8 +5,7 @@ from players.GoalKeeper import GoalKeeper
 import random
 
 class MateoStrategy(Strategy):
-    MAX_DISTANCE_ALLOWED = 300
-
+    MAX_DISTANCE_ALLOWED = 400
     def __init__(self):
         super().__init__()
         
@@ -68,41 +67,24 @@ class MateoStrategy(Strategy):
 
     def is_point_on_line(self, x1, y1, x2, y2, px, py):
         # Utiliza una pequeña tolerancia (puedes ajustar según tus necesidades)
-        tolerance = 10
+        tolerance = 5
         # Calcula la distancia entre el punto y la línea usando la fórmula de distancia punto-línea
-        denominator = ((y2-y1)**2 + (x2-x1)**2)**0.5
+        denominator = ((y2 - y1) ** 2 + (x2 - x1) ** 2) ** 0.5
         # Verifica si la distancia (denominador) es cercana a cero para evitar la división por cero
         if abs(denominator) < 1e-10:
-            return False
-        distance = abs((y2-y1)*px - (x2-x1)*py + x2*y1 - y2*x1) / denominator
+            return abs(x2 - px) < tolerance and abs(y2 - py) < tolerance
+        distance = abs((y2 - y1) * px - (x2 - x1) * py + x2 * y1 - y2 * x1) / denominator
         return distance < tolerance
 
-    def distance_to_goal(self, player_position, goal_position):
-        # Calcula la diferencia en las coordenadas x e y utilizando abs
-        dx = abs(goal_position[0] - player_position[0])
-        dy = abs(goal_position[1] - player_position[1])
-        
-        # Calcula la distancia usando el teorema de Pitágoras
-        distance = math.sqrt(dx**2 + dy**2)
+    def distance_to_goal(self, player):
+        if player.team:
+            goal_position= (FONDO_DER,SAQUE)
+        else:
+            goal_position = (FONDO_IZQ, SAQUE)
+        distance = math.hypot(goal_position[0] - player.rect.centerx, goal_position[1] -player.rect.centery)
         return distance
 
-    def getFarthestTeammate(self, player):
-        myTeam = player.mediator.getTeammates(player.team)
-        player_position = (player.rect.centerx, player.rect.centery)
-        farthest_teammate = None
-        farthest_distance = 0
-        for teammate in myTeam:
-            if teammate != player:
-                teammate_position = (teammate.rect.centerx, teammate.rect.centery)
-                distance = self.distance(player_position, teammate_position)
-                if farthest_teammate is None or distance > farthest_distance:
-                    farthest_teammate = teammate
-                    farthest_distance = distance
-        if farthest_teammate is not None:
-            return farthest_teammate.rect.centerx - player.rect.centerx, farthest_teammate.rect.centery - player.rect.centery
-        else:
-            return 0, 0
-
+    
     def getClosestTeammate(self, player):
         myTeam = player.mediator.getTeammates(player.team)
         player_position = (player.rect.centerx, player.rect.centery)
@@ -119,6 +101,7 @@ class MateoStrategy(Strategy):
             return closest_teammate.rect.centerx - player.rect.centerx, closest_teammate.rect.centery - player.rect.centery
         else:
             return 0, 0
+            
 
     def player_movement_rival_with_ball(self, player):
         px, py = player.mediator.getBallsPosition()
@@ -143,7 +126,7 @@ class MateoStrategy(Strategy):
         else: 
             # Verificar si el rival más cercano no está siendo marcado
             closest_unmarked_rival = min(rivals, key=lambda r: self.distance_to_player(r, player))
-            if not self.is_being_marked(closest_unmarked_rival, teammates, 20):
+            if not self.is_being_marked(closest_unmarked_rival):
                 return self.man_to_man_marking(player, closest_unmarked_rival)
             # Vuelvo en X tanto como lo haga la pelota, considerando el equipo
             if player.team:
@@ -151,12 +134,13 @@ class MateoStrategy(Strategy):
             else:
                 return x + (px - x), y  # Retroceder hacia la derecha
 
-    def is_being_marked(self, rival, teammates, marking_threshold):
+    def is_being_marked(self, rival):
+        teammates= rival.mediator.getRivals(rival.team)
         for teammate in teammates:
-            distance_to_rival = self.distance_to_player(teammate, rival)
-            if distance_to_rival <= marking_threshold:
-                return True  # El rival está siendo marcado por al menos un compañero
-        return False  # El rival no está siendo marcado por ningún compañero
+            distance= self.distance_to_player(rival,teammate)
+            if distance< 40:
+                return True
+        return False
 
     def man_to_man_marking(self, player, rival):
         # Calcular la distancia al rival objetivo
@@ -180,14 +164,14 @@ class MateoStrategy(Strategy):
             if player.rect.centery > AREA_G_INF:
                 if player.rect.centerx < MITAD_CANCHA:
                     return player.rect.centerx+10, player.rect.centery
-                elif player.rect.centerx < AREA_G_MID_DER+10:
+                elif player.rect.centerx < AREA_G_MID_DER-30:
                     return player.rect.centerx+10, player.rect.centery-5
                 else:
                     return player.rect.centerx, player.rect.centery-10
             elif player.rect.centery < AREA_G_SUP:
                 if player.rect.centerx < MITAD_CANCHA:
                     return player.rect.centerx+10, player.rect.centery
-                elif player.rect.centerx < AREA_G_MID_DER+10:
+                elif player.rect.centerx < AREA_G_MID_DER-30:
                     return player.rect.centerx+10, player.rect.centery+5
                 else:
                     return player.rect.centerx, player.rect.centery+10
@@ -199,14 +183,14 @@ class MateoStrategy(Strategy):
             if player.rect.centery > AREA_G_INF:
                 if player.rect.centerx > MITAD_CANCHA:
                     return player.rect.centerx-10, player.rect.centery
-                elif player.rect.centerx > AREA_G_MID_IZQ-10:
+                elif player.rect.centerx > AREA_G_MID_IZQ+30:
                     return player.rect.centerx-10, player.rect.centery-5
                 else:
                     return player.rect.centerx, player.rect.centery-10
             elif player.rect.centery < AREA_G_SUP:
                 if player.rect.centerx > MITAD_CANCHA:
                     return player.rect.centerx-10, player.rect.centery
-                elif player.rect.centerx > AREA_G_MID_IZQ-10:
+                elif player.rect.centerx > AREA_G_MID_IZQ+30:
                     return player.rect.centerx-10, player.rect.centery+5
                 else:
                     return player.rect.centerx, player.rect.centery+10
@@ -221,13 +205,13 @@ class MateoStrategy(Strategy):
             goalkeeper.moving_up = True
         px, py = goalkeeper.mediator.getBallsPosition()
         # Distancia mínima para activar el movimiento hacia la pelota en el eje Y
-        R = 100
+        R = 150
         # Calcular la distancia entre el arquero y la pelota
         distancia_pelota = math.hypot(goalkeeper.rect.centerx - px, goalkeeper.rect.centery - py)
         # Verificar si la pelota está a una distancia menor o igual a R
-        if self.isClosest(goalkeeper)and distancia_pelota<=150:
+        if self.isClosest(goalkeeper)and distancia_pelota<=250:
             return px,py
-        if distancia_pelota <= R:
+        elif distancia_pelota <= R:
             # Mover hacia la posición de la pelota en el eje Y
             if goalkeeper.rect.centery < py:
                 return goalkeeper.rect.centerx, goalkeeper.rect.centery + 1  # Mover hacia abajo
@@ -247,7 +231,7 @@ class MateoStrategy(Strategy):
                 if goalkeeper.moving_up:
                     return FONDO_DER, goalkeeper.rect.top - 1  # Mover hacia arriba
                 else:
-                    return FONDO_DER, goalkeeper.rect.bottom + 1  # Mover hacia abajo
+                    return FONDO_DER, goalkeeper.rect.bottom + 1  # Mover hacia abajo  
 
     def getProxPos(self, player):
         px, py = player.mediator.getBallsPosition()
@@ -271,35 +255,58 @@ class MateoStrategy(Strategy):
         ballx,bally = player.mediator.getBallsPosition()
         if isinstance(player, GoalKeeper):
             return 2
-        if player.team:
-            goal= (FONDO_DER,SAQUE)
         else:
-            goal = (FONDO_IZQ, SAQUE)
-        if player.rect.centerx==MITAD_CANCHA and ballx == MITAD_CANCHA and player.rect.centery==SAQUE and bally == SAQUE:
-            return 2
-        else:
-            if self.distance_to_goal((player.rect.centerx,player.rect.centery),goal)<=self.MAX_DISTANCE_ALLOWED:
-                return 1
-            if self.rivalIsNear(player):
+            if player.rect.centerx==MITAD_CANCHA and ballx == MITAD_CANCHA and player.rect.centery==SAQUE and bally == SAQUE:
                 return 2
-        return 3
+            else:
+                if self.distance_to_goal(player)<=self.MAX_DISTANCE_ALLOWED:
+                    return 1
+                if self.rivalIsNear(player):
+                    return 2
+            return 3
         
     def where_to_pass(self, player):
         teammates= player.mediator.getTeammates(player.team)
-        # Elimina al jugador actual de la lista de compañeros
-        teammates = [teammate for teammate in teammates if teammate != player and not isinstance(teammate, GoalKeeper)]
-        x,y= self.getFarthestTeammate(player)
-        if self.playerIsFree(player,x,y):
-            return x,y
-        x,y= self.getClosestTeammate(player)
-        if self.playerIsFree(player,x,y):
-            return x,y
-        for teammate in teammates:
+        # Elimina al jugador actual de la lista de compañeros ya que no vale auto-pase
+        newteammates = [teammate for teammate in teammates if teammate != player and not isinstance(player, GoalKeeper)]
+        for teammate in newteammates:
             x,y= teammate.rect.centerx, teammate.rect.centery
+            #al primero que esté libre se la paso
             if self.playerIsFree(player,x,y):
                 return x,y
         # por defecto tiro al arco
         if player.team:
+            if player.rect.centerx<MITAD_CANCHA:
+                if player.rect.centery<SAQUE:
+                    return MITAD_CANCHA-10,LATERAL_IZQ
+                else:
+                    return MITAD_CANCHA-10,LATERAL_DER
             return FONDO_DER,SAQUE
         else:
+            if player.rect.centerx>MITAD_CANCHA:
+                if player.rect.centery<SAQUE:
+                    return MITAD_CANCHA+10,LATERAL_IZQ
+                else:
+                    return MITAD_CANCHA+10,LATERAL_DER
             return FONDO_IZQ,SAQUE
+
+    '''            
+    def getFarthestTeammate(self, player):
+        myTeam = player.mediator.getTeammates(player.team)
+        player_position = (player.rect.centerx, player.rect.centery)
+        farthest_teammate = None
+        farthest_distance = 0
+        for teammate in myTeam:
+            if teammate != player:
+                teammate_position = (teammate.rect.centerx, teammate.rect.centery)
+                distance = self.distance(player_position, teammate_position)
+                if farthest_teammate is None or distance > farthest_distance:
+                    farthest_teammate = teammate
+                    farthest_distance = distance
+        if farthest_teammate is not None:
+            return farthest_teammate.rect.centerx - player.rect.centerx, farthest_teammate.rect.centery - player.rect.centery
+        else:
+            return 0, 0
+
+    
+    '''
