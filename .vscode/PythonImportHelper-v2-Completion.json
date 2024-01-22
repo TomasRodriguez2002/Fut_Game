@@ -249,6 +249,14 @@
         "documentation": {}
     },
     {
+        "label": "GoalKeeper",
+        "importPath": "players.GoalKeeper",
+        "description": "players.GoalKeeper",
+        "isExtraImport": true,
+        "detail": "players.GoalKeeper",
+        "documentation": {}
+    },
+    {
         "label": "PlayerField",
         "importPath": "players.PlayerField",
         "description": "players.PlayerField",
@@ -433,21 +441,21 @@
         "documentation": {}
     },
     {
-        "label": "random",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "random",
-        "description": "random",
-        "detail": "random",
-        "documentation": {}
-    },
-    {
         "label": "math",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "math",
         "description": "math",
         "detail": "math",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
         "documentation": {}
     },
     {
@@ -539,14 +547,6 @@
         "description": "players.TeamTomasRFactory",
         "isExtraImport": true,
         "detail": "players.TeamTomasRFactory",
-        "documentation": {}
-    },
-    {
-        "label": "Game",
-        "importPath": "Game",
-        "description": "Game",
-        "isExtraImport": true,
-        "detail": "Game",
         "documentation": {}
     },
     {
@@ -686,7 +686,7 @@
         "kind": 6,
         "importPath": "Strategies.MateoStrategy",
         "description": "Strategies.MateoStrategy",
-        "peekOfCode": "class MateoStrategy(Strategy):\n    def __init__(self):\n        super().__init__()\n    def getProxPos(self, player):\n        pass\n    def with_ball(self, player):\n        pass\n    def where_to_pass(self, player):\n        pass",
+        "peekOfCode": "class MateoStrategy(Strategy):\n    MAX_DISTANCE_ALLOWED = 300\n    def __init__(self):\n        super().__init__()\n    def myTeamHasBall(self,player):\n        myTeam = player.mediator.getTeammates(player.team)\n        for teammate in myTeam:\n                if teammate.hasBall:\n                    return True\n        return False",
         "detail": "Strategies.MateoStrategy",
         "documentation": {}
     },
@@ -695,7 +695,7 @@
         "kind": 6,
         "importPath": "Strategies.NicolasStrategy",
         "description": "Strategies.NicolasStrategy",
-        "peekOfCode": "class NicolasStrategy(Strategy):\n    def __init__(self):\n        super().__init__()\n    def getProxPos(self, player):\n        if not player.hasBall:\n            return self.mediator.prueba()\n        else:\n            random_x = random.randint(0, 1000)\n            random_y = random.randint(0, 1000)\n            return random_x, random_y",
+        "peekOfCode": "class NicolasStrategy(Strategy):\n    def __init__(self):\n        super().__init__()\n        self.rivals=None\n        self.teammates= None\n        self.accion_movimiento=0\n        self.cant_players_yendo_balon=0 #Valor entero que determina que postura tendra el jugador a moverse si el mismo posee el balon (0->Sigo normalmente, 1->esquivo a los rivales, 2-> me voy hacia los alterales)\n        self.distanciaMaxPase=200\n        self.distanciaSegura=50\n    #Obtener proxima posicion del q vas a pasar",
         "detail": "Strategies.NicolasStrategy",
         "documentation": {}
     },
@@ -749,7 +749,7 @@
         "kind": 5,
         "importPath": "Constantes",
         "description": "Constantes",
-        "peekOfCode": "FPS = 30\n# Dimensiones de pantalla\nWIDTH = 1356\nHEIGHT = 755\n# Paleta de colores\nAZUL = (0,0,255)\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x ",
+        "peekOfCode": "FPS = 30\n# Dimensiones de pantalla\nWIDTH = 1356\nHEIGHT = 755\n# Nombres de botones\nBRAIAN = \"braian\"\nMATEO = \"mateo\"\nGONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"",
         "detail": "Constantes",
         "documentation": {}
     },
@@ -758,7 +758,7 @@
         "kind": 5,
         "importPath": "Constantes",
         "description": "Constantes",
-        "peekOfCode": "WIDTH = 1356\nHEIGHT = 755\n# Paleta de colores\nAZUL = (0,0,255)\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x",
+        "peekOfCode": "WIDTH = 1356\nHEIGHT = 755\n# Nombres de botones\nBRAIAN = \"braian\"\nMATEO = \"mateo\"\nGONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón",
         "detail": "Constantes",
         "documentation": {}
     },
@@ -767,16 +767,88 @@
         "kind": 5,
         "importPath": "Constantes",
         "description": "Constantes",
-        "peekOfCode": "HEIGHT = 755\n# Paleta de colores\nAZUL = (0,0,255)\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y",
+        "peekOfCode": "HEIGHT = 755\n# Nombres de botones\nBRAIAN = \"braian\"\nMATEO = \"mateo\"\nGONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200",
         "detail": "Constantes",
         "documentation": {}
     },
     {
-        "label": "AZUL",
+        "label": "BRAIAN",
         "kind": 5,
         "importPath": "Constantes",
         "description": "Constantes",
-        "peekOfCode": "AZUL = (0,0,255)\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y\nPALO_SUP = 317 # coord en y\nPALO_INF = 445 # coord en y",
+        "peekOfCode": "BRAIAN = \"braian\"\nMATEO = \"mateo\"\nGONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "MATEO",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "MATEO = \"mateo\"\nGONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "GONZALO",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "GONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Limites de la cancha",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "NICOLAS",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "NICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y ",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "TOMAS_R",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "TOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "TOMAS_G",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "TOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x ",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "BUTTON_WIDTH",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "BUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "BUTTON_HEIGHT",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "BUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y",
+        "detail": "Constantes",
+        "documentation": {}
+    },
+    {
+        "label": "GAP_Y",
+        "kind": 5,
+        "importPath": "Constantes",
+        "description": "Constantes",
+        "peekOfCode": "GAP_Y = 20\n# Limites de la cancha\nLATERAL_IZQ = 48 # coord en y \nLATERAL_DER = 719 # coord en y\nFONDO_DER = 1252 # coord en x \nFONDO_IZQ = 101 # coord en x\nMITAD_CANCHA = 677 # coord en x\nSAQUE = 383  # coord en y\nPALO_SUP = 317 # coord en y\nPALO_INF = 445 # coord en y",
         "detail": "Constantes",
         "documentation": {}
     },
@@ -1069,20 +1141,11 @@
         "documentation": {}
     },
     {
-        "label": "main",
-        "kind": 2,
-        "importPath": "Main",
-        "description": "Main",
-        "peekOfCode": "def main():\n    pygame.init()\n    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)\n    clock = pygame.time.Clock()\n    done = False\n    background = pygame.image.load(\"estadio2.png\").convert()\n    pygame.display.set_caption(\"Fut_Game\")\n    icon = pygame.image.load(\"pelotaicon.png\")\n    pygame.display.set_icon(icon)\n    game = Game()",
-        "detail": "Main",
-        "documentation": {}
-    },
-    {
         "label": "Mediator",
         "kind": 6,
         "importPath": "Mediator",
         "description": "Mediator",
-        "peekOfCode": "class Mediator(object):\n    def __init__(self):\n        self.ball = None\n        self.players1 = pygame.sprite.Group()\n        self.players2 = pygame.sprite.Group()\n        self.pinch = False\n    def setBall(self, ball):\n        self.ball = ball\n    def addPlayer1(self, player):\n        self.players1.add(player)",
+        "peekOfCode": "class Mediator(object):\n    def __init__(self):\n        self.ball = None\n        self.players1 = pygame.sprite.Group()\n        self.players2 = pygame.sprite.Group()\n        self.pinch = False\n        self.pass_sound = pygame.mixer.Sound(\"Sounds/pass.wav\")\n        self.pass_sound.set_volume(0.7)\n        self.shot_sound = pygame.mixer.Sound(\"Sounds/shot.wav\")\n    def setBall(self, ball):",
         "detail": "Mediator",
         "documentation": {}
     },
@@ -1128,87 +1191,6 @@
         "importPath": "selectMain",
         "description": "selectMain",
         "peekOfCode": "def display_frame(screen, background, cursor, botones):\n    screen.blit(background, [0 , 0])\n    cursor.update()\n    for boton in botones:\n        boton.update(screen, cursor)\n    pygame.display.update()\nif __name__ == \"__main__\":\n    selectMain()",
-        "detail": "selectMain",
-        "documentation": {}
-    },
-    {
-        "label": "BRAIAN",
-        "kind": 5,
-        "importPath": "selectMain",
-        "description": "selectMain",
-        "peekOfCode": "BRAIAN = \"braian\"\nMATEO = \"mateo\"\nGONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones",
-        "detail": "selectMain",
-        "documentation": {}
-    },
-    {
-        "label": "MATEO",
-        "kind": 5,
-        "importPath": "selectMain",
-        "description": "selectMain",
-        "peekOfCode": "MATEO = \"mateo\"\nGONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20",
-        "detail": "selectMain",
-        "documentation": {}
-    },
-    {
-        "label": "GONZALO",
-        "kind": 5,
-        "importPath": "selectMain",
-        "description": "selectMain",
-        "peekOfCode": "GONZALO = \"gonzalo\"\nNICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales",
-        "detail": "selectMain",
-        "documentation": {}
-    },
-    {
-        "label": "NICOLAS",
-        "kind": 5,
-        "importPath": "selectMain",
-        "description": "selectMain",
-        "peekOfCode": "NICOLAS = \"nicolas\"\nTOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales\nteam1_name = \"\"",
-        "detail": "selectMain",
-        "documentation": {}
-    },
-    {
-        "label": "TOMAS_R",
-        "kind": 5,
-        "importPath": "selectMain",
-        "description": "selectMain",
-        "peekOfCode": "TOMAS_R = \"tomas_r\"\nTOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales\nteam1_name = \"\"\nteam2_name = \"\"",
-        "detail": "selectMain",
-        "documentation": {}
-    },
-    {
-        "label": "TOMAS_G",
-        "kind": 5,
-        "importPath": "selectMain",
-        "description": "selectMain",
-        "peekOfCode": "TOMAS_G = \"tomas_g\"\n# Dimensiones de cada botón\nBUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales\nteam1_name = \"\"\nteam2_name = \"\"\ncount_press = 0",
-        "detail": "selectMain",
-        "documentation": {}
-    },
-    {
-        "label": "BUTTON_WIDTH",
-        "kind": 5,
-        "importPath": "selectMain",
-        "description": "selectMain",
-        "peekOfCode": "BUTTON_WIDTH = 200\nBUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales\nteam1_name = \"\"\nteam2_name = \"\"\ncount_press = 0\ndef selectMain():\n    pygame.init()",
-        "detail": "selectMain",
-        "documentation": {}
-    },
-    {
-        "label": "BUTTON_HEIGHT",
-        "kind": 5,
-        "importPath": "selectMain",
-        "description": "selectMain",
-        "peekOfCode": "BUTTON_HEIGHT = 100\n# Separación vertical entre botones\nGAP_Y = 20\n# Variables globales\nteam1_name = \"\"\nteam2_name = \"\"\ncount_press = 0\ndef selectMain():\n    pygame.init()\n    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)",
-        "detail": "selectMain",
-        "documentation": {}
-    },
-    {
-        "label": "GAP_Y",
-        "kind": 5,
-        "importPath": "selectMain",
-        "description": "selectMain",
-        "peekOfCode": "GAP_Y = 20\n# Variables globales\nteam1_name = \"\"\nteam2_name = \"\"\ncount_press = 0\ndef selectMain():\n    pygame.init()\n    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)\n    clock = pygame.time.Clock()\n    done = False",
         "detail": "selectMain",
         "documentation": {}
     },

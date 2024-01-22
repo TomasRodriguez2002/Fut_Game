@@ -1,7 +1,5 @@
-import math
-import threading
-import pygame
 
+import pygame
 from Strategies.Strategy import Strategy
 from Constantes import *
 import random
@@ -12,8 +10,6 @@ from players.GoalKeeper import GoalKeeper
 class TomasGStrategy(Strategy):
     def __init__(self):
         super().__init__()
-        self.marked_opponents = {}
-        self.marked_opponents_lock = threading.Lock()
 
     def is_goalkeeper_closest_to_ball(self, player, teammates):
         ball_position = self.mediator.getBallsPosition()
@@ -80,7 +76,6 @@ class TomasGStrategy(Strategy):
                 teammate_with_ball = next((teammate for teammate in teammates if teammate.hasBall), None)
 
                 if teammate_with_ball:
-                    self.marked_opponents = {}
                     #print("Mi compañero tiene la pelota")
                     # Obtener la posición del compañero con pelota
                     teammate_position = teammate_with_ball.rect.center
@@ -108,56 +103,41 @@ class TomasGStrategy(Strategy):
                         # Si el jugador actual es el más cercano al compañero de tu equipo con la pelota, ir a quitarla
                         if closest_teammate == player:
                             return ball_position
-                        else:
-                            if player.team:
-                                if ball_position[0] < MITAD_CANCHA:
-                                    opposing_players = [opponent for opponent in rivals if not isinstance(opponent,GoalKeeper)] #ARREGLAR ESTA PARTEeeeeeeeeeeeeeeeeeeee
-                                    with self.marked_opponents_lock:
-                                        unmarked_opponents = [opp for opp in opposing_players if
-                                                              opp not in self.marked_opponents.values()]
-                                        if unmarked_opponents:
-                                            closest_opponent = min(unmarked_opponents,
-                                                                   key=lambda opp: self.get_distance2(player, opp.rect.center))
-                                            self.marked_opponents[
-                                                player] = closest_opponent  # Marcar al oponente para evitar que otros jugadores lo elijan
-
-
-                                            return closest_opponent.rect.center
-                            else:
-                                if ball_position[0] > MITAD_CANCHA:
-                                    opposing_players = [opponent for opponent in rivals if not isinstance(opponent,GoalKeeper)]
-                                    with self.marked_opponents_lock:
-                                        unmarked_opponents = [opp for opp in opposing_players if
-                                                              opp not in self.marked_opponents.values()]
-                                        if unmarked_opponents:
-                                            closest_opponent = min(unmarked_opponents,
-                                                                   key=lambda opp: self.get_distance2(player, opp.rect.center))
-                                            self.marked_opponents[
-                                                player] = closest_opponent  # Marcar al oponente para evitar que otros jugadores lo elijan
-
-                                            return closest_opponent.rect.center
-
 
             # Obtener la posición actual del jugador
             #El mas lejos a la pelota que mantenga su posicion atras de mitad de cancha y los demas van a presionar a los rivales mas cercanos a la pelota.
             if player.team:
-                current_position = player.rect.center
-                small_range = 100
-                new_x = AREA_G_MID_IZQ+100 + random.randint(-small_range, +small_range)
-                small_range = 300
-                new_y = current_position[1] + random.randint(-small_range, +small_range)
-                return new_x, new_y
-
+                if ball_position[0] < MITAD_CANCHA:
+                    current_position = player.rect.center
+                    if 50 < self.get_distance2(player, ball_position) < 200:
+                        return ball_position
+                    new_x = AREA_G_MID_IZQ
+                    small_range = 300
+                    new_y = current_position[1] + random.randint(-small_range, +small_range)
+                    return new_x, new_y
+                else:              #teammate_cercano_ball = min(teammates.sprites(), key=lambda teammate: self.get_distance2(teammate, ball_position))
+                    current_position = player.rect.center
+                    small_range = 100
+                    new_x = AREA_G_MID_IZQ+100 + random.randint(-small_range, +small_range)
+                    small_range = 300
+                    new_y = current_position[1] + random.randint(-small_range, +small_range)
+                    return new_x, new_y
             else:
-                current_position = player.rect.center
-                small_range = 100
-                new_x = AREA_G_MID_DER-100 + random.randint(-small_range, +small_range)
-                small_range = 300
-                new_y = current_position[1] + random.randint(-small_range, +small_range)
-                return new_x, new_y
-
-
-
+                if ball_position[0] > MITAD_CANCHA:
+                    if 50 < self.get_distance2(player, ball_position) < 200:
+                        return ball_position
+                    current_position = player.rect.center
+                    new_x = AREA_G_MID_DER
+                    small_range = 300
+                    new_y = current_position[1] + random.randint(-small_range, +small_range)
+                    return new_x, new_y
+                else:  # teammate_cercano_ball = min(teammates.sprites(), key=lambda teammate: self.get_distance2(teammate, ball_position))
+                    current_position = player.rect.center
+                    small_range = 100
+                    new_x = AREA_G_MID_IZQ + 100 + random.randint(-small_range, +small_range)
+                    small_range = 300
+                    new_y = current_position[1] + random.randint(-small_range, +small_range)
+                    return new_x, new_y
 
 
     def calculate_position_away_from_rivals(self, target_position, teammates, player):
