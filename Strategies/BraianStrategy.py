@@ -320,5 +320,4 @@ class BraianStrategy(Strategy):
     def where_to_pass(self, player):
         #No chequeo si es arquero o no porque quiero pasarla al mas cercano
         result = self.pasar_mas_cercano(player)
-        print(f"where_to_pass result: {result}")
         return result

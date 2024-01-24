@@ -20,6 +20,11 @@ BUTTON_HEIGHT = 100
 # Separación vertical entre botones
 GAP_Y = 20
 
+# Acciones de Player
+SHOT = 1
+PASS = 2
+MOVE = 3
+
 # Limites de la cancha
 LATERAL_IZQ = 48 # coord en y 
 LATERAL_DER = 719 # coord en y

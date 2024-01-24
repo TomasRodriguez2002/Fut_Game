@@ -199,8 +199,7 @@ class Mediator(object):
         # lateral der en mitad de cancha team2
         else:
             self.ball.rect.centery = LATERAL_DER
-            self.restart_players_positions_to_lateral_der_team2()
-        
+            self.restart_players_positions_to_lateral_der_team2()        
 
     '''
     def check_collision_between_players(self, new_x, new_y, players):

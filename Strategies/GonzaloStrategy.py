@@ -103,7 +103,6 @@ class GonzaloStrategy(Strategy):
         else:
             # movimiento si mi equipo tiene la pelota
             if self.team_has_ball(player):
-                print('w')
                 return self.player_movement_team_with_ball(player)
             # movimiento si el equipo rival tiene la pelota
             if self.rival_has_ball(player):
@@ -126,13 +125,10 @@ class GonzaloStrategy(Strategy):
                 if player.team:
                     # si el jugador esta entre los limites inferiores y superiores del area se mueve hacia el area rival
                     if AREA_G_SUP < player.rect.centery < AREA_G_INF:
-                        print('a')
                         return AREA_G_MID_DER, player.rect.centery
                     # si no se encuentra entre los limites del area se mueve un poco en diagonal y hacia adelante
                     elif player.rect.centery < AREA_G_SUP:
-                        print('aa')
                         return AREA_G_MID_DER, PALO_SUP
-                    print('aaa')
                     return AREA_G_MID_DER, PALO_INF
                 else:
                     # si el jugador esta entre los limites inferiores y superiores del area se mueve hacia el area rival
