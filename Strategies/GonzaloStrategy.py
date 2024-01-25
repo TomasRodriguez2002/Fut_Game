@@ -103,7 +103,6 @@ class GonzaloStrategy(Strategy):
         else:
             # movimiento si mi equipo tiene la pelota
             if self.team_has_ball(player):
-                print('w')
                 return self.player_movement_team_with_ball(player)
             # movimiento si el equipo rival tiene la pelota
             if self.rival_has_ball(player):
