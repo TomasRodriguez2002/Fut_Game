@@ -7,7 +7,7 @@ class TomasRStrategy(Strategy):
 
     # 27 px de width y height el sprite del player
 
-    MARKS_DISTANCE = 80
+    MARKS_DISTANCE = 40
     CONSIDERABLE_DISTANCE_TO_MARK = 120
 
     def __init__(self):
@@ -41,23 +41,23 @@ class TomasRStrategy(Strategy):
                 return False
         return True
     
-    def im_the_closest_to_the_ball(self, player):
+    def distance_to_player(self, center_1, center_2):
+        return math.sqrt((center_2[0] - center_1[0])**2 + (center_2[1] - center_1[1])**2)
+    
+    def distance_to_ball(self, center):
         ball_centerx, ball_centery = self.mediator.getBallsPosition()
+        return math.sqrt((ball_centerx - center[0])**2 + (ball_centery - center[1])**2)
+    
+    def im_the_closest_to_the_ball(self, player):
         teammates = self.mediator.getTeammates(player.team)
         rivals = self.mediator.getRivals(player.team)
         for rival in rivals:
-            if self.distance_to_ball(rival, ball_centerx, ball_centery) < self.distance_to_ball(player, ball_centerx, ball_centery):
+            if self.distance_to_ball(rival.rect.center) < self.distance_to_ball(player.rect.center):
                 return False
         for teammate in teammates:
-            if self.distance_to_ball(teammate, ball_centerx, ball_centery) < self.distance_to_ball(player, ball_centerx, ball_centery):
+            if self.distance_to_ball(teammate.rect.center) < self.distance_to_ball(player.rect.center):
                 return False
         return True
-    
-    def distance_to_player(self, player1, player2):
-        return math.sqrt((player2.rect.centerx - player1.rect.centerx)**2 + (player2.rect.centery - player1.rect.centery)**2)
-    
-    def distance_to_ball(self, player, ball_centerx, ball_centery):
-        return math.sqrt((ball_centerx - player.rect.centerx)**2 + (ball_centery - player.rect.centery)**2)
 
     def mark_the_nearest_player_not_marked_by_a_teammate(self, player):    
         teammates = self.mediator.getTeammates(player.team)
@@ -102,34 +102,56 @@ class TomasRStrategy(Strategy):
         return None
 
     def getProxPos(self, player):
-        ball_centerx, ball_centery = self.mediator.getBallsPosition()
+        
         if isinstance(player, GoalKeeper):
 
-            # si la pelota esta dentro del area grande y soy el jugador más cercano a ella voy a buscarla
-            if (AREA_G_SUP < ball_centery < AREA_G_INF) and (((player.team) and (ball_centerx < AREA_G_MID_IZQ)) or \
+            ball_centerx, ball_centery = self.mediator.getBallsPosition()
+            # si la pelota esta dentro del area grande semi frenada y soy el jugador más cercano a ella voy a buscarla
+            if (self.mediator.ball.move_speed < 10) and (AREA_G_SUP < ball_centery < AREA_G_INF) and \
+                (((player.team) and (ball_centerx < AREA_G_MID_IZQ)) or \
                 ((not player.team) and (ball_centerx > AREA_G_MID_DER))):
                     if self.im_the_closest_to_the_ball(player):
                         return ball_centerx, ball_centery
 
-            # movimiento del arquero (pelota en area grande)
-            if (player.team) and (ball_centerx < AREA_C_MID_IZQ+200):
+            # movimiento del arquero (pelota en mi area)
+            if (player.team) and (ball_centerx < AREA_C_MID_IZQ):
                 if PALO_INF > ball_centery:
                     if PALO_SUP < ball_centery:
                         return FONDO_IZQ+10, ball_centery
                     else:
-                        return FONDO_IZQ+10, PALO_SUP
+                        return FONDO_IZQ+10, PALO_SUP+10
                 else:
-                    return FONDO_IZQ+10, PALO_INF
-            elif (not player.team) and (ball_centerx > AREA_C_MID_DER-200):
+                    return FONDO_IZQ+10, PALO_INF-10
+                
+            elif (not player.team) and (ball_centerx > AREA_C_MID_DER):
                 if PALO_INF > ball_centery:
                     if PALO_SUP < ball_centery:
                         return FONDO_DER-10, ball_centery
                     else:
-                        return FONDO_DER-10, PALO_SUP
+                        return FONDO_DER-10, PALO_SUP+10
                 else:
-                    return FONDO_DER-10, PALO_INF
+                    return FONDO_DER-10, PALO_INF-10
+
+            # movimiento del arquero (pelota en mi mitad de cancha)
+            if (player.team) and (ball_centerx < MITAD_CANCHA):
+                if 420 > ball_centery:
+                    if 340 < ball_centery:
+                        return FONDO_IZQ+10, ball_centery
+                    else:
+                        return FONDO_IZQ+10, 340
+                else:
+                    return FONDO_IZQ+10, 420
                 
-            # movimiento del arquero (pelota fuera del area grande)
+            elif (not player.team) and (ball_centerx > MITAD_CANCHA):
+                if 420 > ball_centery:
+                    if 340 < ball_centery:
+                        return FONDO_DER-10, ball_centery
+                    else:
+                        return FONDO_DER-10, 340
+                else:
+                    return FONDO_DER-10, 420
+                
+            # movimiento del arquero (pelota en mitad de cancha rival)
             if (player.team):
                 if PALO_INF > ball_centery:
                     if PALO_SUP < ball_centery:
@@ -304,19 +326,21 @@ class TomasRStrategy(Strategy):
             # se considera marcado si el rival se encuentra en frente
             if ((player.team) and (player.rect.centerx < rival.rect.centerx)) or \
                 ((not player.team) and (player.rect.centerx > rival.rect.centerx)):
-                    if self.distance_to_player(player, rival) < self.MARKS_DISTANCE:
+                    if self.distance_to_player(player.rect.center, rival.rect.center) < self.MARKS_DISTANCE:
                         return True
         return False
 
     # 1 -> patear | 2 -> pasar | 3 -> moverse
     def with_ball(self, player):
         
+        # El arquero cuando tiene la pelota no se mueve ni patea al arco, simplemente la pasa a un compañero
         if isinstance(player, GoalKeeper):
             return 2
         
         # si estoy en el area grande rival pateo
-        if (player.team) and (player.rect.centerx > AREA_G_MID_DER-150) and (AREA_C_SUP < player.rect.centery < AREA_C_INF) or \
-            (not player.team) and (player.rect.centerx < AREA_G_MID_IZQ+150) and (AREA_C_SUP < player.rect.centery < AREA_C_INF):
+        if (AREA_C_SUP-50 < player.rect.centery < AREA_C_INF+50) and \
+            ((player.team and player.rect.centerx > AREA_G_MID_DER-200) or \
+            (not player.team and player.rect.centerx < AREA_G_MID_IZQ+200)):
                 return 1
         
         # si no puedo patear chequeo si tengo marca (la paso, sino me muevo hacia el area rival)
@@ -331,23 +355,23 @@ class TomasRStrategy(Strategy):
         if not isinstance(player, GoalKeeper):
             i = 0
             flag = False
-            while (i < len(teammates) and (not flag)):
+            while ((not flag) and i < len(teammates)):
                 teammate = teammates.sprites()[i]
                 if(isinstance(teammate, GoalKeeper)):
                     flag = True
                     x, y = teammate.rect.centerx, teammate.rect.centery
                 i += 1
-        # si soy el arquero, por defecto la despejo hacia arriba
+        # si soy el arquero, por defecto la despejo en diagonal
         else:
-            x, y = MITAD_CANCHA, LATERAL_IZQ
+            x, y = MITAD_CANCHA, random.choice([LATERAL_DER, LATERAL_IZQ])
         
         for teammate in teammates:
             for rival in rivals:
-                if teammate != player:
+                if teammate != player and not isinstance(teammate, GoalKeeper):
                     # verificar que el jugador no este a la espalda del rival para evitar pases al rival
-                    if (((player.team) and (teammate.rect.centerx < rival.rect.centerx)) or \
-                    ((not player.team) and (teammate.rect.centerx > rival.rect.centerx+40))) and \
-                    (self.distance_to_player(teammate, rival) > 40):
+                    if ((player.rect.centerx < teammate.rect.centerx and teammate.rect.centerx < rival.rect.centerx) or \
+                         (player.rect.centerx >= teammate.rect.centerx and teammate.rect.centerx > rival.rect.centerx)) and \
+                        (self.distance_to_player(teammate, rival) > self.MARKS_DISTANCE):
                         return teammate.rect.centerx, teammate.rect.centery
         return x, y
 
