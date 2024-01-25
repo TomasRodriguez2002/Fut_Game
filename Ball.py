@@ -10,7 +10,7 @@ class Ball(pygame.sprite.Sprite):
         self.image.set_colorkey([0,0,0])
         self.rect = self.image.get_rect()
         self.rect.center = (MITAD_CANCHA, SAQUE) 
-        self.move_speed = 0#35
+        self.move_speed = 0
         self.is_moving = False
         self.dx = 0
         self.dy = 0
@@ -40,9 +40,10 @@ class Ball(pygame.sprite.Sprite):
         if self.detect_goal():
             self.game.show_goal_message("¡Goooaaal!", 25)  # Ajusta la duración según sea necesario
 
-        # 443 a 449 palo inferior y 315 a 321 palo superior
-        if ((315 <= self.rect.centery <= 321) or (443 <= self.rect.centery <= 449)) and \
-            ((101 <= self.rect.centerx <= 103) or (1250 <= self.rect.centerx <= 1252)):
+        if ((GROSOR_Y_PALO_SUP[0] <= self.rect.centery <= GROSOR_Y_PALO_SUP[1]) or \
+            (GROSOR_Y_PALO_INF[0] <= self.rect.centery <= GROSOR_Y_PALO_INF[1])) and \
+            ((GROSOR_X_PALO_IZQ[0] <= self.rect.centerx <= GROSOR_X_PALO_IZQ[1]) or \
+             (GROSOR_X_PALO_DER[0] <= self.rect.centerx <= GROSOR_X_PALO_DER[0])):
             self.palo_sound.play()
         
         # lateral izquierdo
