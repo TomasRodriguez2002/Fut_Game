@@ -33,7 +33,6 @@ class Game(object):
         self.tie_sound = pygame.mixer.Sound("Sounds/empate.wav")
         self.environment = pygame.mixer.Sound("Sounds/ambiente.wav")
         self.environment.set_volume(0.1)
-        self.canal1 = self.environment.play(-1)
         self.paused = False
         self.show_return_menu_message = False
         self.initialize_game()
@@ -132,7 +131,7 @@ class Game(object):
         self.mediator.restart_positions(random.choice([True, False]))
 
     def pause(self):
-        self.canal1.pause()
+        pygame.mixer.stop()
         self.pause_sound.play()
         self.paused = True
         self.display_frame()
@@ -145,7 +144,7 @@ class Game(object):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.pause_sound.play()
-                        self.canal1.unpause()
+                        self.canal1 = self.environment.play(-1)
                         self.paused = False
                     if event.key == pygame.K_ESCAPE:
                         self.paused = False
@@ -153,7 +152,7 @@ class Game(object):
         return False
     
     def game_finish(self):
-        self.canal1.pause()
+        pygame.mixer.stop()
         if self.goals_team1 != self.goals_team2:
             canal_winner_sound = self.winner_sound.play()
         else:
@@ -183,6 +182,7 @@ class Game(object):
         pygame.display.set_caption("Fut_Game")
         icon = pygame.image.load("pelotaicon.png")
         pygame.display.set_icon(icon)
+        self.environment.play(-1)
         while not done:
             done = self.process_events()
             if not done:
@@ -210,11 +210,11 @@ class Game(object):
     def process_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.canal1.pause()
+                pygame.mixer.stop()
                 return True
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self.canal1.pause()
+                    pygame.mixer.stop()
                     return True
                 if event.key == pygame.K_r and pygame.key.get_mods() & pygame.KMOD_CTRL:
                     self.reset_game()

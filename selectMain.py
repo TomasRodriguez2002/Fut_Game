@@ -21,7 +21,7 @@ def selectMain():
     pygame.display.set_icon(icon)
     environment = pygame.mixer.Sound("Sounds/SonidoMenu.wav")
     environment.set_volume(0.3)
-    canal1 = environment.play(-1)
+    environment.play(-1)
 
     cursor = Cursor()
     # Calcular posiciones de los botones
@@ -49,9 +49,9 @@ def selectMain():
         done = process_events(cursor, botonBraian, botonGonzalo, botonMateo, botonNicolas, botonTomasG, botonTomasR)
         if team1_name != "" and team2_name != "":
             game = Game(team1_name, team2_name)
-            canal1.pause()
+            pygame.mixer.stop()
             game.play()
-            canal1.unpause()
+            environment.play(-1)
             unpush(team1_name, botonMateo, botonBraian, botonNicolas, botonTomasG, botonTomasR, botonGonzalo)
             unpush(team2_name, botonMateo, botonBraian, botonNicolas, botonTomasG, botonTomasR, botonGonzalo)
             team1_name = ""
