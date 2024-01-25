@@ -24,6 +24,7 @@ class Mediator(object):
 
     def restart_positions(self, team):
         self.ball.game.whistle.play()
+        self.ball.move_speed = 0
         self.ball.rect.center = (MITAD_CANCHA, SAQUE)
         # Equipo 1 hizo gol
         if team:
@@ -68,8 +69,7 @@ class Mediator(object):
         i = 0
         for player in self.players2:
             if isinstance(player, GoalKeeper):
-                # para evitar que el arquero se posicione con la pelota dentro del arco
-                pos = POS_P5_F5[0]-50, POS_P5_F5[1]
+                pos = AREA_C_MID_DER, SAQUE
                 player.setPosition(pos)
             else:
                 player.setPosition(POS_TEAM2_F5[i])
@@ -77,8 +77,7 @@ class Mediator(object):
         i = 0
         for player in self.players1:
             if isinstance(player, GoalKeeper):
-                # para evitar que el arquero se posicione con la pelota dentro del arco
-                pos = POS_P10_F5[0]+50, POS_P10_F5[1]
+                pos = AREA_C_MID_IZQ, SAQUE
                 player.setPosition(pos)
             else:
                 player.setPosition(POS_TEAM1_F5[i])
@@ -87,12 +86,13 @@ class Mediator(object):
     # boolean fondo (True == fondo izq | False == fondo der)
     def restart_positions_to_goal_kick(self, fondo):
         self.ball.game.whistle.play()
+        self.ball.move_speed = 0
         # Saca del arco equipo 1
         if fondo:
-            self.ball.rect.center = (POS_P10_F5[0]+30, POS_P10_F5[1])
+            self.ball.rect.center = (AREA_C_MID_IZQ, SAQUE)
         # Saca del arco equipo 2
         else:
-            self.ball.rect.center = (POS_P5_F5[0]-30, POS_P5_F5[1])
+            self.ball.rect.center = (AREA_C_MID_DER, SAQUE)
         self.restart_players_positions_to_goal_kick()
 
     def restart_players_positions_to_lateral_izq_team1(self):
@@ -187,6 +187,7 @@ class Mediator(object):
     # boolean lateral (True == lateral izq, es decir, arriba  | False == lateral der, es decir, abajo)
     def restart_positions_to_lateral(self, mitad_cancha, lateral):
         self.ball.game.whistle.play()
+        self.ball.move_speed = 0
         if mitad_cancha:
             # lateral izq en mitad de cancha team1
             if lateral:
