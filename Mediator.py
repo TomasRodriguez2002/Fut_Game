@@ -68,14 +68,18 @@ class Mediator(object):
         i = 0
         for player in self.players2:
             if isinstance(player, GoalKeeper):
-                player.setPosition(POS_P5_F5)
+                # para evitar que el arquero se posicione con la pelota dentro del arco
+                pos = POS_P5_F5[0]-50, POS_P5_F5[1]
+                player.setPosition(pos)
             else:
                 player.setPosition(POS_TEAM2_F5[i])
                 i += 1
         i = 0
         for player in self.players1:
             if isinstance(player, GoalKeeper):
-                player.setPosition(POS_P10_F5)
+                # para evitar que el arquero se posicione con la pelota dentro del arco
+                pos = POS_P10_F5[0]+50, POS_P10_F5[1]
+                player.setPosition(pos)
             else:
                 player.setPosition(POS_TEAM1_F5[i])
                 i += 1
@@ -85,10 +89,10 @@ class Mediator(object):
         self.ball.game.whistle.play()
         # Saca del arco equipo 1
         if fondo:
-            self.ball.rect.center = (POS_P10_F5)
+            self.ball.rect.center = (POS_P10_F5[0]+30, POS_P10_F5[1])
         # Saca del arco equipo 2
         else:
-            self.ball.rect.center = (POS_P5_F5)
+            self.ball.rect.center = (POS_P5_F5[0]-30, POS_P5_F5[1])
         self.restart_players_positions_to_goal_kick()
 
     def restart_players_positions_to_lateral_izq_team1(self):
@@ -186,19 +190,19 @@ class Mediator(object):
         if mitad_cancha:
             # lateral izq en mitad de cancha team1
             if lateral:
-                self.ball.rect.centery = LATERAL_IZQ
+                self.ball.rect.centery = LATERAL_IZQ+30
                 self.restart_players_positions_to_lateral_izq_team1()
             # lateral der en mitad de cancha team1 
             else:
-                self.ball.rect.centery = LATERAL_DER
+                self.ball.rect.centery = LATERAL_DER-30
                 self.restart_players_positions_to_lateral_der_team1()
         # lateral izq en mitad de cancha team2
         elif lateral:
-            self.ball.rect.centery = LATERAL_IZQ
+            self.ball.rect.centery = LATERAL_IZQ+30
             self.restart_players_positions_to_lateral_izq_team2()
         # lateral der en mitad de cancha team2
         else:
-            self.ball.rect.centery = LATERAL_DER
+            self.ball.rect.centery = LATERAL_DER-30
             self.restart_players_positions_to_lateral_der_team2()        
 
     '''
