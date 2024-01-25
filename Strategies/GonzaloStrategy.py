@@ -103,6 +103,7 @@ class GonzaloStrategy(Strategy):
         else:
             # movimiento si mi equipo tiene la pelota
             if self.team_has_ball(player):
+                print('w')
                 return self.player_movement_team_with_ball(player)
             # movimiento si el equipo rival tiene la pelota
             if self.rival_has_ball(player):
@@ -118,26 +119,11 @@ class GonzaloStrategy(Strategy):
         if isinstance(player, GoalKeeper):
             return 2 # se puede hacer que se mueva pero el pase es lo mas facil
         else:
-            if ((player.team==True) and (player.rect.centerx > AREA_G_MID_DER) and (player.rect.centery<AREA_C_SUP) and (player.rect.centery>AREA_C_INF)) or ((player.team==False) and (player.rect.centerx < AREA_G_MID_IZQ) and (player.rect.centery<AREA_C_SUP) and (player.rect.centery>AREA_C_INF)):
+            if ((player.team==True) and (player.rect.centerx > (AREA_G_MID_DER - 250)) and (player.rect.centery>AREA_G_SUP) and (player.rect.centery<AREA_G_INF)) or ((player.team==False) and (player.rect.centerx < AREA_G_MID_IZQ + 250) and (player.rect.centery>AREA_G_SUP) and (player.rect.centery<AREA_G_INF)):
                 return 1
             # si no estoy en el area, y no tengo rivales cerca avanzo, sino la paso al jugador mas cercano
             if self.no_rivals_near(player):
-                if player.team:
-                    # si el jugador esta entre los limites inferiores y superiores del area se mueve hacia el area rival
-                    if AREA_G_SUP < player.rect.centery < AREA_G_INF:
-                        return AREA_G_MID_DER, player.rect.centery
-                    # si no se encuentra entre los limites del area se mueve un poco en diagonal y hacia adelante
-                    elif player.rect.centery < AREA_G_SUP:
-                        return AREA_G_MID_DER, PALO_SUP
-                    return AREA_G_MID_DER, PALO_INF
-                else:
-                    # si el jugador esta entre los limites inferiores y superiores del area se mueve hacia el area rival
-                    if AREA_G_SUP < player.rect.centery < AREA_G_INF:
-                        return AREA_G_MID_IZQ, player.rect.centery
-                    # si no se encuentra entre los limites del area se mueve un poco en diagonal y hacia adelante
-                    elif player.rect.centery < AREA_G_SUP:
-                        return AREA_G_MID_IZQ, PALO_SUP
-                    return AREA_G_MID_IZQ, PALO_INF
+                return 3
             else:
                 return 2
         
