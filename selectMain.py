@@ -95,12 +95,16 @@ def process_events(cursor, botonBraian, botonGonzalo, botonMateo, botonNicolas, 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if cursor.colliderect(botonBraian.rect):
                 set_team_names(BRAIAN)
+                botonBraian.push()
             elif cursor.colliderect(botonGonzalo.rect):
                 set_team_names(GONZALO)
+                botonGonzalo.push()
             elif cursor.colliderect(botonMateo.rect):
                 set_team_names(MATEO)
+                botonMateo.push()
             elif cursor.colliderect(botonNicolas.rect):
                 set_team_names(NICOLAS)
+                botonNicolas.push()
             elif cursor.colliderect(botonTomasR.rect):
                 set_team_names(TOMAS_R)
                 botonTomasR.push()

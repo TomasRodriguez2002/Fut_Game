@@ -20,6 +20,11 @@ BUTTON_HEIGHT = 100
 # Separación vertical entre botones
 GAP_Y = 20
 
+# Acciones de Player
+SHOT = 1
+PASS = 2
+MOVE = 3
+
 # Limites de la cancha
 LATERAL_IZQ = 48 # coord en y 
 LATERAL_DER = 719 # coord en y
@@ -29,8 +34,11 @@ MITAD_CANCHA = 677 # coord en x
 SAQUE = 383  # coord en y
 
 PALO_SUP = 317 # coord en y
-
 PALO_INF = 445 # coord en y
+GROSOR_X_PALO_IZQ = (101, 103)
+GROSOR_X_PALO_DER = (1250, 1252)
+GROSOR_Y_PALO_INF = (443, 449)       
+GROSOR_Y_PALO_SUP = (315, 321)
 
 AREA_G_INF = 623 # coord en y
 AREA_G_SUP = 144 # coord en y

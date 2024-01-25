@@ -38,16 +38,16 @@ class GoalKeeper(Player):
             action = self.strategy.with_ball(self)
 
             # patear
-            if action == 1:
+            if action == SHOT:
                 self.mediator.shot_ball(self.team)
                 self.hasBall = False
             # pasar pelota
-            elif action == 2:
+            elif action == PASS:
                 x, y = self.strategy.where_to_pass(self)
                 self.mediator.pass_ball(x, y)
                 self.hasBall = False
             # moverse
-            elif action == 3:
+            elif action == MOVE:
                 self.move()
 
         else:
