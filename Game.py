@@ -144,7 +144,7 @@ class Game(object):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.pause_sound.play()
-                        self.canal1 = self.environment.play(-1)
+                        self.environment.play(-1)
                         self.paused = False
                     if event.key == pygame.K_ESCAPE:
                         self.paused = False
