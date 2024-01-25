@@ -147,6 +147,9 @@ class Game(object):
                         self.pause_sound.play()
                         self.canal1.unpause()
                         self.paused = False
+                    if event.key == pygame.K_ESCAPE:
+                        self.paused = False
+                        return True
         return False
     
     def game_finish(self):
@@ -257,6 +260,7 @@ class Game(object):
             if self.goals_team1 > self.goals_team2:
                 sprite_player_image = pygame.image.load(self.sprite_player1)
                 sprite_player_image = pygame.transform.scale(sprite_player_image, (100, 100))
+                sprite_player_image.set_colorkey([0,0,0])
                 sprite_player_position = (MITAD_CANCHA-((sprite_player_image.get_width()) // 2),SAQUE-((sprite_player_image.get_height())//2))
                 self.screen.blit(sprite_player_image, sprite_player_position)
 
@@ -273,6 +277,7 @@ class Game(object):
             elif self.goals_team1 < self.goals_team2:
                 sprite_player_image = pygame.image.load(self.sprite_player2)
                 sprite_player_image = pygame.transform.scale(sprite_player_image, (100, 100))
+                sprite_player_image.set_colorkey([0,0,0])
                 sprite_player_position = (MITAD_CANCHA-((sprite_player_image.get_width()) // 2),SAQUE-((sprite_player_image.get_height())//2))
                 self.screen.blit(sprite_player_image, sprite_player_position)
 
@@ -322,11 +327,13 @@ class Game(object):
         # Mostrar sprite_player1 a la izquierda del contador de goles del team 1
         sprite_player1_image = pygame.image.load(self.sprite_player1)
         sprite_player1_image = pygame.transform.scale(sprite_player1_image, (45, 45))
+        sprite_player1_image.set_colorkey([0,0,0])
         sprite_player1_position = (goals_team1_position[0] - 60, 0)
 
         # Mostrar sprite_player2 a la derecha del contador de goles del team 2
         sprite_player2_image = pygame.image.load(self.sprite_player2)
         sprite_player2_image = pygame.transform.scale(sprite_player2_image, (45, 45))
+        sprite_player2_image.set_colorkey([0,0,0])
         sprite_player2_position = (goals_team2_position[0] + 60, 0)
 
         self.screen.blit(sprite_player1_image, sprite_player1_position)
