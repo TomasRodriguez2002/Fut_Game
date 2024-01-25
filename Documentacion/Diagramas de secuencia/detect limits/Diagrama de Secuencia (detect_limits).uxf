@@ -1,0 +1,107 @@
+<diagram program="umletino" version="15.1"><zoom_level>8</zoom_level><element><id>UMLGeneric</id><coordinates><x>640</x><y>260</y><w>104</w><h>24</h></coordinates><panel_attributes>_mediator:Mediator_</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>688</x><y>276</y><w>24</w><h>2112</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;2620</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>896</x><y>260</y><w>104</w><h>24</h></coordinates><panel_attributes>_player:PlayerField_</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>936</x><y>276</y><w>24</w><h>2120</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;2630</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>400</x><y>260</y><w>104</w><h>24</h></coordinates><panel_attributes>_ball:Ball_</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>276</y><w>24</w><h>2104</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;2610</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>308</y><w>152</w><h>56</h></coordinates><panel_attributes>lt=&lt;-
+detect_limits()</panel_attributes><additional_attributes>10;50;90;50;90;10;10;10</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>128</x><y>436</y><w>1384</w><h>232</h></coordinates><panel_attributes>OPT
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>364</y><w>144</w><h>56</h></coordinates><panel_attributes>lt=&lt;-
+detect_goal()</panel_attributes><additional_attributes>10;50;90;50;90;10;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>160</x><y>484</y><w>216</w><h>56</h></coordinates><panel_attributes>[if ball.rect.left &gt; constantes.FONDO_DER and 
+ball.rect.centery &lt; constantes.PALO_INF and 
+ball.rect.centery &gt; constantes.PALO_SUP]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>160</x><y>732</y><w>216</w><h>56</h></coordinates><panel_attributes>[if ball.rect.right &lt; constantes.FONDO_IZQ and 
+ball.rect.centery &lt; constantes.PALO_INF and 
+ball.rect.centery &gt; constantes.PALO_SUP]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1088</x><y>452</y><w>184</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+play()</panel_attributes><additional_attributes>210;20;10;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1184</x><y>260</y><w>136</w><h>24</h></coordinates><panel_attributes>_goal:pygame.mixer.Sound_</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1248</x><y>276</y><w>24</w><h>2136</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;2650</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>484</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+restart_positions(team)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1040</x><y>260</y><w>104</w><h>24</h></coordinates><panel_attributes>_game:Game_</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1088</x><y>276</y><w>32</w><h>2128</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;20;2640</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>604</y><w>160</w><h>56</h></coordinates><panel_attributes>lt=&lt;.
+isGoal: boolean</panel_attributes><additional_attributes>10;50;90;50;90;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>688</x><y>556</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+setPosition(constantes.POS_X)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>UMLNote</id><coordinates><x>656</x><y>148</y><w>352</w><h>64</h></coordinates><panel_attributes>Debido a la gran carga de trabajo que conlleva representar gráficamente
+el método restart_positions de la clase Mediator se visualiza un pseudo 
+retorno de la misma, donde POS_X representa la posición designada al 
+jugador.
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>824</x><y>204</y><w>104</w><h>384</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;110;460</additional_attributes></element><element><id>Relation</id><coordinates><x>1088</x><y>524</y><w>344</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+play()</panel_attributes><additional_attributes>410;20;10;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1344</x><y>260</y><w>136</w><h>24</h></coordinates><panel_attributes>_whistle:pygame.mixer.Sound_</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1408</x><y>284</y><w>24</w><h>2136</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;2650</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>128</x><y>692</y><w>1384</w><h>232</h></coordinates><panel_attributes>OPT
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>732</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+restart_positions(team)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1088</x><y>692</y><w>184</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+play()</panel_attributes><additional_attributes>210;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1088</x><y>772</y><w>344</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+play()</panel_attributes><additional_attributes>410;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>688</x><y>812</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+setPosition(constantes.POS_X)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>128</x><y>940</y><w>1000</w><h>80</h></coordinates><panel_attributes>OPT
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>208</x><y>972</y><w>120</w><h>24</h></coordinates><panel_attributes>[if isGoal == True]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>964</y><w>672</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+show_goal_message(message, duration)</panel_attributes><additional_attributes>820;20;10;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>128</x><y>1044</y><w>1488</w><h>232</h></coordinates><panel_attributes>OPT
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>844</y><w>160</w><h>56</h></coordinates><panel_attributes>lt=&lt;.
+isGoal: boolean</panel_attributes><additional_attributes>10;50;90;50;90;10;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>144</x><y>1092</y><w>288</w><h>112</h></coordinates><panel_attributes>[if ((constantes.GROSOR_Y_PALO_SUP[0] &lt;= ball.rect.centery 
+&lt;= constantes.GROSOR_Y_PALO_SUP[1]) or 
+(constantes.GROSOR_Y_PALO_INF[0] &lt;= ball.rect.centery &lt;=
+constantes.GROSOR_Y_PALO_INF[1])) and 
+((constantes.GROSOR_X_PALO_IZQ[0] &lt;= ball.rect.centerx &lt;=
+constantes.GROSOR_X_PALO_IZQ[1]) or 
+(constantes.GROSOR_X_PALO_DER[0] &lt;= ball.rect.centerx &lt;=
+constantes.GROSOR_X_PALO_DER[0]))]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1496</x><y>260</y><w>168</w><h>24</h></coordinates><panel_attributes>_palo_sound:pygame.mixer.Sound_</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1576</x><y>276</y><w>24</w><h>2144</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;2660</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>1068</y><w>1160</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+play()</panel_attributes><additional_attributes>1430;20;10;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>128</x><y>1292</y><w>896</w><h>648</h></coordinates><panel_attributes>ALT
+--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-.</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>184</x><y>1332</y><w>216</w><h>32</h></coordinates><panel_attributes>[if (ball.rect.top &lt;= constantes.LATERAL_IZQ)]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>168</x><y>1652</y><w>232</w><h>32</h></coordinates><panel_attributes>[if (ball.rect.bottom &gt;= constantes.LATERAL_DER)]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>168</x><y>1388</y><w>808</w><h>216</h></coordinates><panel_attributes>ALT
+--
+
+
+
+
+
+
+
+-.</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>184</x><y>1436</y><w>240</w><h>32</h></coordinates><panel_attributes>[if ball.rect.centerx &lt;= constantes.MITAD_CANCHA]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>1404</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+restart_positions_to_lateral(mitad_cancha, lateral)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>688</x><y>1444</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+setPosition(constantes.POS_X)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>184</x><y>1516</y><w>240</w><h>32</h></coordinates><panel_attributes>[if ball.rect.centerx &gt; constantes.MITAD_CANCHA]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>1516</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+restart_positions_to_lateral(mitad_cancha, lateral)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>688</x><y>1556</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+setPosition(constantes.POS_X)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>168</x><y>1700</y><w>816</w><h>216</h></coordinates><panel_attributes>ALT
+--
+
+
+
+
+
+
+
+-.</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>184</x><y>1740</y><w>240</w><h>32</h></coordinates><panel_attributes>[if ball.rect.centerx &lt;= constantes.MITAD_CANCHA]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>184</x><y>1836</y><w>240</w><h>32</h></coordinates><panel_attributes>[if ball.rect.centerx &gt; constantes.MITAD_CANCHA]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>1716</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+restart_positions_to_lateral(mitad_cancha, lateral)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>688</x><y>1756</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+setPosition(constantes.POS_X)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>1828</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+restart_positions_to_lateral(mitad_cancha, lateral)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>688</x><y>1868</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+setPosition(constantes.POS_X)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>128</x><y>1956</y><w>896</w><h>352</h></coordinates><panel_attributes>OPT</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>152</x><y>1988</y><w>232</w><h>32</h></coordinates><panel_attributes>[if (ball.rect.centery &gt;= constantes,PALO_INF or 
+ball.rect.centery &lt;= constantes,PALO_SUP)]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>152</x><y>2028</y><w>832</w><h>248</h></coordinates><panel_attributes>ALT
+--
+
+
+
+
+
+
+
+
+-.</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>168</x><y>2060</y><w>232</w><h>32</h></coordinates><panel_attributes>[if (ball.rect.centerx &lt; constantes.FONDO_IZQ)]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>168</x><y>2172</y><w>232</w><h>32</h></coordinates><panel_attributes>[if (ball.rect.centerx &gt; constantes.FONDO_DER)]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>2044</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+restart_positions_to_goal_kick(fondo)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>2172</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+restart_positions_to_goal_kick(fondo)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>688</x><y>2084</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+setPosition(constantes.POS_X)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>688</x><y>2220</y><w>272</w><h>32</h></coordinates><panel_attributes>lt=&lt;-
+setPosition(constantes.POS_X)</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element></diagram>

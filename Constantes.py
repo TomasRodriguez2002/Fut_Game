@@ -34,8 +34,11 @@ MITAD_CANCHA = 677 # coord en x
 SAQUE = 383  # coord en y
 
 PALO_SUP = 317 # coord en y
-
 PALO_INF = 445 # coord en y
+GROSOR_X_PALO_IZQ = (101, 103)
+GROSOR_X_PALO_DER = (1250, 1252)
+GROSOR_Y_PALO_INF = (443, 449)       
+GROSOR_Y_PALO_SUP = (315, 321)
 
 AREA_G_INF = 623 # coord en y
 AREA_G_SUP = 144 # coord en y

@@ -10,7 +10,7 @@ class Ball(pygame.sprite.Sprite):
         self.image.set_colorkey([0,0,0])
         self.rect = self.image.get_rect()
         self.rect.center = (MITAD_CANCHA, SAQUE) 
-        self.move_speed = 0#35
+        self.move_speed = 0
         self.is_moving = False
         self.dx = 0
         self.dy = 0
@@ -25,14 +25,12 @@ class Ball(pygame.sprite.Sprite):
                 self.game.goal.play()
                 self.game.goals_team1 += 1
                 self.is_moving = False
-                print("GOL")
                 self.mediator.restart_positions(True)
                 return True        
             if self.rect.centerx < FONDO_IZQ:   
                 self.game.goal.play()
                 self.game.goals_team2 += 1
                 self.is_moving = False
-                print("GOL")
                 self.mediator.restart_positions(False)
                 return True
         return False
@@ -42,36 +40,31 @@ class Ball(pygame.sprite.Sprite):
         if self.detect_goal():
             self.game.show_goal_message("¡Goooaaal!", 25)  # Ajusta la duración según sea necesario
 
-        # 443 a 449 palo inferior y 315 a 321 palo superior
-        if ((315 <= self.rect.centery <= 321) or (443 <= self.rect.centery <= 449)) and \
-            ((101 <= self.rect.centerx <= 103) or (1250 <= self.rect.centerx <= 1252)):
+        if ((GROSOR_Y_PALO_SUP[0] <= self.rect.centery <= GROSOR_Y_PALO_SUP[1]) or \
+            (GROSOR_Y_PALO_INF[0] <= self.rect.centery <= GROSOR_Y_PALO_INF[1])) and \
+            ((GROSOR_X_PALO_IZQ[0] <= self.rect.centerx <= GROSOR_X_PALO_IZQ[1]) or \
+             (GROSOR_X_PALO_DER[0] <= self.rect.centerx <= GROSOR_X_PALO_DER[0])):
             self.palo_sound.play()
         
         # lateral izquierdo
         if (self.rect.top <= LATERAL_IZQ):
             if self.rect.centerx <= MITAD_CANCHA:
-                print("LATERAL IZQUIERDO")
                 self.mediator.restart_positions_to_lateral(True, True)
             else:
-                print("LATERAL IZQUIERDO")
                 self.mediator.restart_positions_to_lateral(False, True)
 
         # lateral derecho
         elif (self.rect.bottom >= LATERAL_DER):
             if self.rect.centerx <= MITAD_CANCHA:
-                print("LATERAL DERECHO")
                 self.mediator.restart_positions_to_lateral(True, False)
             else:
-                print("LATERAL DERECHO")
                 self.mediator.restart_positions_to_lateral(False, False)
             
         # Si la posición en y de la pelota no se encuentra entre los palos y la posicion en x supera la linea de fondo (der o izq) -> saque de arco
         if (self.rect.centery >= PALO_INF or self.rect.centery <= PALO_SUP):
             if (self.rect.centerx < FONDO_IZQ):
-                print("SAQUE FONDO IZQ")
                 self.mediator.restart_positions_to_goal_kick(True)
             elif (self.rect.centerx > FONDO_DER):
-                print("SAQUE FONDO DER")
                 self.mediator.restart_positions_to_goal_kick(False) 
 
     def animation_of_move(self):
