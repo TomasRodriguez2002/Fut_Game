@@ -60,7 +60,7 @@ class TomasRStrategy(Strategy):
             if self.distance_to_ball(rival.rect.center) < self.distance_to_ball(player.rect.center):
                 return False
         for teammate in teammates:
-            if self.distance_to_ball(teammate.rect.center) < self.distance_to_ball(player.rect.center):
+            if teammate != player and self.distance_to_ball(teammate.rect.center) < self.distance_to_ball(player.rect.center):
                 return False
         return True
 
@@ -116,6 +116,12 @@ class TomasRStrategy(Strategy):
                 return False
         return True
 
+    def im_the_closest_teammate_to_the_ball(self, player):
+        teammates = self.mediator.getTeammates(player.team)
+        for teammate in teammates:
+            if teammate != player and self.distance_to_ball(teammate.rect.center) < self.distance_to_ball(player.rect.center):
+                return False
+        return True
     '''
     def im_the_closest_to_the_ball(self, player):
         teammates = self.mediator.getTeammates(player.team)
@@ -139,7 +145,8 @@ class TomasRStrategy(Strategy):
 
             ball_centerx, ball_centery = self.mediator.getBallsPosition()
             # si la pelota esta dentro del area grande semi frenada y soy el jugador más cercano a ella voy a buscarla
-            if (self.mediator.ball.move_speed < 10) and (AREA_G_SUP < ball_centery < AREA_G_INF) and \
+            if (self.mediator.ball.move_speed < 10 or self.mediator.ball.move_speed == 35) and \
+                (AREA_G_SUP < ball_centery < AREA_G_INF) and \
                 (((player.team) and (ball_centerx < AREA_G_MID_IZQ)) or \
                 ((not player.team) and (ball_centerx > AREA_G_MID_DER))):
                     if self.im_the_closest_to_the_ball(player):
@@ -215,51 +222,91 @@ class TomasRStrategy(Strategy):
                         if player.team: 
                             # pelota en area rival central se adelanta
                             if ball_centerx > MITAD_CANCHA:
-                                return AREA_G_MID_IZQ+250, SAQUE
-                            return AREA_G_MID_IZQ, SAQUE
+                                if ball_centery < AREA_C_SUP:
+                                    return AREA_G_MID_IZQ+200, AREA_C_SUP
+                                elif ball_centery > AREA_C_INF:
+                                    return AREA_G_MID_IZQ+200, AREA_C_INF
+                                return AREA_G_MID_IZQ+200, ball_centery
+                            else:
+                                if ball_centery < PALO_SUP:
+                                    return AREA_G_MID_IZQ, PALO_SUP
+                                elif ball_centery > PALO_INF:
+                                    return AREA_G_MID_IZQ, PALO_INF
+                                return AREA_G_MID_IZQ, ball_centery
                         else:
-                            # pelota en area rival central se adelanta
+                            # pelota en area rival central se adelanta                        
                             if ball_centerx < MITAD_CANCHA:
-                                return AREA_G_MID_DER-250, SAQUE 
-                            return AREA_G_MID_DER, SAQUE 
+                                if ball_centery < AREA_C_SUP:
+                                    return AREA_G_MID_DER-200, AREA_C_SUP
+                                elif ball_centery > AREA_C_INF:
+                                    return AREA_G_MID_DER-200, AREA_C_INF
+                                return AREA_G_MID_DER-200, ball_centery
+                            else:
+                                if ball_centery < PALO_SUP:
+                                    return AREA_G_MID_DER, PALO_SUP
+                                elif ball_centery > PALO_INF:
+                                    return AREA_G_MID_DER, PALO_INF
+                                return AREA_G_MID_DER, ball_centery
 
                 # sino avanzo hacia el area rival
 
                 if player.team:
                     # punta lateral derecho o izquierdo
-                    if (player.rect.centery > AREA_C_INF) or (player.rect.centery < AREA_C_SUP):
+                    if (player.rect.centery > AREA_C_INF):
                         # punta abajo avanza en x
                         if player.rect.centerx < MITAD_CANCHA+120:
-                            return AREA_G_MID_DER, player.rect.centery
+                            return AREA_G_MID_DER, AREA_G_INF
                         # punta arriba se adentra al area rival
                         elif player.rect.centerx < AREA_G_MID_DER:
                             return AREA_G_MID_DER, SAQUE
                         # punta en area rival espera por pase
                         else:
-                            return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
+                            return AREA_G_MID_DER, AREA_C_INF+10
+                    
+                    if (player.rect.centery < AREA_C_SUP):
+                        # punta abajo avanza en x
+                        if player.rect.centerx < MITAD_CANCHA+120:
+                            return AREA_G_MID_DER, AREA_G_SUP
+                        # punta arriba se adentra al area rival
+                        elif player.rect.centerx < AREA_G_MID_DER:
+                            return AREA_G_MID_DER, SAQUE
+                        # punta en area rival espera por pase
+                        else:
+                            return AREA_G_MID_DER, AREA_C_SUP-10
                         
                     # enganche avanza al area rival (si fuese central se queda abajo, ver primer flujo)
-                    elif player.rect.centerx < AREA_G_MID_DER:
-                        return AREA_G_MID_DER, SAQUE
+                    if player.rect.centerx < AREA_G_MID_DER:
+                        return AREA_G_MID_DER, player.rect.centery
                     # si esta en el area rival espera pase
                     return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
 
                 else:
                     # punta lateral derecho o izquierdo
-                    if (player.rect.centery > AREA_C_INF) or (player.rect.centery < AREA_C_SUP):
+                    if (player.rect.centery > AREA_C_INF):
                         # punta abajo avanza en x
                         if player.rect.centerx > MITAD_CANCHA-120:
-                            return AREA_G_MID_IZQ, player.rect.centery
+                            return AREA_G_MID_IZQ, AREA_G_INF
                         # punta arriba se adentra al area rival
                         elif player.rect.centerx > AREA_G_MID_IZQ:
                             return AREA_G_MID_IZQ, SAQUE
                         # punta en area rival espera por pase
                         else:
-                            return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
+                            return AREA_G_MID_IZQ, AREA_C_INF+10
+                        
+                    if (player.rect.centery < AREA_C_SUP):
+                        # punta abajo avanza en x
+                        if player.rect.centerx > MITAD_CANCHA-120:
+                            return AREA_G_MID_IZQ, AREA_G_SUP
+                        # punta arriba se adentra al area rival
+                        elif player.rect.centerx > AREA_G_MID_IZQ:
+                            return AREA_G_MID_IZQ, SAQUE
+                        # punta en area rival espera por pase
+                        else:
+                            return AREA_G_MID_IZQ, AREA_C_SUP-10
                         
                     # enganche avanza al area rival (si fuese central se queda abajo, ver primer flujo)
-                    elif player.rect.centerx > AREA_G_MID_IZQ:
-                        return AREA_G_MID_IZQ, SAQUE
+                    if player.rect.centerx > AREA_G_MID_IZQ:
+                        return AREA_G_MID_IZQ, player.rect.centery
                     #si esta en el area rival espera pase
                     return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
 
@@ -336,7 +383,7 @@ class TomasRStrategy(Strategy):
             ''' si la pelota esta suelta (ningun jugador tiene posesión de ella)'''
 
             # Si soy el jugador de mi equipo que se encuentra más cerca de la pelota voy hacia ella
-            if self.im_the_closest_to_the_ball(player):
+            if self.im_the_closest_teammate_to_the_ball(player):
                 return self.mediator.getBallsPosition()
 
             # sino, mientras mi compañero va a buscar la pelota:      
@@ -350,21 +397,50 @@ class TomasRStrategy(Strategy):
                 if player.team: 
                     # pelota en area rival central se adelanta
                     if ball_centerx > MITAD_CANCHA:
-                        return AREA_G_MID_IZQ+250, SAQUE
-                    return AREA_G_MID_IZQ, SAQUE
+                        if ball_centery < AREA_C_SUP:
+                            return AREA_G_MID_IZQ+200, AREA_C_SUP
+                        elif ball_centery > AREA_C_INF:
+                            return AREA_G_MID_IZQ+200, AREA_C_INF
+                        return AREA_G_MID_IZQ+200, ball_centery
+                    else:
+                        if ball_centery < PALO_SUP:
+                            return AREA_G_MID_IZQ, PALO_SUP
+                        elif ball_centery > PALO_INF:
+                            return AREA_G_MID_IZQ, PALO_INF
+                        return AREA_G_MID_IZQ, ball_centery
                 else:
-                    # pelota en area rival central se adelanta
+                    # pelota en area rival central se adelanta                        
                     if ball_centerx < MITAD_CANCHA:
-                        return AREA_G_MID_DER-250, SAQUE 
-                    return AREA_G_MID_DER, SAQUE 
+                        if ball_centery < AREA_C_SUP:
+                            return AREA_G_MID_DER-200, AREA_C_SUP
+                        elif ball_centery > AREA_C_INF:
+                            return AREA_G_MID_DER-200, AREA_C_INF
+                        return AREA_G_MID_DER-200, ball_centery
+                    else:
+                        if ball_centery < PALO_SUP:
+                            return AREA_G_MID_DER, PALO_SUP
+                        elif ball_centery > PALO_INF:
+                            return AREA_G_MID_DER, PALO_INF
+                        return AREA_G_MID_DER, ball_centery
                 
             # sino, avanzo hacia el area rival
             if player.team:
                 # punta lateral derecho o izquierdo
-                if (player.rect.centery > AREA_C_INF) or (player.rect.centery < AREA_C_SUP):
+                if (player.rect.centery > AREA_C_INF):
                     # punta abajo avanza en x
                     if player.rect.centerx < MITAD_CANCHA+120:
-                        return AREA_G_MID_DER, player.rect.centery
+                        return AREA_G_MID_DER, AREA_G_INF
+                    # punta arriba se adentra al area rival
+                    elif player.rect.centerx < AREA_G_MID_DER:
+                        return AREA_G_MID_DER, SAQUE
+                    # punta en area rival espera por pase
+                    else:
+                        return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
+                
+                if (player.rect.centery < AREA_C_SUP):
+                    # punta abajo avanza en x
+                    if player.rect.centerx < MITAD_CANCHA+120:
+                        return AREA_G_MID_DER, AREA_G_SUP
                     # punta arriba se adentra al area rival
                     elif player.rect.centerx < AREA_G_MID_DER:
                         return AREA_G_MID_DER, SAQUE
@@ -373,17 +449,28 @@ class TomasRStrategy(Strategy):
                         return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
                     
                 # enganche avanza al area rival (si fuese central se queda abajo, ver primer flujo)
-                elif player.rect.centerx < AREA_G_MID_DER:
-                    return AREA_G_MID_DER, SAQUE
+                if player.rect.centerx < AREA_G_MID_DER:
+                    return AREA_G_MID_DER, player.rect.centery
                 # si esta en el area rival espera pase
                 return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
 
             else:
                 # punta lateral derecho o izquierdo
-                if (player.rect.centery > AREA_C_INF) or (player.rect.centery < AREA_C_SUP):
+                if (player.rect.centery > AREA_C_INF):
                     # punta abajo avanza en x
                     if player.rect.centerx > MITAD_CANCHA-120:
-                        return AREA_G_MID_IZQ, player.rect.centery
+                        return AREA_G_MID_IZQ, AREA_G_INF
+                    # punta arriba se adentra al area rival
+                    elif player.rect.centerx > AREA_G_MID_IZQ:
+                        return AREA_G_MID_IZQ, SAQUE
+                    # punta en area rival espera por pase
+                    else:
+                        return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
+                    
+                if (player.rect.centery < AREA_C_SUP):
+                    # punta abajo avanza en x
+                    if player.rect.centerx > MITAD_CANCHA-120:
+                        return AREA_G_MID_IZQ, AREA_G_SUP
                     # punta arriba se adentra al area rival
                     elif player.rect.centerx > AREA_G_MID_IZQ:
                         return AREA_G_MID_IZQ, SAQUE
@@ -392,8 +479,8 @@ class TomasRStrategy(Strategy):
                         return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
                     
                 # enganche avanza al area rival (si fuese central se queda abajo, ver primer flujo)
-                elif player.rect.centerx > AREA_G_MID_IZQ:
-                    return AREA_G_MID_IZQ, SAQUE
+                if player.rect.centerx > AREA_G_MID_IZQ:
+                    return AREA_G_MID_IZQ, player.rect.centery
                 #si esta en el area rival espera pase
                 return player.rect.centerx + random.randint(-10, 10), player.rect.centery + random.randint(-10, 10)
 
@@ -444,14 +531,10 @@ class TomasRStrategy(Strategy):
         x, y = 0, 0
         # como estoy en mi mitad de cancha, por defecto se la paso al arquero
         if not isinstance(player, GoalKeeper):
-            i = 0
-            flag = False
-            while ((not flag) and i < len(teammates)):
-                teammate = teammates.sprites()[i]
-                if(isinstance(teammate, GoalKeeper)):
-                    flag = True
-                    x, y = teammate.rect.centerx, teammate.rect.centery
-                i += 1
+            if player.team:
+                x, y = AREA_C_MID_IZQ, SAQUE
+            else: 
+                x, y = AREA_C_MID_DER, SAQUE
         # si soy el arquero, por defecto la despejo en diagonal
         else:
             x, y = MITAD_CANCHA, random.choice([LATERAL_DER, LATERAL_IZQ])
@@ -464,6 +547,9 @@ class TomasRStrategy(Strategy):
                          (player.rect.centerx >= teammate.rect.centerx and teammate.rect.centerx > rival.rect.centerx)) and \
                         (self.distance_to_player(teammate.rect.center, rival.rect.center) > self.MARKS_DISTANCE):
                         return teammate.rect.centerx, teammate.rect.centery
+                    
+                    #if self.distance_to_player(teammate.rect.center, rival.rect.center) > self.MARKS_DISTANCE:
+                    #    return teammate.rect.centerx, teammate.rect.centery
         return x, y
 
     def where_to_pass(self, player):
