@@ -35,7 +35,6 @@ class Game(object):
         self.environment.set_volume(0.1)
         self.paused = False
         self.show_return_menu_message = False
-        self.initialize_game()
 
     def initialize_game(self):
         self.team2 = None
@@ -176,6 +175,7 @@ class Game(object):
         return True
 
     def play(self):
+        self.initialize_game()
         pygame.init()
         clock = pygame.time.Clock()
         done = False
