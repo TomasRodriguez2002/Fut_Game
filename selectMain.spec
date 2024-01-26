@@ -5,7 +5,7 @@ a = Analysis(
     ['selectMain.py'],
     pathex=[],
     binaries=[],
-    datas=[('Botones/botones de seleccion/*.jpg', 'Botones'), ('Botones/botones normales/*.jpg', 'Botones'), ('Fondos de pantalla/*.jpg', 'Fondos de pantalla'), ('Fondos de pantalla/*.png', 'Fondos de pantalla'), ('Strategies/*.py', 'Strategies'), ('players/*.py', 'players'), ('Sounds/*.wav', 'Sounds'), ('Sprites/*.png', 'Sprites'), ('Botones', 'Botones'), ('pelotaicon.ico', '.'), ('pelotaicon.png', '.'), ('ball.py', '.'), ('boton.py', '.'), ('constantes.py', '.'), ('cursor.py', '.'), ('game.py', '.'), ('mediator.py', '.'), ('README.md', '.')],
+    datas=[('Botones/botones de seleccion/*.jpg', 'Botones/botones de seleccion'), ('Botones/botones normales/*.jpg', 'Botones/botones normales'), ('Fondos de pantalla/*.jpg', 'Fondos de pantalla'), ('Fondos de pantalla/*.png', 'Fondos de pantalla'), ('Strategies/*.py', 'Strategies'), ('players/*.py', 'players'), ('Sounds/*.wav', 'Sounds'), ('Sprites/*.png', 'Sprites'), ('Botones', 'Botones'), ('Fondos de pantalla/pelotaicon.ico', '.'), ('Fondos de pantalla/pelotaicon.png', '.'), ('ball.py', '.'), ('boton.py', '.'), ('constantes.py', '.'), ('cursor.py', '.'), ('game.py', '.'), ('mediator.py', '.'), ('README.md', '.')],
     hiddenimports=['hmac'],
     hookspath=[],
     hooksconfig={},
@@ -34,5 +34,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['pelotaicon.ico'],
+    icon=['Fondos de pantalla\\pelotaicon.ico'],
 )

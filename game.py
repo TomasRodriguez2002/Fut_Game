@@ -15,7 +15,7 @@ font = pygame.font.Font(None, 100)
 class Game(object):
 
     def __init__(self, team1_name, team2_name):
-        self.screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode([WIDTH, HEIGHT], pygame.FULLSCREEN)
         self.background = pygame.image.load("Sprites/estadio.png").convert()
         self.team1_name = team1_name
         self.team2_name = team2_name
@@ -180,7 +180,7 @@ class Game(object):
         clock = pygame.time.Clock()
         done = False
         pygame.display.set_caption("Fut_Game")
-        icon = pygame.image.load("pelotaicon.png")
+        icon = pygame.image.load("Fondos de pantalla/pelotaicon.png")
         pygame.display.set_icon(icon)
         self.environment.play(-1)
         while not done:

@@ -12,12 +12,12 @@ count_press = 0
 def selectMain():
 
     pygame.init()
-    screen = pygame.display.set_mode([WIDTH, HEIGHT])#, pygame.FULLSCREEN)
+    screen = pygame.display.set_mode([WIDTH, HEIGHT], pygame.FULLSCREEN)
     clock = pygame.time.Clock()
     done = False
     background = pygame.image.load("Fondos de pantalla/menu de seleccion.jpg").convert()
     pygame.display.set_caption("Menu de seleccion")
-    icon = pygame.image.load("pelotaicon.png")
+    icon = pygame.image.load("Fondos de pantalla/pelotaicon.png")
     pygame.display.set_icon(icon)
     environment = pygame.mixer.Sound("Sounds/SonidoMenu.wav")
     environment.set_volume(0.3)
