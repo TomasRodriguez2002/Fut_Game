@@ -1,7 +1,7 @@
-from Strategies.TomasGStrategy import TomasGStrategy
-from players.GoalKeeper import GoalKeeper
-from players.PlayerField import PlayerField
-from players.TeamFactory import TeamFactory
+from Strategies.tomasGStrategy import TomasGStrategy
+from players.goalKeeper import GoalKeeper
+from players.playerField import PlayerField
+from players.teamFactory import TeamFactory
 
 class TeamTomasGFactory(TeamFactory):
 

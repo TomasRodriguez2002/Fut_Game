@@ -1,5 +1,5 @@
 import pygame
-from Constantes import *
+from constantes import *
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, game, mediator, spritePNG):

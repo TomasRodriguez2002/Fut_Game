@@ -1,12 +1,12 @@
-from Strategies.Strategy import Strategy
-from Constantes import *
+from Strategies.strategy import Strategy
+from constantes import *
 import math
 import random
-from players.GoalKeeper import GoalKeeper
+from players.goalKeeper import GoalKeeper
 
 class GonzaloStrategy(Strategy):
-    def __init__(self):
-        super().__init__()
+    def _init_(self):
+        super()._init_()
 
     # modulo que devuelve true o false si mi equipo tiene la pelota o no
     def team_has_ball(self, player):
@@ -38,27 +38,22 @@ class GonzaloStrategy(Strategy):
 
     # modulo donde si soy el mas cercano a la pelota me muevo hacia ella, sino me muevo al rival mas cercano que este desmarcado
     def move_towards_ball(self, player):
-        ball_x, ball_y = player.mediator.getBallsPosition()
-        if self.is_closest(player):
-            return ball_x, ball_y
-        else:
-            rivals = player.mediator.getRivals(player.team)
-            closest_unmarked_rival = min(rivals, key=lambda r: self.distance_to_player(r, player))
-            return self.one_on_one(player, closest_unmarked_rival)
+        rivals = player.mediator.getRivals(player.team)
+        closest_unmarked_rival = min(rivals, key=lambda r: (self.distance_to_player(r, player), not self.is_marked(r)))
+        return self.one_on_one(player, closest_unmarked_rival)
 
-    # modulo que me dice si alguien de mi equipo esta a menos de 40 pixeles de un rival (marcado)
+    # modulo que me dice si alguien de mi equipo esta a menos de 4o de distancia de un rival (marcado)
     def is_marked(self, rival):
         teammates = rival.mediator.getRivals(rival.team)
         for teammate in teammates:
-            distance = self.distance_to_player(rival, teammate)
-            if distance < 40:
+            if self.distance_to_player(rival, teammate) <= 40:
                 return True
         return False
 
     # modulo que decide si el jugador debe moverse a marcar al rivar o debe mantenerse en el lugar
     def one_on_one(self, player, rival):
         distance_to_rival = self.distance_to_player(player, rival)
-        marking_threshold = 50
+        marking_threshold = 100
         if distance_to_rival <= marking_threshold:
             return rival.rect.centerx, rival.rect.centery
         return player.rect.centerx + random.randint(-10,10), player.rect.centery + random.randint(-10,10)
@@ -100,12 +95,11 @@ class GonzaloStrategy(Strategy):
             # movimiento si mi equipo tiene la pelota
             if self.team_has_ball(player):
                 return self.player_movement_team_with_ball(player)
-            # movimiento si el equipo rival tiene la pelota
-            if self.rival_has_ball(player):
-                return self.move_towards_ball(player)
-            # movimiento si no esta en posesion de nadie y el jugador es el mas cercano
+            # movimiento si es el jugador mas cercano a la pelota
             if self.is_closest(player):
                 return ball_x, ball_y
+            #movimiento si no es el jugador mas cercano a la pelota, va hacia el rival mas cercano
+            return self.move_towards_ball(player)
             # sino es el mas cercano y esta suelta 
             return player.rect.centerx + random.randint(-10,10) , player.rect.centery + random.randint(-10,10)
 
@@ -148,12 +142,12 @@ class GonzaloStrategy(Strategy):
     
     #distancia entre dos jugadores
     def distance_to_player(self, player1, player2):
-        return math.sqrt((player2.rect.centerx - player1.rect.centerx)**2 + (player2.rect.centery - player1.rect.centery)**2)
+        return math.sqrt((player2.rect.centerx - player1.rect.centerx)*2 + (player2.rect.centery - player1.rect.centery)*2)
     
     #distancia entre un jugador y la pelota
     def distance_to_ball(self, player, ball_centerx, ball_centery):
-        return math.sqrt((ball_centerx - player.rect.centerx)**2 + (ball_centery - player.rect.centery)**2)
+        return math.sqrt((ball_centerx - player.rect.centerx)*2 + (ball_centery - player.rect.centery)*2)
     
     #distancia entre dos puntos
     def distance(self, point1, point2):
-        return math.sqrt((point2[0] - point1[0])**2 + (point2[1] - point1[1])**2)
+        return math.sqrt((point2[0] - point1[0])*2 + (point2[1] - point1[1])*2)

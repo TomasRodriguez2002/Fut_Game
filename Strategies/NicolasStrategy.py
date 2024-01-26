@@ -1,7 +1,7 @@
-from Strategies.Strategy import Strategy
+from Strategies.strategy import Strategy
 import random
-from players.GoalKeeper import GoalKeeper
-from Constantes import *
+from players.goalKeeper import GoalKeeper
+from constantes import *
 
 class NicolasStrategy(Strategy):
     def __init__(self):
