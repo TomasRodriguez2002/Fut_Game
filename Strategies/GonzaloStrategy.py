@@ -25,13 +25,13 @@ class GonzaloStrategy(Strategy):
         return False
 
     # modulo que me dice si el jugador es el mas cercano a la pelota
-    def is_closer(self, player):
+    def is_closest(self, player):
         my_team = player.mediator.getTeammates(player.team)
         ball_x, ball_y = player.mediator.getBallsPosition()
         player_distance = self.distance((player.rect.centerx, player.rect.centery), (ball_x, ball_y))
         for teammate in my_team:
             if teammate != player or not isinstance(player, GoalKeeper):
-                teammate_distance = self.distance_to_player(teammate, player)
+                teammate_distance = self.distance((teammate.rect.centerx, teammate.rect.centery), (ball_x, ball_y))
                 if player_distance > teammate_distance:
                     return False
         return True
@@ -39,16 +39,12 @@ class GonzaloStrategy(Strategy):
     # modulo donde si soy el mas cercano a la pelota me muevo hacia ella, sino me muevo al rival mas cercano que este desmarcado
     def move_towards_ball(self, player):
         ball_x, ball_y = player.mediator.getBallsPosition()
-        if self.is_closer(player):
+        if self.is_closest(player):
             return ball_x, ball_y
         else:
-            rivals = player.mediator.getRivals(player)
+            rivals = player.mediator.getRivals(player.team)
             closest_unmarked_rival = min(rivals, key=lambda r: self.distance_to_player(r, player))
-            if not self.is_marked(closest_unmarked_rival):
-                return self.one_on_one(player, closest_unmarked_rival)
-            if player.team:
-                return AREA_C_MID_IZQ, player.rect.centery
-            return AREA_C_MID_DER, player.rect.centerx
+            return self.one_on_one(player, closest_unmarked_rival)
 
     # modulo que me dice si alguien de mi equipo esta a menos de 40 pixeles de un rival (marcado)
     def is_marked(self, rival):
@@ -108,7 +104,7 @@ class GonzaloStrategy(Strategy):
             if self.rival_has_ball(player):
                 return self.move_towards_ball(player)
             # movimiento si no esta en posesion de nadie y el jugador es el mas cercano
-            if self.is_closer(player):
+            if self.is_closest(player):
                 return ball_x, ball_y
             # sino es el mas cercano y esta suelta 
             return player.rect.centerx + random.randint(-10,10) , player.rect.centery + random.randint(-10,10)
