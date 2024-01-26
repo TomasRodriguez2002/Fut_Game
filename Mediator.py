@@ -25,7 +25,7 @@ class Mediator(object):
     def restart_positions(self, team):
         self.ball.game.whistle.play()
         self.ball.move_speed = 0
-        self.ball.rect.center = (1240, LATERAL_DER)
+        self.ball.rect.center = MITAD_CANCHA, SAQUE
         # Equipo 1 hizo gol
         if team:
             i = 0
@@ -113,6 +113,7 @@ class Mediator(object):
                     player.rect.centerx, player.rect.centery = 120, LATERAL_IZQ+7
                 else:
                     player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_IZQ+7
+                self.ball.move_speed = 35 # porque al reiniciar se frena
                 pos_teammate = self.players1.sprites()[0].rect.center
                 self.pass_ball(pos_teammate[0], pos_teammate[1])
                 i +=1
@@ -137,8 +138,8 @@ class Mediator(object):
                 if (self.ball.rect.centerx < 120):
                     player.rect.centerx, player.rect.centery = 120, LATERAL_DER-7
                 else:
-                    # Si no funciona dejar esta linea que es la original.
                     player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_DER-7
+                self.ball.move_speed = 35 # porque al reiniciar se frena
                 pos_teammate = self.players1.sprites()[0].rect.center
                 self.pass_ball(pos_teammate[0], pos_teammate[1])
                 i +=1
@@ -157,6 +158,7 @@ class Mediator(object):
                     player.rect.centerx, player.rect.centery = 1232, LATERAL_IZQ+7
                 else:
                     player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_IZQ+7
+                self.ball.move_speed = 35 # porque al reiniciar se frena
                 pos_teammate = self.players2.sprites()[0].rect.center
                 self.pass_ball(pos_teammate[0], pos_teammate[1])
                 i +=1
@@ -182,6 +184,7 @@ class Mediator(object):
                     player.rect.centerx, player.rect.centery = 1232, LATERAL_DER-7
                 else:
                     player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_DER-7
+                self.ball.move_speed = 35 # porque al reiniciar se frena
                 pos_teammate = self.players2.sprites()[0].rect.center
                 self.pass_ball(pos_teammate[0], pos_teammate[1])
                 i +=1
