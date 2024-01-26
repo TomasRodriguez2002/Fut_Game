@@ -1,5 +1,5 @@
-from players.Player import Player
-from Constantes import *
+from players.player import Player
+from constantes import *
 
 class GoalKeeper(Player):
 

@@ -1,7 +1,7 @@
-from Strategies.NicolasStrategy import NicolasStrategy
-from players.GoalKeeper import GoalKeeper
-from players.PlayerField import PlayerField
-from players.TeamFactory import TeamFactory
+from Strategies.nicolasStrategy import NicolasStrategy
+from players.goalKeeper import GoalKeeper
+from players.playerField import PlayerField
+from players.teamFactory import TeamFactory
 
 
 class TeamNicolasFactory(TeamFactory):

@@ -1,6 +1,6 @@
 import pygame
-from Constantes import *
-from Game import Game
+from constantes import *
+from game import Game
 from boton import Boton
 from cursor import Cursor
 

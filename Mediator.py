@@ -1,5 +1,5 @@
-from players.GoalKeeper import GoalKeeper
-from Constantes import *
+from players.goalKeeper import GoalKeeper
+from constantes import *
 import pygame, random
 
 class Mediator(object):

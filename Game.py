@@ -1,13 +1,13 @@
 import pygame, random
-from Constantes import *
-from Ball import Ball
-from Mediator import Mediator
-from players.TeamNicolasFactory import TeamNicolasFactory
-from players.TeamTomasGFactory import TeamTomasGFactory
-from players.TeamGonzaloFactory import TeamGonzaloFactory
-from players.TeamMateoFactory import TeamMateoFactory
-from players.TeamBraianFactory import TeamBraianFactory
-from players.TeamTomasRFactory import TeamTomasRFactory
+from constantes import *
+from ball import Ball
+from mediator import Mediator
+from players.teamNicolasFactory import TeamNicolasFactory
+from players.teamTomasGFactory import TeamTomasGFactory
+from players.teamGonzaloFactory import TeamGonzaloFactory
+from players.teamMateoFactory import TeamMateoFactory
+from players.teamBraianFactory import TeamBraianFactory
+from players.teamTomasRFactory import TeamTomasRFactory
 
 pygame.font.init()
 font = pygame.font.Font(None, 100)
