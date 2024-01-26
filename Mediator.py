@@ -1,5 +1,5 @@
-from players.GoalKeeper import GoalKeeper
-from Constantes import *
+from players.goalKeeper import GoalKeeper
+from constantes import *
 import pygame, random
 
 class Mediator(object):
@@ -25,7 +25,7 @@ class Mediator(object):
     def restart_positions(self, team):
         self.ball.game.whistle.play()
         self.ball.move_speed = 0
-        self.ball.rect.center = (MITAD_CANCHA, SAQUE)
+        self.ball.rect.center = MITAD_CANCHA, SAQUE
         # Equipo 1 hizo gol
         if team:
             i = 0
@@ -109,7 +109,11 @@ class Mediator(object):
                 player.setPosition(POS_P10_F5)
             # jugador P8 saca lateral
             elif i == 2:
-                player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_IZQ+7
+                if (self.ball.rect.centerx < 120):
+                    player.rect.centerx, player.rect.centery = 120, LATERAL_IZQ+7
+                else:
+                    player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_IZQ+7
+                self.ball.move_speed = 35 # porque al reiniciar se frena
                 pos_teammate = self.players1.sprites()[0].rect.center
                 self.pass_ball(pos_teammate[0], pos_teammate[1])
                 i +=1
@@ -131,7 +135,11 @@ class Mediator(object):
                 player.setPosition(POS_P10_F5)
             # jugador P8 saca lateral
             elif i == 2:
-                player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_DER-7
+                if (self.ball.rect.centerx < 120):
+                    player.rect.centerx, player.rect.centery = 120, LATERAL_DER-7
+                else:
+                    player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_DER-7
+                self.ball.move_speed = 35 # porque al reiniciar se frena
                 pos_teammate = self.players1.sprites()[0].rect.center
                 self.pass_ball(pos_teammate[0], pos_teammate[1])
                 i +=1
@@ -146,7 +154,11 @@ class Mediator(object):
                 player.setPosition(POS_P5_F5)
             # jugador P3 saca lateral
             elif i == 2:
-                player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_IZQ+7
+                if (self.ball.rect.centerx > 1232):
+                    player.rect.centerx, player.rect.centery = 1232, LATERAL_IZQ+7
+                else:
+                    player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_IZQ+7
+                self.ball.move_speed = 35 # porque al reiniciar se frena
                 pos_teammate = self.players2.sprites()[0].rect.center
                 self.pass_ball(pos_teammate[0], pos_teammate[1])
                 i +=1
@@ -168,7 +180,11 @@ class Mediator(object):
                 player.setPosition(POS_P5_F5)
             # jugador P3 saca lateral
             elif i == 2:
-                player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_DER-7
+                if (self.ball.rect.centerx > 1232):
+                    player.rect.centerx, player.rect.centery = 1232, LATERAL_DER-7
+                else:
+                    player.rect.centerx, player.rect.centery = self.ball.rect.centerx, LATERAL_DER-7
+                self.ball.move_speed = 35 # porque al reiniciar se frena
                 pos_teammate = self.players2.sprites()[0].rect.center
                 self.pass_ball(pos_teammate[0], pos_teammate[1])
                 i +=1

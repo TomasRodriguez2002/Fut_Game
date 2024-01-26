@@ -1,10 +1,10 @@
 
 import pygame
-from Strategies.Strategy import Strategy
-from Constantes import *
+from Strategies.strategy import Strategy
+from constantes import *
 import random
 
-from players.GoalKeeper import GoalKeeper
+from players.goalKeeper import GoalKeeper
 
 
 class TomasGStrategy(Strategy):

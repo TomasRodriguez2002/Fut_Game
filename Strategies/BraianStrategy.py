@@ -1,7 +1,7 @@
-from Strategies.Strategy import Strategy
+from Strategies.strategy import Strategy
 import random
-from Constantes import *
-from players.GoalKeeper import GoalKeeper
+from constantes import *
+from players.goalKeeper import GoalKeeper
 import math
 
 class BraianStrategy(Strategy):

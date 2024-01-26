@@ -1,8 +1,8 @@
-from Strategies.Strategy import Strategy
-from Constantes import *
+from Strategies.strategy import Strategy
+from constantes import *
 import math
 import random
-from players.GoalKeeper import GoalKeeper
+from players.goalKeeper import GoalKeeper
 
 class GonzaloStrategy(Strategy):
     def __init__(self):
