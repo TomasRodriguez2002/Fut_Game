@@ -55,10 +55,10 @@ class GonzaloStrategy(Strategy):
                 return True
         return False
 
-    # modulo que decide si el jugador debe moverse a marcar al rivar o debe mantenerse en el lugar
+    # modulo que decide si el jugador debe moverse a marcar al rivar o debe mantenerse en el lugar cuando ya lo esta marcando
     def one_on_one(self, player, rival):
         distance_to_rival = self.distance_to_player(player, rival)
-        marking_threshold = 50
+        marking_threshold = 40
         if distance_to_rival <= marking_threshold:
             return rival.rect.centerx, rival.rect.centery
         return player.rect.centerx + random.randint(-10,10), player.rect.centery + random.randint(-10,10)
