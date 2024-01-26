@@ -5,8 +5,8 @@ import random
 from players.goalKeeper import GoalKeeper
 
 class GonzaloStrategy(Strategy):
-    def _init_(self):
-        super()._init_()
+    def __init__(self):
+        super().__init__()
 
     # modulo que devuelve true o false si mi equipo tiene la pelota o no
     def team_has_ball(self, player):
@@ -142,12 +142,12 @@ class GonzaloStrategy(Strategy):
     
     #distancia entre dos jugadores
     def distance_to_player(self, player1, player2):
-        return math.sqrt((player2.rect.centerx - player1.rect.centerx)*2 + (player2.rect.centery - player1.rect.centery)*2)
+        return math.sqrt((player2.rect.centerx - player1.rect.centerx)**2 + (player2.rect.centery - player1.rect.centery)**2)
     
     #distancia entre un jugador y la pelota
     def distance_to_ball(self, player, ball_centerx, ball_centery):
-        return math.sqrt((ball_centerx - player.rect.centerx)*2 + (ball_centery - player.rect.centery)*2)
+        return math.sqrt((ball_centerx - player.rect.centerx)**2 + (ball_centery - player.rect.centery)**2)
     
     #distancia entre dos puntos
     def distance(self, point1, point2):
-        return math.sqrt((point2[0] - point1[0])*2 + (point2[1] - point1[1])*2)
+        return math.sqrt((point2[0] - point1[0])**2 + (point2[1] - point1[1])**2)
